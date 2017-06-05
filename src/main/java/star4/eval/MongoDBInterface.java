@@ -1,6 +1,5 @@
 package star4.eval;
 
-import javax.enterprise.inject.New;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -57,19 +56,21 @@ public class MongoDBInterface {
             query = new BasicDBObject("cardID", new BasicDBObject("$eq", name))
                     .append("pwd", new BasicDBObject("$eq", pwd));
         }
-        DBCursor cursor;
-        cursor = collection.find(query);
-        try {
-            while (cursor.hasNext()) {
-                str = cursor.next();
-                System.out.println(str);
-            }
-        } finally {
-            cursor.close();
-        }
+        str = collection.findOne(query);
+       
         return str;
     }
 
+    public DBObject queryTable(String year) {
+        DBObject strTable = null;
+        BasicDBObject query;
+        query = new BasicDBObject("academic_year", new BasicDBObject("$eq", year));
+        
+        DBCollection collection=db.getCollection("eval_admin");
+        strTable = collection.findOne(query);
+              
+        return strTable;
+    }
     /**
      * 关闭连接
      *

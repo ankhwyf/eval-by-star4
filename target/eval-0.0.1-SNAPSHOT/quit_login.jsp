@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="login.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,9 +13,11 @@
     </head>
     <body>
        <%
-          session.removeAttribute("user");
-          session.invalidate();
-          out.print("<script>alert('退出成功！');</script>");
+            session.removeAttribute("user");
+            session.invalidate();
+            out.print("<script>alert('退出成功！');</script>");
+            response.sendRedirect("/eval/");
+            
        %>
       
     </body>

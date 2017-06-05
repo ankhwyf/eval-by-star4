@@ -1,4 +1,10 @@
+star4/eval/bean/EvalTable$SubTable.class
+star4/eval/bean/EvalTable.class
+star4/eval/servlet/TableServlet.class
+star4/eval/bean/EvalTable$ThirdIndicator.class
+star4/eval/bean/EvalTable$SecondIndicator.class
+star4/eval/servlet/LoginServlet.class
+star4/eval/bean/EvalTable$Remark.class
 star4/eval/bean/User.class
 star4/eval/MongoDBInterface.class
 star4/eval/utils/MyUtil.class
-star4/eval/servlet/LoginServlet.class

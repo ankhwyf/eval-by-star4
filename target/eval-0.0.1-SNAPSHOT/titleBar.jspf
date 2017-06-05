@@ -5,6 +5,7 @@
 <%
     User user = (User) session.getAttribute("user");
     String username = user.getName();
+    String type=user.getType();
 %>
 <header>
     <nav class="navbar navbar-default">
@@ -16,7 +17,9 @@
                 <p class="navbar-left">教师考核平台</p>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="accountsetting.html">学院管理员：
+                <li><a href="accountsetting.jsp">
+                        <%=type%>
+                        ：
                         <%=username%></a></li>
                 <li><a href="quit_login.jsp"><img src="img/quit.png" alt="">退出</a></li>
             </ul>
