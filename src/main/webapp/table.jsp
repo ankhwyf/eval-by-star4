@@ -77,7 +77,7 @@
             SubTable tab4 = evalTables.get(3);
             List<Remark> remarks = evalTable.getRemark();
         %>
-        <div class="row content">
+          <div class="row content">
             <div class="col-md-7 show">
                 <div class="tabbable"> <!-- Only required for left/right tabs -->
                     <ul class="nav nav-tabs">
@@ -148,10 +148,10 @@
                                                 <!--二级标题内容 结束-->
                                                 <!--内涵的内容 开始-->
                                                 <td class="width_400">
-                                                    <%=content%>
+                                                    <textarea name="content" style="width:90%;border:0" onscroll="auto"><%=content%></textarea>
                                                 </td>
                                                 <!--内涵的内容 结束-->
-                                                <td><%=score%></td>
+                                                <td><input type="text" name="score" value="<%=score%>" style="border:0"></td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>
@@ -288,11 +288,11 @@
                                             <tr>
                                                 <td>
                                                     <div>
-                                                        <span><%=i + 1%>. <%=thirdIndicator.content%></span>
-                                                        <img/>
+                                                         <textarea name="content" style="width:90%;border:0" onscroll="auto"><%=thirdIndicator.content%></textarea>
+                                                        <img src="img/delete.png"/>
                                                     </div>
                                                 </td>
-                                                <td class="width_100"><%=thirdIndicator.score%></td>
+                                                <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
                                                 <td class="width_100"></td>
                                                 <td class="width_100"></td>
                                             </tr>
@@ -319,11 +319,11 @@
                                             <tr>
                                                 <td>
                                                     <div>
-                                                        <span><%=j + 1%>. <%=thirdIndicator.content%></span>
-                                                        <img />
+                                                         <textarea name="content" style="width:90%;border:0;overflow-y: auto" ><%=thirdIndicator.content%></textarea>
+                                                        <img src="img/delete.png" style="backgroud:white"/>
                                                     </div>
                                                 </td>
-                                                <td class="width_100"><%=thirdIndicator.score%></td>
+                                                <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
                                                 <td class="width_100"></td>
                                                 <td class="width_100"></td>
                                             </tr>
@@ -338,13 +338,225 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tab3">
-                        <p>Howdy, I'm in Section 3.</p>
+                        <div id="table3" style="margin-top: 50px;">
+                            <table border="1" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td>
+                                        一级指标
+                                    </td>
+                                    <td class="width_100">
+                                        二级指标
+                                    </td>
+                                    <td>
+                                        内涵
+                                    </td>
+                                    <td class="width_100">
+                                        指标分值
+                                    </td>
+                                    <td class="width_100">
+                                        教师自评分
+                                    </td>
+                                    <td class="width_100">
+                                        自评分依据
+                                    </td>
+                                    <td class="width_100">
+                                        系统审核分
+                                    </td>
+                                    <td class="width_100">
+                                        操作
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" class="width_100">
+                                        <%=tab3.first_indicator%> <%=outputScore(tab3)%>
+                                    </td>
+                                    <%
+                                        secondIndicatorSize = tab3.second_indicator.size();
+                                    %>
+                                    <td>
+                                        <%=tab3.second_indicator.get(0).title%> <%=tab3.second_indicator.get(0).score%>分 <%=tab3.second_indicator.get(0).remark%>
+                                    </td>
+                                    <td colspan="4">
+                                        <table border="1" cellspacing="0" cellpadding="0">
+                                            <%
+                                                for (int i = 0; i < tab3.second_indicator.get(0).third_indicator.size(); i++) {
+                                                    ThirdIndicator thirdIndicator = tab3.second_indicator.get(0).third_indicator.get(i);
+                                            %>
+                                            <tr>
+                                                <td>
+                                                    <div>
+                                                         <textarea name="content" style="width:90%;border:0" onscroll="auto"><%=thirdIndicator.content%></textarea>
+                                                        <img src="img/delete.png"/>
+                                                    </div>
+                                                </td>
+                                                <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
+                                                <td class="width_100"></td>
+                                                <td class="width_100"></td>
+                                            </tr>
+                                            <%}%>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <%
+                                        for (int i = 1; i < secondIndicatorSize; i++) {
+                                            SecondIndicator secondIndicator = tab3.second_indicator.get(i);
+                                    %>
+                                    <td>
+                                        <%=secondIndicator.title%> <%=secondIndicator.score%>分 <%=secondIndicator.remark%>
+                                    </td>
+                                    <td colspan="4">
+                                        <table border="1" cellspacing="0" cellpadding="0">
+                                            <%for (int j = 0; j < secondIndicator.third_indicator.size(); j++) {
+                                                    ThirdIndicator thirdIndicator = secondIndicator.third_indicator.get(j);
+                                            %>
+                                            <tr>
+                                                <td>
+                                                    <div>
+                                                         <textarea name="content" style="width:90%;border:0;overflow-y: visible" ><%=thirdIndicator.content%></textarea>
+                                                        <img src="img/delete.png" style="backgroud:white"/>
+                                                    </div>
+                                                </td>
+                                                <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
+                                                <td class="width_100"></td>
+                                                <td class="width_100"></td>
+                                            </tr>
+                                            <%}%>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <%}%>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                     <div class="tab-pane" id="tab4">
-                        <p>Howdy, I'm in Section 4.</p>
+                        <div id="table4" style="margin-top: 50px;">
+                            <table border="1" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td>
+                                        一级指标
+                                    </td>
+                                    <td class="width_100">
+                                        二级指标
+                                    </td>
+                                    <td>
+                                        内涵
+                                    </td>
+                                    <td class="width_100">
+                                        指标分值
+                                    </td>
+                                    <td class="width_100">
+                                        教师自评分
+                                    </td>
+                                    <td class="width_100">
+                                        自评分依据
+                                    </td>
+                                    <td class="width_100">
+                                        系统审核分
+                                    </td>
+                                    <td class="width_100">
+                                        操作
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" class="width_100">
+                                        <%=tab4.first_indicator%> <%=outputScore(tab4)%>
+                                    </td>
+                                    <%
+                                        secondIndicatorSize = tab4.second_indicator.size();
+                                    %>
+                                    <td>
+                                        <%=tab4.second_indicator.get(0).title%> <%=tab4.second_indicator.get(0).score%>分 <%=tab4.second_indicator.get(0).remark%>
+                                    </td>
+                                    <td colspan="4">
+                                        <table border="1" cellspacing="0" cellpadding="0">
+                                            <%
+                                                for (int i = 0; i < tab4.second_indicator.get(0).third_indicator.size(); i++) {
+                                                    ThirdIndicator thirdIndicator = tab4.second_indicator.get(0).third_indicator.get(i);
+                                            %>
+                                            <tr>
+                                                <td>
+                                                    <div>
+                                                         <textarea name="content" style="width:90%;border:0" onscroll="auto"><%=thirdIndicator.content%></textarea>
+                                                        <img src="img/delete.png"/>
+                                                    </div>
+                                                </td>
+                                                <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
+                                                <td class="width_100"></td>
+                                                <td class="width_100"></td>
+                                            </tr>
+                                            <%}%>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <%
+                                        for (int i = 1; i < secondIndicatorSize; i++) {
+                                            SecondIndicator secondIndicator = tab4.second_indicator.get(i);
+                                    %>
+                                    <td>
+                                        <%=secondIndicator.title%> <%=secondIndicator.score%>分 <%=secondIndicator.remark%>
+                                    </td>
+                                    <td colspan="4">
+                                        <table border="1" cellspacing="0" cellpadding="0">
+                                            <%for (int j = 0; j < secondIndicator.third_indicator.size(); j++) {
+                                                    ThirdIndicator thirdIndicator = secondIndicator.third_indicator.get(j);
+                                            %>
+                                            <tr>
+                                                <td>
+                                                    <div>
+                                                         <textarea name="content" style="width:90%;border:0;overflow-y: visible" ><%=thirdIndicator.content%></textarea>
+                                                        <img src="img/delete.png" style="backgroud:white"/>
+                                                    </div>
+                                                </td>
+                                                <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
+                                                <td class="width_100"></td>
+                                                <td class="width_100"></td>
+                                            </tr>
+                                            <%}%>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <%}%>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                     <div class="tab-pane" id="tab5">
-                        <p>Howdy, I'm in Section 5.</p>
+                        <div id="table5" style="margin-top: 50px;">
+                            <table border="1" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td>
+                                        备注项
+                                    </td>
+                                    <td class="width_400">
+                                       备注说明
+                                    </td>
+                                </tr>
+                                <%
+                                   for(int i=0;i<remarks.size();i++){
+                                       Remark remark=remarks.get(i);
+                                       %>
+                                       <tr>
+                                           <td><input type="text" name="keypoint" value="<%=remark.keypoint%>" style="border:0;"/></td>
+                                           <td>
+                                               <textarea name="remark_content" style="border:0"><%=remark.content%></textarea>
+                                           </td>
+                                       </tr>
+                                <%
+                                   } 
+                                %>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

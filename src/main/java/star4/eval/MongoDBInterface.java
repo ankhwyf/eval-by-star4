@@ -4,7 +4,6 @@ package star4.eval;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
@@ -61,16 +60,22 @@ public class MongoDBInterface {
         return str;
     }
 
+    /**
+     * 查询表格
+     * @param year
+     * @return 
+     */
     public DBObject queryTable(String year) {
-        DBObject strTable = null;
+        DBObject strTable;
         BasicDBObject query;
         query = new BasicDBObject("academic_year", new BasicDBObject("$eq", year));
         
         DBCollection collection=db.getCollection("eval_admin");
         strTable = collection.findOne(query);
-              
         return strTable;
     }
+    
+    
     /**
      * 关闭连接
      *
