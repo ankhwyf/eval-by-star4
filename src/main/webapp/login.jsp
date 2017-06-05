@@ -4,7 +4,7 @@
     Author     : ankhyfw
 --%>
 
-<%@page import="star4.eval.MongoDBInterface"%>
+<%@page import="star4.eval.service.UserService"%>
 <%@page import="star4.eval.bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
@@ -21,9 +21,9 @@
             User user = (User) session.getAttribute("user");
             if (user != null) {
                 String type = user.getType();
-                if (type.equals(MongoDBInterface.CNCOLLECTIONC)) {
+                if (type.equals(UserService.CNCOLLECTIONC)) {
                     response.sendRedirect("teachingEffort_admin.jsp");
-                } else if (type.equals(MongoDBInterface.CNCOLLECTIONA)) {
+                } else if (type.equals(UserService.CNCOLLECTIONA)) {
                     response.sendRedirect("teachingEffort_auditor.jsp");
                 } else {
                     response.sendRedirect("teachingEffort_teacher.jsp");
