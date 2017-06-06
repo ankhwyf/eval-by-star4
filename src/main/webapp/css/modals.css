@@ -1,0 +1,177 @@
+/* alert_sm */
+.alert-sm-backdrop{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.4);
+    z-index: 2000000;
+}
+/*alert-sm*/
+.alert-sm{
+    margin: 200px auto 0;
+    width: 280px;
+    height: auto;
+    border: 1px solid #d4eaec;
+    border-radius: 8px;
+    background-color: white;
+}
+.alert-sm div{
+    text-align: center;
+}
+.alert-sm-head{
+    font-size: 18px;
+    padding: 10px 30px 0;
+    width: 100%;
+    height: 46px;
+    background-color: transparent;
+    color: #1c98a8;
+    text-align: center;
+    border-radius: 8px 8px 0 0 ;
+    border-bottom: 1px solid #d4eaec;
+}
+.alert-sm-body{
+    font-size: 18px;
+    background-color: transparent;
+    min-height: 90px;
+    padding: 40px 30px 0;
+    text-align: center;
+    color: #576366;
+}
+.alert-sm-foot{
+    background-color: white;
+    border-radius: 0 0 5px 5px;
+    width: 100%;
+    padding: 10px 20px 0;
+    height: 60px;
+}
+.alert-sm-foot >button{
+    width: 100px;
+    height: 35px;
+    font-size: 14px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid #1ccada;
+    margin: 0 auto;
+    margin: 0 5px;
+    color: #1ccada;
+}
+#btnAlertSmYes{
+    color: #ffffff;
+    background: #1ccada;
+}
+
+/*loading*/
+.loading-backdrop,.alert-backdrop,.cancel-reason-backdrop,.alert-sm-backdrop,.chang-money-backdrop,.feed-back-backdrop{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.4);
+    z-index: 20000;
+}
+.loading{
+    margin: 380px auto 0;
+    text-align: center;
+    width: 350px;
+    height: 204px;
+
+}
+.loading img{
+    width: 40px;
+    height: 40px;
+    animation: 1s x infinite linear;
+}
+@keyframes x {
+    0%{
+        transform: rotate(0deg) ;
+        transform-origin:50%50%;
+    }
+    100%{
+        transform: rotate(360deg) ;
+        transform-origin:50%50%;
+    }
+}
+.loading p{
+    margin-top: 20px;
+    color: white;
+}
+/*问题反馈modal*/
+.fb-cont{
+    position: relative;
+    margin: 100px auto 0;
+    width: 470px;
+    height: 369px;
+    border-radius: 3px;
+    background-color: #ffffff;
+}
+.fb-hd{
+    width: 100%;
+    height: 35px;
+    padding: 8px 0 0;
+    font-size: 14px;
+    color: #1ccada;
+    border-bottom: 1px solid #d8d8d8;
+}
+.fb-hd i{
+    font-size: 18px;
+    padding-left: 20px;
+}
+.fb-bd{
+    display: inline-block;
+    width: 320px;
+    height: 120px;
+    font-size:14px;
+    text-indent: 10px;
+}
+.line {
+    margin: 13px 16px;
+    color: black;
+}
+.line span{
+    color: #9c9c9c;
+}
+.line .line-s{
+    display: inline-block;
+    height: 100px;
+    vertical-align: top
+}
+.line input {
+    display: inline-block;
+    font-size:14px;
+    height: 30px;
+}
+#name{
+    width: 100px;
+}
+#grades{
+    width: 50px;
+}
+.fb-cont textarea:focus{
+    border: 1px solid  #20cadd;
+}
+.fb-ft{
+    display: block;
+    border: 1px solid #20cadd;
+    margin: 45px auto 0;
+    width: 70px;
+    height: 30px;
+    border-radius: 3px;
+    background-color: #20cadd;
+    color: white;
+    outline: 0;
+}
+.fb-xx{
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    border: 0;
+    outline: 0;
+    background: #ffffff;
+}
+.fb-xx:hover{
+    font-size: 15px;
+}
+

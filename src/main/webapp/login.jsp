@@ -14,6 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome!</title>
         <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/modals.css">
         <link rel="stylesheet" href="css/login.css">
     </head>
     <body>
@@ -22,11 +23,11 @@
             if (user != null) {
                 String type = user.getType();
                 if (type.equals(UserService.CNCOLLECTIONC)) {
-                    response.sendRedirect("teachingEffort_admin.jsp");
+                    response.sendRedirect("admin.jsp");
                 } else if (type.equals(UserService.CNCOLLECTIONA)) {
-                    response.sendRedirect("teachingEffort_auditor.jsp");
+                    response.sendRedirect("auditor.jsp");
                 } else {
-                    response.sendRedirect("teachingEffort_teacher.jsp");
+                    response.sendRedirect("teacher.jsp");
                 }
 
             }
@@ -95,9 +96,14 @@
             © 2017 <img src="img/heart.png" alt=""> 杭州师范大学繁星四月小组
         </div>
 
-
+        <script>
+            $('.login').click(function(){
+                modals.loadingShow();
+            });
+        </script>
     </body>
     <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/modals.js"></script>
     <script type="text/javascript" src="js/login.js"></script>
 </html>

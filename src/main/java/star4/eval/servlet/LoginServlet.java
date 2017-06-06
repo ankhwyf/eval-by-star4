@@ -45,19 +45,18 @@ public class LoginServlet extends HttpServlet {
                 req.getRequestDispatcher("/login.jsp").forward(req, resp);
             } else {
                 session.setAttribute("user", user);
-                session.setMaxInactiveInterval(60 * 60);
             }
+            EvalTable evalTable = evalTableService.findByAcademicYear("2016");
+            session.setAttribute("evalTable", evalTable);
             switch (loginType) {
                 case UserService.CNCOLLECTIONC:
-                    EvalTable evalTable = evalTableService.findByAcademicYear("2016");
-                    session.setAttribute("evalTable", evalTable);
-                    resp.sendRedirect("evalTable_admin.jsp");
+                    resp.sendRedirect("admin.jsp");
                     break;
                 case UserService.CNCOLLECTIONA:
-                    resp.sendRedirect("evalTable_auditor.jsp");
+                    resp.sendRedirect("auditor.jsp");
                     break;
                 default:
-                    resp.sendRedirect("evalTable_teacher.jsp");
+                    resp.sendRedirect("teacher.jsp");
                     break;
             }
         }

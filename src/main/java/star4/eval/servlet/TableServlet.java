@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import star4.eval.bean.EvalTable;
 import star4.eval.service.EvalTableService;
+import star4.eval.service.UserService;
 
 /**
  *
@@ -84,7 +85,20 @@ public class TableServlet extends HttpServlet {
 
         EvalTable evalTable = evalTableService.findByAcademicYear(year);
         session.setAttribute("evalTable", evalTable);
-        response.sendRedirect("evalTable_admin.jsp");
+        
+        String loginType="";
+         switch (loginType) {
+                case UserService.CNCOLLECTIONC:
+                    response.sendRedirect("admin.jsp");
+                    break;
+                case UserService.CNCOLLECTIONA:
+                    response.sendRedirect("auditor.jsp");
+                    break;
+                default:
+                    response.sendRedirect("teacher.jsp");
+                    break;
+            }
+        response.sendRedirect("admin.jsp");
 //        request.getRequestDispatcher("teachingEffort_admin.jsp").forward(request, response);
         System.out.println("getTableServlet...");
     }
