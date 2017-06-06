@@ -4,8 +4,6 @@
     Author     : ankhyfw
 --%>
 
-<%@page import="star4.eval.service.UserService"%>
-<%@page import="star4.eval.bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <!DOCTYPE html>
@@ -17,20 +15,6 @@
         <link rel="stylesheet" href="css/login.css">
     </head>
     <body>
-        <%
-            User user = (User) session.getAttribute("user");
-            if (user != null) {
-                String type = user.getType();
-                if (type.equals(UserService.CNCOLLECTIONC)) {
-                    response.sendRedirect("teachingEffort_admin.jsp");
-                } else if (type.equals(UserService.CNCOLLECTIONA)) {
-                    response.sendRedirect("teachingEffort_auditor.jsp");
-                } else {
-                    response.sendRedirect("teachingEffort_teacher.jsp");
-                }
-
-            }
-        %>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -62,7 +46,7 @@
                     </li>
                 </ul>
             </div>
-            <form class="login" action="login.do" method="post">
+            <form class="login" action="login" method="post">
                 <c:if test="${loginError}">
                     <div class="login-panel__msg input-msg">
                         <img src="img/error.png" alt="">
