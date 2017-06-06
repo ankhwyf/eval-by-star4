@@ -5,7 +5,6 @@
 <%@page import="star4.eval.bean.EvalTable.SubTable"%>
 <%@page import="java.util.List"%>
 <%@page import="star4.eval.bean.EvalTable"%>
-<%@page import="star4.eval.bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="titleBar.jspf" %>
 <!DOCTYPE html>
@@ -18,67 +17,12 @@
         <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/common.css">
         <link rel="stylesheet" href="css/teachingRoutine.css">
-        <style type="text/css">
-            table {
-                font-size: 12px;
-                background-color: #fff;
-            }
-            table tr td {
-                min-height: 100px;
-                height: 20px;
-            }
-            table {
-                border: none;
-                width: 100%;
-            }
-            .t_in_t {
-                width: 100%;
-                height: 100%;
-            }
-            .width_60 {
-                width: 60px;
-            }
-            .width_100 {
-                width: 100px;
-            }
-            .width_120 {
-                width: 120px;
-            }
-            .width_280 {
-                width: 280px;
-            }
-            .width_400 {
-                width: 400px;
-            }
-            .textarea{
-                width: 400px; 
-                min-height: 20px; 
-                max-height: 300px;
-                _height: 120px; 
-                margin-left: auto; 
-                margin-right: auto; 
-                padding: 3px; 
-                outline: 0; 
-                border: 1px solid #a0b3d6; 
-                font-size: 12px; 
-                line-height: 24px;
-                padding: 2px;
-                word-wrap: break-word;
-                overflow-x: hidden;
-                overflow-y: auto;
-
-                border-color: rgba(82, 168, 236, 0.8);
-                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
-            }
-        </style>
-        <script type="text/javascript">
-            function selectOption() {
-                var value = $(".form-control").val();
-                $("#endyear").text(parseInt(value) + 1);
-                $("#submit").submit();
-            }
-
-        </script>
+        <link rel="stylesheet" href="css/table.css">
+        <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/modals.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/teachingEffort_admin.js"></script>
     </head>
     <body>
         <main class="container">
@@ -87,7 +31,7 @@
                     <strong>杭州国际服务工程学院教师本科教学工作业绩考核评分表</strong>
                     <span>（</span>
                     <form method="post" action="getTable.do" id="submit">
-                        <select class="form-control" onchange="selectOption()" name="year">
+                        <select class="form-control" name="year">
                             <option value="2013">2013</option>
                             <option value="2014">2014</option>
                             <option value="2015">2015</option>
@@ -139,7 +83,7 @@
                     </div>
                 </div>
                 <div class="col-md-5 text-right operation">
-                    <a href="#">
+                    <a href="#" onclick="ajaxSubmit()">
                         <i class="fa fa-rocket" style="font-size: 18px"></i>
                         <span>发布</span>
                     </a>
@@ -197,10 +141,11 @@
                                                     <!--二级标题内容 结束-->
                                                     <!--内涵的内容 开始-->
                                                     <td class="width_400">
-                                                        <div class="textarea" contenteditable="true" name="content" style="width:100%;border:0;float:left;"><%=content%></div>
+                                                        <div class="textarea" contenteditable="true" name="content"><%=content%></div>
+                                                        <i class="fa fa-trash delete"></i>
                                                     </td>
                                                     <!--内涵的内容 结束-->
-                                                    <td><div class="textarea" contenteditable="true" name="score" style="width:100%;height:100%;border:0;float:left;"><%=score%></div>
+                                                    <td><div class="textarea" contenteditable="true" name="score" style="width:100%;height:100%;"><%=score%></div>
                                                     </td>
                                                     <td></td>
                                                     <td></td>
@@ -214,7 +159,7 @@
                                             <!--单元格跨列，指标、自评分等放在一个table里 结束-->
                                         </td>
                                         <td>系部审核分</td> 
-                                        <td>操作</td>  
+                                        <td>操作</td>
                                     </tr>
                                     <!--第一行结束-->
 
@@ -232,8 +177,7 @@
                                         <!--系统审核分内容 结束-->
                                         <!--操作图标 开始-->
                                         <td>
-                                            <!--TODO: 此处应有操作图标-->
-                                            图标填充
+                                            <i class="fa fa-plus-square green add"></i>
                                         </td>
                                         <!--操作图标 结束-->
                                     </tr>
@@ -276,13 +220,12 @@
                                         </td>
                                         <!--留白 / 开始-->
                                         <td>
-                                            /
+                                            <i class="fa fa-minus gray"></i>
                                         </td>
                                         <!--留白 / 结束-->
                                         <!--操作图标2 开始-->
                                         <td>
-                                            <!--TODO:此处应有图标-->
-                                            图标填充
+                                            <i class="fa fa-minus gray"></i>
                                         </td>
                                         <!--操作图标2 结束-->
                                     </tr>
@@ -325,40 +268,45 @@
                                         </td>
                                         <%
                                             int secondIndicatorSize = tab2.second_indicator.size();
+                                            SecondIndicator secondIndicator = tab2.second_indicator.get(0);
                                         %>
                                         <td class="width_100">
                                             <div class="width_100">
-                                                <%=tab2.second_indicator.get(0).title%> <%=tab2.second_indicator.get(0).score%>分 <%=tab2.second_indicator.get(0).remark%>
+                                                <%=secondIndicator.title%> <%=secondIndicator.score%>分 <%=secondIndicator.remark%>
                                             </div>
                                         </td>
                                         <td colspan="4">
                                             <table border="1" cellspacing="0" cellpadding="0">
                                                 <%
-                                                    for (int i = 0; i < tab2.second_indicator.get(0).third_indicator.size(); i++) {
-                                                        ThirdIndicator thirdIndicator = tab2.second_indicator.get(0).third_indicator.get(i);
+                                                    for (int i = 0; i < secondIndicator.third_indicator.size(); i++) {
+                                                        ThirdIndicator thirdIndicator = secondIndicator.third_indicator.get(i);
                                                 %>
-                                                <tr>
+                                                <tr class="hover">
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content" style="width:90%;border:0;float:left;"><%=thirdIndicator.content%></div>
-                                                            <img src="img/delete.png" style="margin:6px 0 0 6px;"/>
+                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
+                                                            <i class="fa fa-trash delete"></i>
                                                         </div>
                                                     </td>
-                                                    <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
+                                                    <td class="width_100">
+                                                        <!--<input type="text" name="score" value="" style="border:0;width:80%">-->
+                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                    </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
                                                 </tr>
+
                                                 <%}%>
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td></td>
+                                        <td><i class="fa fa-plus-square green add"></i></td>
                                     </tr>
 
                                     <tr>
                                         <%
                                             for (int i = 1; i < secondIndicatorSize; i++) {
-                                                SecondIndicator secondIndicator = tab2.second_indicator.get(i);
+                                                secondIndicator = tab2.second_indicator.get(i);
                                         %>
                                         <td>
                                             <div class="width_100">
@@ -370,14 +318,17 @@
                                                 <%for (int j = 0; j < secondIndicator.third_indicator.size(); j++) {
                                                         ThirdIndicator thirdIndicator = secondIndicator.third_indicator.get(j);
                                                 %>
-                                                <tr>
+                                                <tr class="hover">
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content" style="width:90%;border:0;float:left;"><%=thirdIndicator.content%></div>
-                                                            <img src="img/delete.png" style="margin:6px 0 0 6px;"/>
+                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
+                                                            <i class="fa fa-trash delete"></i>
                                                         </div>
                                                     </td>
-                                                    <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
+                                                    <td class="width_100">
+                                                        <!--<input type="text" name="score" value="" style="border:0;width:80%">-->
+                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                    </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
                                                 </tr>
@@ -385,7 +336,7 @@
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td></td>
+                                        <td><i class="fa fa-plus-square green add"></i></td>
                                         <%}%>
                                     </tr>
                                 </table>
@@ -426,26 +377,30 @@
                                         </td>
                                         <%
                                             secondIndicatorSize = tab3.second_indicator.size();
+                                            secondIndicator = tab3.second_indicator.get(0);
                                         %>
                                         <td class="width_100">
                                             <div class="width_100">
-                                                <%=tab3.second_indicator.get(0).title%> <%=tab3.second_indicator.get(0).score%>分 <%=tab3.second_indicator.get(0).remark%>
+                                                <%=secondIndicator.title%> <%=secondIndicator.score%>分 <%=secondIndicator.remark%>
                                             </div>
                                         </td>
                                         <td colspan="4">
                                             <table border="1" cellspacing="0" cellpadding="0">
                                                 <%
-                                                    for (int i = 0; i < tab3.second_indicator.get(0).third_indicator.size(); i++) {
-                                                        ThirdIndicator thirdIndicator = tab3.second_indicator.get(0).third_indicator.get(i);
+                                                    for (int i = 0; i < secondIndicator.third_indicator.size(); i++) {
+                                                        ThirdIndicator thirdIndicator = secondIndicator.third_indicator.get(i);
                                                 %>
-                                                <tr>
+                                                <tr class="hover">
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content" style="width:90%;border:0;float:left;"><%=thirdIndicator.content%></div>
-                                                            <img src="img/delete.png" style="margin:6px 0 0 6px;"/>
+                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
+                                                            <i class="fa fa-trash delete"></i>
                                                         </div>
                                                     </td>
-                                                    <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
+                                                    <td class="width_100">
+                                                        <!--                                                        <input type="text" name="score" value="" style="border:0;width:80%">-->
+                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                    </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
                                                 </tr>
@@ -453,13 +408,13 @@
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td></td>
+                                        <td><i class="fa fa-plus-square green add"></i></td>
                                     </tr>
 
                                     <tr>
                                         <%
                                             for (int i = 1; i < secondIndicatorSize; i++) {
-                                                SecondIndicator secondIndicator = tab3.second_indicator.get(i);
+                                                secondIndicator = tab3.second_indicator.get(i);
                                         %>
                                         <td class="width_100">
                                             <div class="width_100">
@@ -471,14 +426,16 @@
                                                 <%for (int j = 0; j < secondIndicator.third_indicator.size(); j++) {
                                                         ThirdIndicator thirdIndicator = secondIndicator.third_indicator.get(j);
                                                 %>
-                                                <tr>
+                                                <tr class="hover">
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content" style="width:90%;border:0;float:left" ><%=thirdIndicator.content%></div>
-                                                            <img src="img/delete.png" style="margin:6px 0 0 6px;"/>
+                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
+                                                            <i class="fa fa-trash delete"></i>
                                                         </div>
                                                     </td>
-                                                    <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
+                                                    <td class="width_100">
+                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                    </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
                                                 </tr>
@@ -486,7 +443,7 @@
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td></td>
+                                        <td><i class="fa fa-plus-square green add"></i></td>
                                         <%}%>
                                     </tr>
                                 </table>
@@ -527,24 +484,27 @@
                                         </td>
                                         <%
                                             secondIndicatorSize = tab4.second_indicator.size();
+                                            secondIndicator = tab4.second_indicator.get(0);
                                         %>
                                         <td>
-                                            <%=tab4.second_indicator.get(0).title%> <%=tab4.second_indicator.get(0).score%>分 <%=tab4.second_indicator.get(0).remark%>
+                                            <%=secondIndicator.title%> <%=secondIndicator.score%>分 <%=secondIndicator.remark%>
                                         </td>
                                         <td colspan="4">
                                             <table border="1" cellspacing="0" cellpadding="0">
                                                 <%
-                                                    for (int i = 0; i < tab4.second_indicator.get(0).third_indicator.size(); i++) {
-                                                        ThirdIndicator thirdIndicator = tab4.second_indicator.get(0).third_indicator.get(i);
+                                                    for (int i = 0; i < secondIndicator.third_indicator.size(); i++) {
+                                                        ThirdIndicator thirdIndicator = secondIndicator.third_indicator.get(i);
                                                 %>
-                                                <tr>
+                                                <tr class="hover">
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content" style="width:90%;border:0;float:left;"><%=thirdIndicator.content%></div>
-                                                            <img src="img/delete.png" style="margin:6px 0 0 6px;"/>
+                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
+                                                            <i class="fa fa-trash delete"></i>
                                                         </div>
                                                     </td>
-                                                    <td class="width_100"><div class="textarea" contenteditable="true" type="text" name="score" style="border:0;width:100%;height:100%;"><%=thirdIndicator.score%></td>
+                                                    <td class="width_100">
+                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                    </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
                                                 </tr>
@@ -552,13 +512,13 @@
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td></td>
+                                        <td><i class="fa fa-plus-square green add"></i></td>
                                     </tr>
 
                                     <tr>
                                         <%
                                             for (int i = 1; i < secondIndicatorSize; i++) {
-                                                SecondIndicator secondIndicator = tab4.second_indicator.get(i);
+                                                secondIndicator = tab4.second_indicator.get(i);
                                         %>
                                         <td>
                                             <%=secondIndicator.title%> <%=secondIndicator.score%>分 <%=secondIndicator.remark%>
@@ -571,11 +531,13 @@
                                                 <tr>
                                                     <td>
                                                         <div>
-                                                            <textarea name="content" style="width:90%;border:0;overflow-y: visible" ><%=thirdIndicator.content%></textarea>
-                                                            <img src="img/delete.png" style="backgroud:white"/>
+                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
+                                                            <i class="fa fa-trash delete"></i>
                                                         </div>
                                                     </td>
-                                                    <td class="width_100"><input type="text" name="score" value="<%=thirdIndicator.score%>" style="border:0;width:80%"></td>
+                                                    <td class="width_100">
+                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                    </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
                                                 </tr>
@@ -583,7 +545,7 @@
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td></td>
+                                        <td><i class="fa fa-plus-square green add"></i></td>
                                         <%}%>
                                     </tr>
                                 </table>
@@ -591,6 +553,10 @@
                         </div>
                         <div class="tab-pane" id="tab5">
                             <div id="table5">
+                                <i class="fa fa-flag blue"></i>
+                                <span class="message">备注信息</span>
+                                <span class="add-point float-right add-me">新增备注</span>
+                                <i class="fa fa-plus-square-o blue-add float-right add-me"></i>
                                 <table border="1" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td>
@@ -604,11 +570,15 @@
                                         for (int i = 0; i < remarks.size(); i++) {
                                             Remark remark = remarks.get(i);
                                     %>
-                                    <tr>
-                                        <td><input type="text" name="keypoint" value="<%=remark.keypoint%>" style="border:0;"/></td>
+                                    <tr class="hover">
+                                        <td>
+                                            <!--<input type="text" name="keypoint" value="" style="border:0;"/>-->
+                                            <div class="textarea" contenteditable="true" name="keypoint"><%=remark.keypoint%></div>
+                                        </td>
                                         <td>
                                             <!--<textarea name="remark_content" style="border:0"></textarea>-->
-                                            <div class="textarea" contenteditable="true"><%=remark.content%></div>
+                                            <div class="textarea" contenteditable="true" name="content" style="height:100%"><%=remark.content%></div>
+                                            <i class="fa fa-trash delete"></i>
                                         </td>
                                     </tr>
                                     <%
@@ -620,6 +590,67 @@
                     </div>
                 </div>
             </div>
+            <script>
+                function addLine() {
+                    var tpl = "";
+                    tpl += "<tr class=\"hover\">";
+                    tpl += "<td>";
+                    tpl += "<div>";
+                    tpl += " <div class=\"textarea\" contenteditable=\"true\" name=\"content\"></div>";
+                    tpl += "<i class=\"fa fa-trash delete\"></i>";
+                    tpl += "<div>";
+                    tpl += "</td>";
+                    tpl += "<td class=\"width_100\"><div class=\"textarea\" contenteditable=\"true\"></div></td>";
+                    tpl += " <td class=\"width_100\"></td>";
+                    tpl += " <td class=\"width_100\"></td>";
+                    tpl += "<tr>";
+                    return tpl;
+                }
+                function addMessage() {
+                    var tpl = "";
+                    tpl += "<tr class=\"hover\">";
+                    tpl += "<td>";
+                    tpl += "<div class=\"textarea\" contenteditable=\"true\" name=\"keypoint\"></div>";
+                    tpl += "</td>";
+                    tpl += "<td>";
+                    tpl += "<div class=\"textarea\" contenteditable=\"true\" name=\"content\" style=\"height:100%\"></div>";
+                    tpl += "<i class=\"fa fa-trash delete\"></i>";
+                    tpl += "</td>";
+                    tpl += "</tr>";
+                    return tpl;
+                }
+                function del() {
+                    $(".delete").click(function () {
+                        if ($(this).parent().parent().children().length === 2) {
+                            $(this).parent().parent().remove();
+                        } else
+                            $(this).parent().parent().parent().remove();
+                    });
+                }
+                $(".add").click(function () {
+                    if ($(this).parent().parent().children('td').length === 5) {
+                        $(this).parent().parent().children().eq(2).children().append(addLine());
+                    } else
+                        $(this).parent().parent().children().eq(1).children().append(addLine());
+
+                    $('.delete').bind('click', function () {
+                        del();
+                    });
+                });
+                $('.add-me').click(function () {
+                    $(this).parent().children().eq(4).append(addMessage());
+                    $('.delete').bind('click', function () {
+                        del();
+                    });
+                });
+                
+                $(".form-control").change(function(){
+                     var value = $(".form-control").val();
+                    $("#endyear").text(parseInt(value) + 1);
+                    $("#submit").submit();
+                });
+                del();
+            </script>
         </main>
         <footer>
             © 2017 <img src="img/heart.png" alt=""> 杭州师范大学繁星四月小组
@@ -628,7 +659,5 @@
 <iframe src="wenzhang_xinwen.html" id="Mainindex" name="Mainindex" width="100%" height="100%" marginheight="0" marginwidth="0" frameborder="0"></iframe> -->
         <!-- 内置浏览器 -->
     </body>
-    <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
+
 </html>
