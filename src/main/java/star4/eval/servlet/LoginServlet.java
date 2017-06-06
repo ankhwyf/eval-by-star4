@@ -51,13 +51,13 @@ public class LoginServlet extends HttpServlet {
                 case UserService.CNCOLLECTIONC:
                     EvalTable evalTable = evalTableService.findByAcademicYear("2016");
                     session.setAttribute("evalTable", evalTable);
-                    resp.sendRedirect("teachingEffort_admin.jsp");
+                    resp.sendRedirect("evalTable_admin.jsp");
                     break;
                 case UserService.CNCOLLECTIONA:
-                    resp.sendRedirect("teachingEffort_auditor.jsp");
+                    resp.sendRedirect("evalTable_auditor.jsp");
                     break;
                 default:
-                    resp.sendRedirect("teachingEffort_teacher.jsp");
+                    resp.sendRedirect("evalTable_teacher.jsp");
                     break;
             }
         }

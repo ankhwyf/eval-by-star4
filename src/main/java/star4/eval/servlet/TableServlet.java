@@ -84,7 +84,7 @@ public class TableServlet extends HttpServlet {
 
         EvalTable evalTable = evalTableService.findByAcademicYear(year);
         session.setAttribute("evalTable", evalTable);
-        response.sendRedirect("table.jsp");
+        response.sendRedirect("evalTable_admin.jsp");
 //        request.getRequestDispatcher("teachingEffort_admin.jsp").forward(request, response);
         System.out.println("getTableServlet...");
     }
