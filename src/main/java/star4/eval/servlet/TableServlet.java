@@ -5,8 +5,6 @@
  */
 package star4.eval.servlet;
 
-import com.google.gson.Gson;
-import com.mongodb.DBObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import star4.eval.MongoDBInterface;
 import star4.eval.bean.EvalTable;
+import star4.eval.service.EvalTableService;
 
 /**
  *
@@ -24,6 +22,8 @@ import star4.eval.bean.EvalTable;
  */
 @WebServlet(urlPatterns = {"/getTable.do"})
 public class TableServlet extends HttpServlet {
+
+    private final EvalTableService evalTableService = new EvalTableService();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -79,17 +79,14 @@ public class TableServlet extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
         String year = request.getParameter("year");
-        System.out.println("------"+year);
-        MongoDBInterface db = new MongoDBInterface();
-        DBObject strTable;
-        HttpSession session=request.getSession();
-        strTable = db.queryTable(year);
-        EvalTable evalTable = new Gson().fromJson(strTable.toString(), EvalTable.class);
-        session.setAttribute("evalTable",evalTable);
+        System.out.println("------" + year);
+        HttpSession session = request.getSession();
+
+        EvalTable evalTable = evalTableService.findByAcademicYear(year);
+        session.setAttribute("evalTable", evalTable);
         response.sendRedirect("evalTable_admin.jsp");
 //        request.getRequestDispatcher("teachingEffort_admin.jsp").forward(request, response);
         System.out.println("getTableServlet...");
-        db.close();
     }
 
     /**

@@ -9,6 +9,9 @@
     <packaging>war</packaging>
 
     <name>eval</name>
+    <organization>
+        <name>star4</name>
+    </organization>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
