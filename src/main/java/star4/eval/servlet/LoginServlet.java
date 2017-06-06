@@ -65,13 +65,13 @@ public class LoginServlet extends HttpServlet {
                     DBObject strTable = db.queryTable("2016");
                     EvalTable evalTable = new Gson().fromJson(strTable.toString(), EvalTable.class);
                     session.setAttribute("evalTable",evalTable);
-                    resp.sendRedirect("teachingEffort_admin.jsp");
+                    resp.sendRedirect("evalTable_admin.jsp");
                     break;
                 case MongoDBInterface.CNCOLLECTIONA:
-                    resp.sendRedirect("teachingEffort_auditor.jsp");
+                    resp.sendRedirect("evalTable_auditor.jsp");
                     break;
                 default:
-                    resp.sendRedirect("teachingEffort_teacher.jsp");
+                    resp.sendRedirect("evalTable_teacher.jsp");
                     break;
             }
             db.close();

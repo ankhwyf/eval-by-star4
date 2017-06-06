@@ -86,7 +86,7 @@ public class TableServlet extends HttpServlet {
         strTable = db.queryTable(year);
         EvalTable evalTable = new Gson().fromJson(strTable.toString(), EvalTable.class);
         session.setAttribute("evalTable",evalTable);
-        response.sendRedirect("teachingEffort_admin.jsp");
+        response.sendRedirect("evalTable_admin.jsp");
 //        request.getRequestDispatcher("teachingEffort_admin.jsp").forward(request, response);
         System.out.println("getTableServlet...");
         db.close();
