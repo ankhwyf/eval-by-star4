@@ -5,8 +5,11 @@
  */
 package star4.eval.servlet;
 
+<<<<<<< HEAD
 import com.google.gson.Gson;
 import com.mongodb.DBObject;
+=======
+>>>>>>> e58379e4eeedff2472c08f6c65d2e88dfe9bc700
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,8 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+<<<<<<< HEAD
 import star4.eval.MongoDBInterface;
 import star4.eval.bean.EvalTable;
+=======
+import star4.eval.bean.EvalTable;
+import star4.eval.service.EvalTableService;
+import star4.eval.service.UserService;
+>>>>>>> e58379e4eeedff2472c08f6c65d2e88dfe9bc700
 
 /**
  *
@@ -25,6 +34,11 @@ import star4.eval.bean.EvalTable;
 @WebServlet(urlPatterns = {"/getTable.do"})
 public class TableServlet extends HttpServlet {
 
+<<<<<<< HEAD
+=======
+    private final EvalTableService evalTableService = new EvalTableService();
+
+>>>>>>> e58379e4eeedff2472c08f6c65d2e88dfe9bc700
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -79,6 +93,7 @@ public class TableServlet extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
         String year = request.getParameter("year");
+<<<<<<< HEAD
         System.out.println("------"+year);
         MongoDBInterface db = new MongoDBInterface();
         DBObject strTable;
@@ -91,6 +106,29 @@ public class TableServlet extends HttpServlet {
 //        request.getRequestDispatcher("teachingEffort_admin.jsp").forward(request, response);
         System.out.println("getTableServlet...");
         db.close();
+=======
+        System.out.println("------" + year);
+        HttpSession session = request.getSession();
+
+        EvalTable evalTable = evalTableService.findByAcademicYear(year);
+        session.setAttribute("evalTable", evalTable);
+        
+        String loginType="";
+         switch (loginType) {
+                case UserService.CNCOLLECTIONC:
+                    response.sendRedirect("admin.jsp");
+                    break;
+                case UserService.CNCOLLECTIONA:
+                    response.sendRedirect("auditor.jsp");
+                    break;
+                default:
+                    response.sendRedirect("teacher.jsp");
+                    break;
+            }
+        response.sendRedirect("admin.jsp");
+//        request.getRequestDispatcher("teachingEffort_admin.jsp").forward(request, response);
+        System.out.println("getTableServlet...");
+>>>>>>> e58379e4eeedff2472c08f6c65d2e88dfe9bc700
     }
 
     /**

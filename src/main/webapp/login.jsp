@@ -4,7 +4,11 @@
     Author     : ankhyfw
 --%>
 
+<<<<<<< HEAD
 <%@page import="star4.eval.MongoDBInterface"%>
+=======
+<%@page import="star4.eval.service.UserService"%>
+>>>>>>> e58379e4eeedff2472c08f6c65d2e88dfe9bc700
 <%@page import="star4.eval.bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
@@ -14,19 +18,33 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome!</title>
         <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/modals.css">
         <link rel="stylesheet" href="css/login.css">
+        <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/modals.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
     </head>
     <body>
         <%
             User user = (User) session.getAttribute("user");
             if (user != null) {
                 String type = user.getType();
+<<<<<<< HEAD
                 if (type.equals(MongoDBInterface.CNCOLLECTIONC)) {
                     response.sendRedirect("teachingEffort_admin.jsp");
                 } else if (type.equals(MongoDBInterface.CNCOLLECTIONA)) {
                     response.sendRedirect("teachingEffort_auditor.jsp");
                 } else {
                     response.sendRedirect("teachingEffort_teacher.jsp");
+=======
+                if (type.equals(UserService.CNCOLLECTIONC)) {
+                    response.sendRedirect("admin.jsp");
+                } else if (type.equals(UserService.CNCOLLECTIONA)) {
+                    response.sendRedirect("auditor.jsp");
+                } else {
+                    response.sendRedirect("teacher.jsp");
+>>>>>>> e58379e4eeedff2472c08f6c65d2e88dfe9bc700
                 }
 
             }
@@ -95,9 +113,11 @@
             © 2017 <img src="img/heart.png" alt=""> 杭州师范大学繁星四月小组
         </div>
 
-
+        <script>
+            $('.login-panel__submit').click(function(){
+            modals.loadingShow();
+            });
+        </script>
     </body>
-    <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/login.js"></script>
+
 </html>

@@ -1,0 +1,104 @@
+table {
+    font-size: 12px;
+    background-color: #fff;
+}
+table tr td {
+    min-height: 100px;
+    height: 20px;
+}
+table {
+    border: none;
+    width: 100%;
+}
+.t_in_t {
+    width: 100%;
+    height: 100%;
+}
+.width_60 {
+    width: 60px;
+}
+.width_100 {
+    width: 100px;
+}
+.width_120 {
+    width: 120px;
+}
+.width_280 {
+    width: 280px;
+}
+.width_400 {
+    width: 400px;
+}
+.textarea{
+    float:left;
+    width: 90%;
+    min-height: 20px; 
+    max-height: 300px;
+    _height: 120px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    padding: 3px; 
+    outline: 0; 
+    border: 1px solid #a0b3d6; 
+    font-size: 12px; 
+    line-height: 24px;
+    padding: 2px;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    border-color: rgba(82, 168, 236, 0.8);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+.hover:hover{background: #eeeeee}
+.delete {
+    /*margin: 7% 3%;*/
+    color: #ff4949;
+    font-size: 18px;
+}
+.green,
+.green-temp,
+.gray {
+    padding: 20px;
+}
+.green,
+.green-temp {
+    color: #039B70;
+    font-size: 20px;
+}
+.gray {
+    color: #eeeeee;
+}
+.blue {
+    margin: 10px 0 5px 10px;
+    color: #44b6d2;
+    font-size: 20px;
+}
+.message{
+    color: #44b6d2;
+    font-size: 15px;
+}
+.float-right {
+    float: right;
+}
+.blue-add {
+    margin: 10px 5px 5px 0;
+    color: #44b6d2;
+    font-size: 20px;
+}
+.add-point {
+    margin: 10px 10px 5px 0;
+    cursor: pointer;
+    color: #44b6d2;
+    font-size: 15px;
+}
+.login-panel__submit
+{
+    width: 228px;
+    height: 30px;
+    margin-top: 15px;
+
+    color: #fff;
+    border-color: #00a2ca;
+    background: #00a2ca;
+}

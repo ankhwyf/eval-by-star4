@@ -1,46 +1,83 @@
-.container {
-  padding: 0;
-  width: 90%; }
-  .container .title {
-    margin-bottom: 5px; }
-    .container .title form {
-      display: inline-block;
-      width: 60px; }
-      .container .title form .form-control {
-        font-size: 10px;
-        height: 24px;
-        padding: 0 0px; }
-    .container .title .operation a {
-      color: #44b6d2; }
-      .container .title .operation a img {
-        width: 20px;
-        height: 20px; }
-  .container .content .show .nav-tabs {
-    border-bottom: 5px solid #44b6d2; }
-    .container .content .show .nav-tabs a {
-      color: #101010; }
-    .container .content .show .nav-tabs li.active > a, .container .content .show .nav-tabs li.active > a:hover, .container .content .show .nav-tabs li.active > a:focus {
-      color: #ffffff;
-      background-color: #44b6d2;
-      border: 1px solid #44b6d2; }
-    .container .content .show .nav-tabs li > a {
-      padding: 5px 10px; }
-  .container .operation a {
-    margin-left: 10px;
-    color: #44b6d2; }
-    .container .operation a img {
-      width: 20px;
-      height: 20px; }
-  .container .tab-content {
-    margin: 10px 0 40px 0;
-    border: 1px solid #aaaaaa;
-    background: #ffffff;
-    height: 440px; }
+.container
+{
+    width: 90%; 
+    padding: 0;
+}
+.container .title
+{
+    margin-bottom: 5px;
+}
+.container .title form
+{
+    display: inline-block;
 
-footer {
-  text-align: center; }
-  footer img {
+    width: 60px;
+}
+.container .title form .form-control
+{
+    font-size: 10px;
+
+    height: 24px;
+    padding: 0 0;
+}
+.container .title .operation a
+{
+    color: #44b6d2;
+}
+.container .title .operation a img
+{
     width: 20px;
-    height: 20px; }
+    height: 20px;
+}
+.container .content .show .nav-tabs
+{
+    border-bottom: 5px solid #44b6d2;
+}
+.container .content .show .nav-tabs a
+{
+    color: #101010;
+}
+.container .content .show .nav-tabs li.active > a,
+.container .content .show .nav-tabs li.active > a:hover,
+.container .content .show .nav-tabs li.active > a:focus
+{
+    color: #fff;
+    border: 1px solid #44b6d2; 
+    background-color: #44b6d2;
+}
+.container .content .show .nav-tabs li > a
+{
+    padding: 5px 10px;
+}
+.container .operation a
+{
+    margin-left: 10px;
+
+    color: #44b6d2;
+}
+.container .operation a img
+{
+    width: 20px;
+    height: 20px;
+}
+.container .tab-content
+{
+    height: 440px; 
+    margin: 10px 0 40px 0;
+
+    border: 1px solid #aaa;
+    background: #fff;
+}
+
+footer
+{
+    text-align: center;
+}
+footer img
+{
+    width: 20px;
+    height: 20px;
+}
+
 
 /*# sourceMappingURL=teachingRoutine.css.map */
