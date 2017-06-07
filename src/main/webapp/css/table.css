@@ -92,3 +92,13 @@ table {
     color: #44b6d2;
     font-size: 15px;
 }
+.login-panel__submit
+{
+    width: 228px;
+    height: 30px;
+    margin-top: 15px;
+
+    color: #fff;
+    border-color: #00a2ca;
+    background: #00a2ca;
+}

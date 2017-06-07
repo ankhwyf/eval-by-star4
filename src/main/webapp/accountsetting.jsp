@@ -4,6 +4,7 @@
     Author     : ankhyfw
 --%>
 
+<%@page import="star4.eval.service.UserService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="titleBar.jspf" %>
 <!DOCTYPE html>
@@ -17,7 +18,18 @@
         <link rel="stylesheet" href="css/accountsetting.css">
     </head>
     <body>
-       
+        <%
+                String target="";
+                type = user.getType();
+                if (type.equals(UserService.CNCOLLECTIONC)) {
+                    target="admin.jsp";
+                } else if (type.equals(UserService.CNCOLLECTIONA)) {
+                    target="auditor.jsp";
+                } else {
+                    target="teacher.jsp";
+                }
+                out.print(user.getCardID());
+        %>
         <main class="container">
             <div class="row title">
                 <div class="col-md-7 smalltitle">
@@ -25,7 +37,7 @@
                     <strong>账户设置</strong>
                 </div>
                 <div class="col-md-5 text-right back">
-                    <a href="teachingEffort_admin.jsp">返回>></a>
+                    <a href=<%=target%>>返回>></a>
                 </div>
             </div>
 

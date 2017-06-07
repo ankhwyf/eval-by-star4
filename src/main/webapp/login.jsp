@@ -16,6 +16,10 @@
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/modals.css">
         <link rel="stylesheet" href="css/login.css">
+        <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/modals.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
     </head>
     <body>
         <%
@@ -97,13 +101,10 @@
         </div>
 
         <script>
-            $('.login').click(function(){
-                modals.loadingShow();
+            $('.login-panel__submit').click(function(){
+            modals.loadingShow();
             });
         </script>
     </body>
-    <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/modals.js"></script>
-    <script type="text/javascript" src="js/login.js"></script>
+
 </html>

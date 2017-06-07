@@ -68,6 +68,7 @@ public class UserService {
 
     public User parseByDocument(Document document) {
         User user = new User();
+        user.setCardID(document.getString("cardID"));
         user.setName(document.getString("name"));
         user.setEmail(document.getString("email"));
         user.setPassword(document.getString("pwd"));

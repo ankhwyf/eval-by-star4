@@ -40,7 +40,7 @@
                     -<span id="endyear">2017</span> 学年）
                 </div>
                 <div class="col-md-4 text-right operation">
-                    <a href="configure.html">
+                    <a href="configure.jsp">
                         <i class="fa fa-cog fa-spin" style="font-size: 18px"></i>
                         <span>其他高级配置</span>
                     </a>
@@ -551,7 +551,7 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="tab5">
-                            <div id="table5">
+                            <form id="table5" action="process.do" method="post">
                                 <i class="fa fa-flag blue"></i>
                                 <span class="message">备注信息</span>
                                 <span class="add-point float-right add-me">新增备注</span>
@@ -584,7 +584,9 @@
                                         }
                                     %>
                                 </table>
-                            </div>
+                                <input type="submit" class="btn btn-primary float-right" value="保存" style="width:120px;">
+                            </form>
+                                
                         </div>
                     </div>
                 </div>
