@@ -4,6 +4,8 @@
     Author     : ankhyfw
 --%>
 
+<%@page import="star4.eval.MongoDBInterface"%>
+<%@page import="star4.eval.bean.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <!DOCTYPE html>
@@ -16,9 +18,18 @@
     </head>
     <body>
         <%
-           if(session.getAttribute("user")!=null){
-             response.sendRedirect("teachingEffort_admin.jsp");
-           }
+            User user = (User) session.getAttribute("user");
+            if (user != null) {
+                String type = user.getType();
+                if (type.equals(MongoDBInterface.CNCOLLECTIONC)) {
+                    response.sendRedirect("teachingEffort_admin.jsp");
+                } else if (type.equals(MongoDBInterface.CNCOLLECTIONA)) {
+                    response.sendRedirect("teachingEffort_auditor.jsp");
+                } else {
+                    response.sendRedirect("teachingEffort_teacher.jsp");
+                }
+
+            }
         %>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -53,10 +64,10 @@
             </div>
             <form class="login" action="login.do" method="post">
                 <c:if test="${loginError}">
-                <div class="login-panel__msg input-msg">
-                    <img src="img/error.png" alt="">
-                    <span>登录名或登录密码不正确</span>
-                </div>
+                    <div class="login-panel__msg input-msg">
+                        <img src="img/error.png" alt="">
+                        <span>登录名或登录密码不正确</span>
+                    </div>
                 </c:if>
                 <div class="form-group">
                     <label for="user" class="control-label">登录名:</label>

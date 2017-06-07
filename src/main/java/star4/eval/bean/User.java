@@ -5,6 +5,7 @@ public class User {
 	private String password;
 	private String cardID;
 	private String email;
+        private String type;
 	public String getEmail() {
 		return email;
 	}
@@ -28,6 +29,12 @@ public class User {
 	}
 	public void setCardID(String cardID) {
 		this.cardID = cardID;
+	}
+        public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type =type;
 	}
 	
 }
