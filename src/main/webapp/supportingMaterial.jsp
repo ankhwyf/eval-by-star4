@@ -50,20 +50,36 @@
                                     <td>学年</td>
                                 </tr>
                                 <%
+                                    String indexStr=request.getParameter("index");
                                     // 查询所有 学号 姓名 学年
                                     MaterialService materialService = new MaterialService();//实例化
                                     List<SupportingMaterial> materials = materialService.findAll();//拿到教师列表
                                     SupportingMaterial material = new SupportingMaterial();
+                                    boolean flag = false;
+                                    int index=0;
+                                    if(indexStr!=null&&!indexStr.equals("")){
+                                         index =Integer.parseInt(indexStr);
+                                         material = materials.get(index-1);
+                                         flag=true;
+                                    }
                                     String teacherId;//工号
                                     String teacherName;//姓名
                                     String academicYear;//学年
-                                    for (SupportingMaterial temp : materials) {
+                                    for (int i = 0; i < materials.size(); i++) {
+                                        SupportingMaterial temp = materials.get(i);
                                         teacherId = temp.getTeacher_id();
                                         teacherName = temp.getTeacher_name();
                                         academicYear = temp.getAcademic_year();
                                         System.out.println(teacherId);
                                 %>
-                                <tr class="select">
+                                <tr class="select"
+                                    <%
+                                        if (i == index - 1) {
+                                            %>style="background-color:#eee;"<%
+                                            
+                                        }
+                                    %>
+                                    >
                                     <td><%=teacherId%></td>
                                     <td><%=teacherName%></td>
                                     <td><%=academicYear%></td>
@@ -82,14 +98,7 @@
                                     <td>操作</td>
                                 </tr>
                                 <%
-                                    boolean flag = false;
-                                    int index=0;
-                                    String indexStr=request.getParameter("index");
-                                    if(indexStr!=null&&!indexStr.equals("")){
-                                         index =Integer.parseInt(indexStr);
-                                         material = materials.get(index-1);
-                                         flag=true;
-                                    }
+                                    
                                     List<Doc> docs = flag ? material.getDocs() : materials.get(0).getDocs();
 
                                     for (Doc doc : docs) {
