@@ -1,13 +1,4 @@
-<%-- 
-    Document   : accountsetting
-    Created on : 2017-6-4, 14:28:30
-    Author     : ankhyfw
---%>
-
-<<<<<<< HEAD
-=======
 <%@page import="star4.eval.service.UserService"%>
->>>>>>> e58379e4eeedff2472c08f6c65d2e88dfe9bc700
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="titleBar.jspf" %>
 <!DOCTYPE html>
@@ -21,9 +12,6 @@
         <link rel="stylesheet" href="css/accountsetting.css">
     </head>
     <body>
-<<<<<<< HEAD
-       
-=======
         <%
                 String target="";
                 type = user.getType();
@@ -34,9 +22,7 @@
                 } else {
                     target="teacher.jsp";
                 }
-                out.print(user.getCardID());
         %>
->>>>>>> e58379e4eeedff2472c08f6c65d2e88dfe9bc700
         <main class="container">
             <div class="row title">
                 <div class="col-md-7 smalltitle">
@@ -44,11 +30,7 @@
                     <strong>账户设置</strong>
                 </div>
                 <div class="col-md-5 text-right back">
-<<<<<<< HEAD
-                    <a href="teachingEffort_admin.jsp">返回>></a>
-=======
-                    <a href=<%=target%>>返回>></a>
->>>>>>> e58379e4eeedff2472c08f6c65d2e88dfe9bc700
+                    <a href="<%=target%>">返回>></a>
                 </div>
             </div>
 

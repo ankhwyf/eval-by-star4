@@ -1,6 +1,5 @@
 package star4.eval.servlet;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,7 +43,6 @@ public class LoginServlet extends HttpServlet {
                 req.setAttribute("loginError", true);
                 req.getRequestDispatcher("/login.jsp").forward(req, resp);
             } else {
-
                 session.setAttribute("user", user);
                 session.setMaxInactiveInterval(60*60);
             }
