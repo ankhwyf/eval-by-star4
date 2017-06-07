@@ -1,0 +1,57 @@
+{
+    "teacher_id": "20102010",
+    "teacher_name": "张三",
+    "academic_year": "2016-2017",
+    "docs": [
+        {
+            "doc_name": "gb.png",
+            "doc_address": "/img"
+        },
+        {
+            "doc_name": "error.png",
+            "doc_address": "/img"
+        },
+        {
+            "doc_name": "icon.png",
+            "doc_address": "/img"
+        }
+    ]
+}
+{
+    "teacher_id": "20102011",
+    "teacher_name": "李四",
+    "academic_year": "2016-2017",
+    "docs": [
+        {
+            "doc_name": "logo.png",
+            "doc_address": "/img"
+        },
+        {
+            "doc_name": "error.png",
+            "doc_address": "/img"
+        },
+        {
+            "doc_name": "icon.png",
+            "doc_address": "/img"
+        }
+    ]
+}
+{
+    "teacher_id": "20102012",
+    "teacher_name": "王五",
+    "academic_year": "2016-2017",
+    "docs": [
+        {
+            "doc_name": "gb.png",
+            "doc_address": "/img"
+        },
+        {
+            "doc_name": "v1.png",
+            "doc_address": "/img"
+        },
+        {
+            "doc_name": "icon.png",
+            "doc_address": "/img"
+        }
+    ]
+}

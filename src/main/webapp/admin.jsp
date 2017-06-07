@@ -572,7 +572,9 @@
                                     <tr class="hover">
                                         <td>
                                             <!--<input type="text" name="keypoint" value="" style="border:0;"/>-->
-                                            <div class="textarea" contenteditable="true" name="keypoint"><%=remark.keypoint%></div>
+                                            <div class="textarea" contenteditable="true" name="keypoint">
+                                                <%=remark.keypoint%>
+                                            </div>
                                         </td>
                                         <td>
                                             <!--<textarea name="remark_content" style="border:0"></textarea>-->

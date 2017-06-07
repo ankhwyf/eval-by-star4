@@ -80,7 +80,7 @@
                         <i class="fa fa-send" style="font-size: 18px"></i>
                         <span>提交</span>
                     </a>
-                    <a href="statistics.html">
+                    <a href="supportingMaterial.jsp">
                         <i class="fa fa-upload" style="font-size: 18px"></i>
                         <span>上传材料</span>
                     </a>
