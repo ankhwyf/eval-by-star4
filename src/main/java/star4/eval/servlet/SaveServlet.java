@@ -45,15 +45,11 @@ public class SaveServlet extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
-//System.out.println("----dfsfdfd-dfsafdsf--");
-        Enumeration<String> remarks=request.getParameterNames();
-        System.out.println("----dfsfdfd---");
-        while(remarks.hasMoreElements()){
-            String keypoint=remarks.nextElement();
-            String value=request.getParameter("keypoint");
-            System.out.println(remarks.nextElement());
-            
-        }
+        String[] keypoints=request.getParameterValues("keypoint");
+        String[] contents=request.getParameterValues("content");
+        if(keypoints.length>0)
+            System.out.println("dgdfsghds-----"+keypoints[0]);
+        System.out.println("get SaveServlet...");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

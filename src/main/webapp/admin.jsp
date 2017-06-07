@@ -576,7 +576,7 @@
                                         </td>
                                         <td>
                                             <!--<textarea name="remark_content" style="border:0"></textarea>-->
-                                            <div class="textarea" contenteditable="true" name="content" style="height:100%"><%=remark.content%></div>
+                                            <div class="textarea" contenteditable="true" name="content"><%=remark.content%></div>
                                             <i class="fa fa-trash delete"></i>
                                         </td>
                                     </tr>
