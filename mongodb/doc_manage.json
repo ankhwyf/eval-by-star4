@@ -5,15 +5,15 @@
     "docs": [
         {
             "doc_name": "gb.png",
-            "doc_address": "/img"
+            "doc_address": "img"
         },
         {
             "doc_name": "error.png",
-            "doc_address": "/img"
+            "doc_address": "img"
         },
         {
             "doc_name": "icon.png",
-            "doc_address": "/img"
+            "doc_address": "img"
         }
     ]
 }
@@ -24,15 +24,15 @@
     "docs": [
         {
             "doc_name": "logo.png",
-            "doc_address": "/img"
+            "doc_address": "img"
         },
         {
             "doc_name": "error.png",
-            "doc_address": "/img"
+            "doc_address": "img"
         },
         {
             "doc_name": "icon.png",
-            "doc_address": "/img"
+            "doc_address": "img"
         }
     ]
 }
@@ -43,15 +43,15 @@
     "docs": [
         {
             "doc_name": "gb.png",
-            "doc_address": "/img"
+            "doc_address": "img"
         },
         {
             "doc_name": "v1.png",
-            "doc_address": "/img"
+            "doc_address": "img"
         },
         {
             "doc_name": "icon.png",
-            "doc_address": "/img"
+            "doc_address": "img"
         }
     ]
 }

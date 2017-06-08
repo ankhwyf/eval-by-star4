@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="star4.eval.service.MaterialService"%>
 <%@page import="star4.eval.bean.SupportingMaterial"%>
@@ -5,6 +6,7 @@
 <%@page import="star4.eval.bean.SupportingMaterial.Doc"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@include file="titleBar.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
@@ -12,7 +14,33 @@
         <title>佐证材料</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="font-awesome/css/font-awesome.min.css" rel='stylesheet' />
+        <link rel="stylesheet" href="css/common.css">
         <link href="css/supportingMaterial.css" rel="stylesheet">
+        <style>
+            .container {
+                width: 80%;
+                height: 500px;
+                border: solid 1px #aaa;
+                background: white;
+
+            }
+            .page-hd {
+                border-bottom: solid 1px #aaa;
+            }
+            .search {
+                border-bottom: solid 1px #aaa;
+            }
+            .student {
+                height: 411px;
+                border-right: solid 1px #aaa;
+            }
+            .fa-file-text, .fa-eye, .fa-download,.back-name, .search-bt  {
+                color: #44b6d2;
+            }
+            .search-bt {
+                border: solid 1px #44b6d2;
+            }
+        </style>
         <script src="js/jquery-1.12.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </head>
@@ -23,7 +51,7 @@
                     <div class="row page-hd">
                         <div class="page-hd-title">
                             <i class="fa fa-file-text"></i>
-                            <h4 class="title-name">佐证材料</h4>
+                            <span class="title-name">佐证材料</span>
                         </div>
                         <div class="back-bt">
                             <a href="auditor.jsp" class="back-name">返回>></a>
@@ -49,18 +77,17 @@
                                     <td>姓名</td>
                                     <td>学年</td>
                                 </tr>
-                                <%
-                                    String indexStr=request.getParameter("index");
+                                <%                                    String indexStr = request.getParameter("index");
                                     // 查询所有 学号 姓名 学年
                                     MaterialService materialService = new MaterialService();//实例化
                                     List<SupportingMaterial> materials = materialService.findAll();//拿到教师列表
                                     SupportingMaterial material = new SupportingMaterial();
                                     boolean flag = false;
-                                    int index=0;
-                                    if(indexStr!=null&&!indexStr.equals("")){
-                                         index =Integer.parseInt(indexStr);
-                                         material = materials.get(index-1);
-                                         flag=true;
+                                    int index = 0;
+                                    if (indexStr != null && !indexStr.equals("")) {
+                                        index = Integer.parseInt(indexStr);
+                                        material = materials.get(index - 1);
+                                        flag = true;
                                     }
                                     String teacherId;//工号
                                     String teacherName;//姓名
@@ -75,8 +102,7 @@
                                 <tr class="select"
                                     <%
                                         if (i == index - 1) {
-                                            %>style="background-color:#eee;"<%
-                                            
+                                    %>style="background-color:#eee;"<%
                                         }
                                     %>
                                     >
@@ -98,15 +124,17 @@
                                     <td>操作</td>
                                 </tr>
                                 <%
-                                    
                                     List<Doc> docs = flag ? material.getDocs() : materials.get(0).getDocs();
 
                                     for (Doc doc : docs) {
                                 %>
                                 <tr class="material-item">
                                     <td><%=doc.doc_name%></td>
-                                    <td><i class="fa fa-eye" aria-hidden="true"></i> <i
-                                            class="fa fa-download" aria-hidden="true"></i></td>
+                                    <td><i class="fa fa-eye" aria-hidden="true"></i> 
+
+                                        <a href="DownloadServlet?docname=<%=URLEncoder.encode(doc.doc_name, "UTF-8")%>">
+                                            <i class="fa fa-download" aria-hidden="true"></i></a>
+                                    </td>
                                 </tr>
                                 <%
                                     }
@@ -125,10 +153,7 @@
                 $('.material-item').remove();
                 // 获取点击的行中的数据
                 var cell = document.getElementById("supportingMaterialIdNameYear").rows[this.rowIndex].cells;
-                nowTeacherId = cell[0].innerHTML;
-                nowTeacherName = cell[1].innerHTML;
-                nowYear = cell[2].innerHTML;
-                window.location = "supportingMaterial.jsp?index=" + this.rowIndex ;
+                window.location = "supportingMaterial.jsp?index=" + this.rowIndex;
 
             });
 

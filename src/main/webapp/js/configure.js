@@ -15,7 +15,7 @@ function react() {
     });
 
     $(".container .content .col-md-4 .configure table tr .fa-edit").click(function () {
-        $(this).parent().parent().remove();
+        modals.feedBackShow('编辑一级目录', "");
     });
 
     $('#addFirst').click(function () {

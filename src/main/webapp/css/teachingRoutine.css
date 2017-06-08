@@ -68,6 +68,10 @@
     border: 1px solid #aaa;
     background: #fff;
 }
+.small {
+     font-size: 12px;
+}
+
 
 footer
 {

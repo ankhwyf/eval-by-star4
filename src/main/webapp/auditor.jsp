@@ -1,4 +1,8 @@
 
+<%@page import="star4.eval.service.UserService"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="star4.eval.bean.DetailTable"%>
+<%@page import="star4.eval.service.DetailService"%>
 <%@page import="star4.eval.bean.EvalTable.ThirdIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.SecondIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.Remark"%>
@@ -35,6 +39,9 @@
                 text-align: center;
                 margin: 5px 0;
             }
+            .list-teacher {
+                cursor:pointer;
+            }
         </style>
         <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -58,14 +65,46 @@
                     -<span id="endyear">2017</span> 学年）
                 </div>
             </div> 
-
             <div class="row">
                 <div class="col-md-1 auditor-formate">
                     <ul class="auditor list-unstyled">
-                        <li>谁谁谁</li>
-                        <li>谁谁谁</li>
-                        <li>谁谁谁</li>
-                        <li>--已审核--</li>
+                        <% 
+//                            String name=request.getParameter("name");
+                            String name;
+                            int index=0;
+                            UserService userService = new UserService();
+                            DetailService detailService = new DetailService();
+                            List<DetailTable> detailTables = detailService.findAll();
+                            DetailTable detailTemp;
+                            //若有值
+//                            if(name!=null&!name.equals("")){
+//                                
+//                            }
+//                            else {
+//                                detailTemp=detailTables.get(0);
+//                            }
+                            for (int i = 0; i < detailTables.size(); i++) {
+                                detailTemp = detailTables.get(i);
+                                name=userService.findByCardID(detailTemp.getCardID(), "teacher").getName();
+                                if (detailTemp.isIs_submit() && !detailTemp.isIs_audit()) {//待审核
+%>
+                        <li class="list-teacher"><%=name%></li>
+                            <%
+                                    }
+                                }
+                            %>
+                        <li class="small">--已审核--</li>
+                            <%
+                                for (int i = 0; i < detailTables.size(); i++) {
+                                    detailTemp = detailTables.get(i);
+                                    name=userService.findByCardID(detailTemp.getCardID(), "teacher").getName();
+                                    if (detailTemp.isIs_submit() && detailTemp.isIs_audit()) {//已审核
+%>                  
+                        <li class="list-teacher"><%=name%></li>
+                            <%
+                                    }
+                                }
+                            %>
 
                     </ul>
                 </div>
@@ -170,8 +209,8 @@
                                                             <!--内涵的内容 结束-->
                                                             <td><%=score%>
                                                             </td>
-                                                            <td><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
-                                                            <td><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                            <td></td>
+                                                            <td></td>
                                                         </tr>
                                                         <!--子table第二行 结束-->
                                                         <%
@@ -195,7 +234,7 @@
                                                 <!--一级标题内容，跨行 结束-->
                                                 <!--系统审核分内容 开始-->
                                                 <td>
-
+                                                    <div class="textarea" contenteditable="true" style="width:100%;height:100%"></div>
                                                 </td>
                                                 <!--系统审核分内容 结束-->
                                                 <!--操作图标 开始-->
@@ -234,7 +273,7 @@
                                                                 for (int j = 0; j < effortSize; j++) {
                                                             %>
                                                             <td>
-                                                                <div class="textarea" contenteditable="true" style="width:100%;"></div>
+
                                                             </td>
                                                             <%
                                                                 }
@@ -315,14 +354,14 @@
                                                             <td class="width_100">
                                                                 <%=thirdIndicator.score%>
                                                             </td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                            <td class="width_100"></td>
+                                                            <td class="width_100"></td>
                                                         </tr>
 
                                                         <%}%>
                                                     </table>
                                                 </td>
-                                                <td></td>
+                                                <td><div class="textarea" contenteditable="true" style="width:100%;;height:100%"></div></td>
                                             </tr>
 
                                             <tr>
@@ -349,14 +388,14 @@
                                                             <td class="width_100">
                                                                 <%=thirdIndicator.score%>
                                                             </td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                            <td class="width_100"></td>
+                                                            <td class="width_100"></td>
                                                         </tr>
                                                         <%}%>
                                                     </table>
                                                 </td>
-                                                <td></td>
-                                                <%}%>
+                                                <td><div class="textarea" contenteditable="true" style="width:100%;;height:100%"></div></td>
+                                                    <%}%>
                                             </tr>
                                         </table>
                                     </div>
@@ -415,13 +454,13 @@
                                                             <td class="width_100">
                                                                 <%=thirdIndicator.score%>
                                                             </td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                            <td class="width_100"></td>
+                                                            <td class="width_100"></td>
                                                         </tr>
                                                         <%}%>
                                                     </table>
                                                 </td>
-                                                <td></td>
+                                                <td><div class="textarea" contenteditable="true" style="width:100%;height:100%"></div></td>
                                             </tr>
 
                                             <tr>
@@ -448,14 +487,14 @@
                                                             <td class="width_100">
                                                                 <%=thirdIndicator.score%>
                                                             </td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                            <td class="width_100"></td>
+                                                            <td class="width_100"></td>
                                                         </tr>
                                                         <%}%>
                                                     </table>
                                                 </td>
-                                                <td></td>
-                                                <%}%>
+                                                <td><div class="textarea" contenteditable="true" style="width:100%;;height:100%"></div></td>
+                                                    <%}%>
                                             </tr>
                                         </table>
                                     </div>
@@ -512,13 +551,13 @@
                                                             <td class="width_100">
                                                                 <%=thirdIndicator.score%>
                                                             </td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                            <td class="width_100"></td>
+                                                            <td class="width_100"></td>
                                                         </tr>
                                                         <%}%>
                                                     </table>
                                                 </td>
-                                                <td></td>
+                                                <td><div class="textarea" contenteditable="true" style="width:100%;height:100%"></div></td>
                                             </tr>
 
                                             <tr>
@@ -543,14 +582,14 @@
                                                             <td class="width_100">
                                                                 <%=thirdIndicator.score%>
                                                             </td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
-                                                            <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                            <td class="width_100"></td>
+                                                            <td class="width_100"></td>
                                                         </tr>
                                                         <%}%>
                                                     </table>
                                                 </td>
-                                                <td></td>
-                                                <%}%>
+                                                <td><div class="textarea" contenteditable="true" style="width:100%;height:100%"></div></td>
+                                                    <%}%>
                                             </tr>
                                         </table>
                                     </div>
@@ -623,6 +662,21 @@
         <!-- 
 <iframe src="wenzhang_xinwen.html" id="Mainindex" name="Mainindex" width="100%" height="100%" marginheight="0" marginwidth="0" frameborder="0"></iframe> -->
         <!-- 内置浏览器 -->
+        <script type="text/javascript">
+            $('.list-teacher').click(function () {
+                $('.list-teacher').css('background', '#fff');
+                $(this).css('background', '#eee');
+                // 获取点击的行中的数据
+                window.location = "auditor.jsp?index=" + $(this).index();
+            });
+
+//            $('.select').hover(function () {
+//                orgBgColor = $(this).css("background-color");
+//                $(this).css('background-color', '#f5f5f5');
+//            },function(){
+//                $(this).css('background-color', orgBgColor);
+//            });
+        </script>
     </body>
 
 </html>

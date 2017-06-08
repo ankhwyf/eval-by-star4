@@ -12,7 +12,9 @@ html,body {
 .container {
 	width: 90%;
 	height: 700px;
-	border: solid 1px #000;
+	border: solid 1px #aaa;
+        background: white;
+        
 }
 .page-hd {
 	padding: 10px;
@@ -26,7 +28,7 @@ html,body {
 .fa-file-text {
 	margin-right: 5px;
 	font-size: 18px;
-	color: #519af2;
+	/*color: #519af2;*/
 }
 .title-name {
 	font-size: 14px;
