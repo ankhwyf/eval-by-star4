@@ -15,17 +15,17 @@ function react() {
     });
 
     $(".container .content .col-md-4 .configure table tr .fa-edit").click(function () {
-        modals.feedBackShow('编辑一级目录', "");
+        modals.feedBackShow('编辑一级目录', 0);
     });
 
     $('#addFirst').click(function () {
-        modals.feedBackShow('编辑一级目录', "");
+        modals.feedBackShow('编辑一级目录', 0);
     });
     $('#addSecond').click(function () {
-        modals.feedBackShow('编辑二级目录', "分");
+        modals.feedBackShow('编辑二级目录', 1);
     });
     $('#addThird').click(function () {
-        modals.feedBackShow('编辑工作内容', "分");
+        modals.feedBackShow('编辑工作内容', 2);
     });
 }
 
