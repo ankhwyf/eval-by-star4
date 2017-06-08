@@ -23,14 +23,14 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user != null) {
+        if (user != null && user.getType() != null) {
             String type = user.getType();
             if (type.equals(UserService.CNCOLLECTIONC)) {
                 logonByAdmin(request, response);
             } else if (type.equals(UserService.CNCOLLECTIONA)) {
-                response.sendRedirect("auditor");
+                logonByAuditor(request, response);
             } else {
-                response.sendRedirect("teacher");
+                logonByTeacher(request, response);
             }
         } else {
             response.sendRedirect("login");
@@ -40,6 +40,16 @@ public class HomeServlet extends HttpServlet {
     private void logonByAdmin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/views/tables/admin.jsp").forward(request, response);
+    }
+
+    private void logonByAuditor(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/views/tables/auditor.jsp").forward(request, response);
+    }
+
+    private void logonByTeacher(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/views/tables/teacher.jsp").forward(request, response);
     }
 
     @Override

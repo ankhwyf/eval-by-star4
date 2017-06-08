@@ -1,3 +1,4 @@
+
 <%@page import="star4.eval.bean.EvalTable.ThirdIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.SecondIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.Remark"%>
@@ -11,7 +12,7 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>admin</title>
+        <title>teacher</title>
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/common.css">
@@ -37,12 +38,6 @@
                         </select>
                     </form>
                     -<span id="endyear">2017</span> 学年）
-                </div>
-                <div class="col-md-4 text-right operation">
-                    <a href="configure.jsp">
-                        <i class="fa fa-cog fa-spin" style="font-size: 18px"></i>
-                        <span>其他高级配置</span>
-                    </a>
                 </div>
             </div>      
             <!--            <iframe src="table.jsp" frameborder="0" scrolling="auto" width="100%" height="330" style="background-color: white"></iframe>-->
@@ -81,13 +76,13 @@
                     </div>
                 </div>
                 <div class="col-md-5 text-right operation">
-                    <a href="#" onclick="ajaxSubmit()">
-                        <i class="fa fa-rocket" style="font-size: 18px"></i>
-                        <span>发布</span>
+                    <a href="#" onclick="ajaxSend()">
+                        <i class="fa fa-send" style="font-size: 18px"></i>
+                        <span>提交</span>
                     </a>
-                    <a href="statistics.html">
-                        <i class="fa fa-bar-chart" style="font-size: 18px"></i>
-                        <span>统计</span>
+                    <a href="supportingMaterial.jsp">
+                        <i class="fa fa-upload" style="font-size: 18px"></i>
+                        <span>上传材料</span>
                     </a>
                     <a href="#">
                         <i class="fa fa-file-text-o" style="font-size: 18px"></i>
@@ -139,14 +134,13 @@
                                                     <!--二级标题内容 结束-->
                                                     <!--内涵的内容 开始-->
                                                     <td class="width_400">
-                                                        <div class="textarea" contenteditable="true" name="content"><%=content%></div>
-                                                        <i class="fa fa-trash delete"></i>
+                                                        <%=content%>
                                                     </td>
                                                     <!--内涵的内容 结束-->
-                                                    <td><div class="textarea" contenteditable="true" name="score" style="width:100%;height:100%;"><%=score%></div>
+                                                    <td><%=score%>
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                    <td><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
                                                 </tr>
                                                 <!--子table第二行 结束-->
                                                 <%
@@ -175,7 +169,8 @@
                                         <!--系统审核分内容 结束-->
                                         <!--操作图标 开始-->
                                         <td>
-                                            <i class="fa fa-plus-square green add"></i>
+                                             <i class="fa fa-minus gray"></i>
+<!--                                         <i class="fa fa-plus-square green add"></i>-->
                                         </td>
                                         <!--操作图标 结束-->
                                     </tr>
@@ -206,7 +201,11 @@
                                                 <tr>
                                                     <%
                                                         for (int j = 0; j < effortSize; j++) {
-                                                    %><td></td><%
+                                                    %>
+                                                    <td>
+                                                        <div class="textarea" contenteditable="true" style="width:100%;"></div>
+                                                    </td>
+                                                    <%
                                                         }
                                                     %>
                                                 </tr>
@@ -218,12 +217,12 @@
                                         </td>
                                         <!--留白 / 开始-->
                                         <td>
-                                            <i class="fa fa-minus gray"></i>
+<!--                                            <i class="fa fa-minus gray"></i>-->
                                         </td>
                                         <!--留白 / 结束-->
                                         <!--操作图标2 开始-->
                                         <td>
-                                            <i class="fa fa-minus gray"></i>
+                                             <i class="fa fa-plus-square green add"></i>
                                         </td>
                                         <!--操作图标2 结束-->
                                     </tr>
@@ -256,9 +255,6 @@
                                         <td class="width_100">
                                             系统审核分
                                         </td>
-                                        <td class="width_100">
-                                            操作
-                                        </td>
                                     </tr>
                                     <tr>
                                         <td rowspan="2" class="width_100">
@@ -282,23 +278,20 @@
                                                 <tr class="hover">
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
-                                                            <i class="fa fa-trash delete"></i>
+                                                            <%=thirdIndicator.content%>
                                                         </div>
                                                     </td>
                                                     <td class="width_100">
-                                                        <!--<input type="text" name="score" value="" style="border:0;width:80%">-->
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                        <%=thirdIndicator.score%>
                                                     </td>
-                                                    <td class="width_100"></td>
-                                                    <td class="width_100"></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
                                                 </tr>
 
                                                 <%}%>
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td><i class="fa fa-plus-square green add"></i></td>
                                     </tr>
 
                                     <tr>
@@ -319,22 +312,19 @@
                                                 <tr class="hover">
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
-                                                            <i class="fa fa-trash delete"></i>
+                                                            <%=thirdIndicator.content%>
                                                         </div>
                                                     </td>
                                                     <td class="width_100">
-                                                        <!--<input type="text" name="score" value="" style="border:0;width:80%">-->
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                        <%=thirdIndicator.score%>
                                                     </td>
-                                                    <td class="width_100"></td>
-                                                    <td class="width_100"></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
                                                 </tr>
                                                 <%}%>
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td><i class="fa fa-plus-square green add"></i></td>
                                         <%}%>
                                     </tr>
                                 </table>
@@ -365,9 +355,6 @@
                                         <td class="width_100">
                                             系统审核分
                                         </td>
-                                        <td class="width_100">
-                                            操作
-                                        </td>
                                     </tr>
                                     <tr>
                                         <td rowspan="2" class="width_100">
@@ -391,22 +378,19 @@
                                                 <tr class="hover">
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
-                                                            <i class="fa fa-trash delete"></i>
+                                                            <%=thirdIndicator.content%>
                                                         </div>
                                                     </td>
                                                     <td class="width_100">
-                                                        <!--                                                        <input type="text" name="score" value="" style="border:0;width:80%">-->
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                        <%=thirdIndicator.score%>
                                                     </td>
-                                                    <td class="width_100"></td>
-                                                    <td class="width_100"></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
                                                 </tr>
                                                 <%}%>
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td><i class="fa fa-plus-square green add"></i></td>
                                     </tr>
 
                                     <tr>
@@ -427,21 +411,19 @@
                                                 <tr class="hover">
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
-                                                            <i class="fa fa-trash delete"></i>
+                                                            <%=thirdIndicator.content%>
                                                         </div>
                                                     </td>
                                                     <td class="width_100">
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                        <%=thirdIndicator.score%>
                                                     </td>
-                                                    <td class="width_100"></td>
-                                                    <td class="width_100"></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
                                                 </tr>
                                                 <%}%>
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td><i class="fa fa-plus-square green add"></i></td>
                                         <%}%>
                                     </tr>
                                 </table>
@@ -472,9 +454,6 @@
                                         <td class="width_100">
                                             系统审核分
                                         </td>
-                                        <td class="width_100">
-                                            操作
-                                        </td>
                                     </tr>
                                     <tr>
                                         <td rowspan="2" class="width_100">
@@ -496,21 +475,19 @@
                                                 <tr class="hover">
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
-                                                            <i class="fa fa-trash delete"></i>
+                                                           <%=thirdIndicator.content%>
                                                         </div>
                                                     </td>
                                                     <td class="width_100">
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                       <%=thirdIndicator.score%>
                                                     </td>
-                                                    <td class="width_100"></td>
-                                                    <td class="width_100"></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
                                                 </tr>
                                                 <%}%>
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td><i class="fa fa-plus-square green add"></i></td>
                                     </tr>
 
                                     <tr>
@@ -529,32 +506,28 @@
                                                 <tr>
                                                     <td>
                                                         <div>
-                                                            <div class="textarea" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
-                                                            <i class="fa fa-trash delete"></i>
+                                                          <%=thirdIndicator.content%>
                                                         </div>
                                                     </td>
                                                     <td class="width_100">
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                       <%=thirdIndicator.score%>
                                                     </td>
-                                                    <td class="width_100"></td>
-                                                    <td class="width_100"></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
+                                                    <td class="width_100"><div class="textarea" contenteditable="true" style="width:100%;"></div></td>
                                                 </tr>
                                                 <%}%>
                                             </table>
                                         </td>
                                         <td></td>
-                                        <td><i class="fa fa-plus-square green add"></i></td>
                                         <%}%>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab5">
-                            <form id="table5" action="process.do" method="post">
+                            <div id="table5">
                                 <i class="fa fa-flag blue"></i>
                                 <span class="message">备注信息</span>
-                                <span class="add-point float-right add-me">新增备注</span>
-                                <i class="fa fa-plus-square-o blue-add float-right add-me"></i>
                                 <table border="1" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td>
@@ -570,24 +543,17 @@
                                     %>
                                     <tr class="hover">
                                         <td>
-                                            <!--<input type="text" name="keypoint" value="" style="border:0;"/>-->
-                                            <div class="textarea" contenteditable="true" name="keypoint">
-                                                <%=remark.keypoint%>
-                                            </div>
+                                           <%=remark.keypoint%>
                                         </td>
                                         <td>
-                                            <!--<textarea name="remark_content" style="border:0"></textarea>-->
-                                            <div class="textarea" contenteditable="true" name="content"><%=remark.content%></div>
-                                            <i class="fa fa-trash delete"></i>
+                                            <%=remark.content%>
                                         </td>
                                     </tr>
                                     <%
                                         }
                                     %>
                                 </table>
-                                <input type="submit" class="btn btn-primary float-right" value="保存" style="width:120px;">
-                            </form>
-                                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -595,55 +561,18 @@
             <script>
                 function addLine() {
                     var tpl = "";
-                    tpl += "<tr class=\"hover\">";
-                    tpl += "<td>";
-                    tpl += "<div>";
-                    tpl += " <div class=\"textarea\" contenteditable=\"true\" name=\"content\"></div>";
-                    tpl += "<i class=\"fa fa-trash delete\"></i>";
-                    tpl += "<div>";
-                    tpl += "</td>";
-                    tpl += "<td class=\"width_100\"><div class=\"textarea\" contenteditable=\"true\"></div></td>";
-                    tpl += " <td class=\"width_100\"></td>";
-                    tpl += " <td class=\"width_100\"></td>";
-                    tpl += "<tr>";
+                    tpl+="<tr>";
+                    for(j = 0; j < 6; j++){
+                        tpl+="<td>";
+                        tpl+="<div class=\"textarea\" contenteditable=\"true\" style=\"width:100%;\"></div>";
+                        tpl+="</td>";
+                    }
+                    tpl+="</tr>";
                     return tpl;
                 }
-                function addMessage() {
-                    var tpl = "";
-                    tpl += "<tr class=\"hover\">";
-                    tpl += "<td>";
-                    tpl += "<div class=\"textarea\" contenteditable=\"true\" name=\"keypoint\"></div>";
-                    tpl += "</td>";
-                    tpl += "<td>";
-                    tpl += "<div class=\"textarea\" contenteditable=\"true\" name=\"content\" style=\"height:100%\"></div>";
-                    tpl += "<i class=\"fa fa-trash delete\"></i>";
-                    tpl += "</td>";
-                    tpl += "</tr>";
-                    return tpl;
-                }
-                function del() {
-                    $(".delete").click(function () {
-                        if ($(this).parent().parent().children().length === 2) {
-                            $(this).parent().parent().remove();
-                        } else
-                            $(this).parent().parent().parent().remove();
-                    });
-                }
-                $(".add").click(function () {
-                    if ($(this).parent().parent().children('td').length === 5) {
-                        $(this).parent().parent().children().eq(2).children().append(addLine());
-                    } else
-                        $(this).parent().parent().children().eq(1).children().append(addLine());
 
-                    $('.delete').bind('click', function () {
-                        del();
-                    });
-                });
-                $('.add-me').click(function () {
-                    $(this).parent().children().eq(4).append(addMessage());
-                    $('.delete').bind('click', function () {
-                        del();
-                    });
+                $(".add").click(function () {
+                   $(this).parent().parent().children().eq(0).children().append(addLine());
                 });
                 
                 $(".form-control").change(function(){
@@ -651,7 +580,7 @@
                     $("#endyear").text(parseInt(value) + 1);
                     $("#submit").submit();
                 });
-                del();
+               
             </script>
         </main>
         <footer>

@@ -5,27 +5,25 @@
  */
 package star4.eval.servlet;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStream;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import star4.eval.bean.EvalTable;
-import star4.eval.bean.User;
-import star4.eval.service.EvalTableService;
-import star4.eval.service.UserService;
 
 /**
  *
  * @author ankhyfw
  */
-@WebServlet(urlPatterns = {"/getTable.do"})
-public class TableServlet extends HttpServlet {
-
-    private final EvalTableService evalTableService = new EvalTableService();
+@WebServlet(name = "DownloadServlet", urlPatterns = {"/DownloadServlet"})
+public class DownloadServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,29 +37,46 @@ public class TableServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String year = request.getParameter("year");
-        System.out.println("------" + year);
-        HttpSession session = request.getSession();
-        User user=(User)session.getAttribute("user");
-        String type=user.getType();
-        EvalTable evalTable = evalTableService.findByAcademicYear(year);
-        session.setAttribute("evalTable", evalTable);
-        switch (type) {
-                case UserService.CNCOLLECTIONC:
-                    response.sendRedirect("admin.jsp");
-                    break;
-                case UserService.CNCOLLECTIONA:
-                    response.sendRedirect("auditor.jsp");
-                    break;
-                default:
-                    response.sendRedirect("teacher.jsp");
-                    break;
+        String docname = request.getParameter("docname");
+        String n=URLDecoder.decode(docname,"UTF-8");
+      
+        // 通过context方式获取文件路径
+        String fullFilePath = this.getServletContext().getRealPath("/upload") +"/"+ docname;
+        
+        File file = new File(fullFilePath);
+        
+       
+        if (file.exists()) {
+        	System.out.println("File exists!");
+        	// 对文件名进行编码
+            String filename = URLEncoder.encode(file.getName(), "UTF-8");
+            response.reset();
+            // application/x-msdownloade表示以exe下载
+            response.setContentType("application/x-msdownloade");
+            // Content-Disposition:文件名框中会自动填充头中指定的文件名
+            // attachment：会询问是保存还是打开
+            response.addHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+            int fileLength = (int) file.length();
+            response.setContentLength(fileLength);
+            //如果文件长度大于0
+            if (fileLength != 0) {
+                ServletOutputStream servletOS;
+                    try ( //创建输入流
+                            InputStream inStream = new FileInputStream(file)) {
+                        byte[] buf = new byte[4096];
+                        //创建输出流
+                        servletOS = response.getOutputStream();
+                        int readLength;
+                        while ((readLength = inStream.read(buf)) != -1) {
+                            servletOS.write(buf, 0, readLength);
+                        }   }
+                servletOS.flush();
+                servletOS.close();
             }
-//        request.getRequestDispatcher("teachingEffort_admin.jsp").forward(request, response);
-        System.out.println("getTableServlet...");
+        }
     }
 
-    // <editor-fold defaultstate="flapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -88,7 +103,6 @@ public class TableServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-       
     }
 
     /**

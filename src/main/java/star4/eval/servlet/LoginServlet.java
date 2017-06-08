@@ -49,16 +49,8 @@ public class LoginServlet extends HttpServlet {
             } else {
                 session.setAttribute("user", user);
             }
-            switch (loginType) {
-                case UserService.CNCOLLECTIONC:
-                    EvalTable evalTable = evalTableService.findByAcademicYear("2016");
-                    session.setAttribute("evalTable", evalTable);
-                    break;
-                case UserService.CNCOLLECTIONA:
-                    break;
-                default:
-                    break;
-            }
+            EvalTable evalTable = evalTableService.findByAcademicYear("2016");
+            session.setAttribute("evalTable", evalTable);
             response.sendRedirect("home");
         }
     }

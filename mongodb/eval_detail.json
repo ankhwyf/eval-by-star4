@@ -1,0 +1,1216 @@
+{
+    "_id": {
+        "$oid": "5937b62ded8865d3fcb10361"
+    },
+    "cardID": "20102013",
+    "academic_year": "2016",
+    "is_submit": true,
+    "is_audit": true,
+    "audit_level": "",
+    "grade_proof": "",
+    "teacher_total_sco": "",
+    "auditor_total_sco": "",
+    "college_admin_sco": "",
+    "scores": [
+        {
+            "first_indicator": "教学工作量",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 30,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                }
+            ],
+            "effort_table": [
+                "web程序设计,计算机131(39),39,64,64*(1.1+0)=70.4,\"\"",
+                "web程序设计,计算机132(39),39,64,64*(1.1+0)=70.4,\"\"",
+                "毕业设计,\"\",10,12,120,\"\""
+            ]
+        },
+        {
+            "first_indicator": "教学常规",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                },
+                {
+                    "title": "加分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                }
+            ]
+        },
+        {
+            "first_indicator": "教学建设",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 7,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        }
+                    ]
+                },
+                {
+                    "title": "加分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": "发布Ei收录论文一篇ResearchonSecurityPortocolofSecheduledServicesonCloudComputing ICITEL2015"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": "开设Web程序设计的网络Mook教学平台"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": "带领2个队参加陆金所竞赛"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        }
+                    ]
+                }
+            ],
+            "auditor_score": ""
+        },
+        {
+            "first_indicator": "其他",
+            "second_indicator": [
+                {
+                    "title": "减分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        }
+                    ]
+                }
+            ],
+            "auditor_score": ""
+        }
+    ]
+}
+{
+    "_id": {
+        "$oid": "5937b63eed8865d3fcb1036f"
+    },
+    "cardID": "20102010",
+    "academic_year": "2016",
+    "is_submit": true,
+    "is_audit": false,
+    "audit_level": "",
+    "grade_proof": "",
+    "teacher_total_sco": "",
+    "auditor_total_sco": "",
+    "college_admin_sco": "",
+    "scores": [
+        {
+            "first_indicator": "教学工作量",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 30,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                }
+            ],
+            "effort_table": [
+                "web程序设计,计算机131(39),39,64,64*(1.1+0)=70.4,\"\"",
+                "web程序设计,计算机132(39),39,64,64*(1.1+0)=70.4,\"\"",
+                "毕业设计,\"\",10,12,120,\"\""
+            ]
+        },
+        {
+            "first_indicator": "教学常规",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                },
+                {
+                    "title": "加分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                }
+            ]
+        },
+        {
+            "first_indicator": "教学建设",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 7,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        }
+                    ]
+                },
+                {
+                    "title": "加分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": "发布Ei收录论文一篇ResearchonSecurityPortocolofSecheduledServicesonCloudComputing ICITEL2015"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": "开设Web程序设计的网络Mook教学平台"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": "带领2个队参加陆金所竞赛"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        }
+                    ]
+                }
+            ],
+            "auditor_score": ""
+        },
+        {
+            "first_indicator": "其他",
+            "second_indicator": [
+                {
+                    "title": "减分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        }
+                    ]
+                }
+            ],
+            "auditor_score": ""
+        }
+    ]
+}
+{
+    "_id": {
+        "$oid": "5937b644ed8865d3fcb10377"
+    },
+    "cardID": "20102011",
+    "academic_year": "2016",
+    "is_submit": true,
+    "is_audit": false,
+    "audit_level": "",
+    "grade_proof": "",
+    "teacher_total_sco": "",
+    "auditor_total_sco": "",
+    "college_admin_sco": "",
+    "scores": [
+        {
+            "first_indicator": "教学工作量",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 30,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                }
+            ],
+            "effort_table": [
+                "web程序设计,计算机131(39),39,64,64*(1.1+0)=70.4,\"\"",
+                "web程序设计,计算机132(39),39,64,64*(1.1+0)=70.4,\"\"",
+                "毕业设计,\"\",10,12,120,\"\""
+            ]
+        },
+        {
+            "first_indicator": "教学常规",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                },
+                {
+                    "title": "加分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                }
+            ]
+        },
+        {
+            "first_indicator": "教学建设",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 7,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        }
+                    ]
+                },
+                {
+                    "title": "加分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": "发布Ei收录论文一篇ResearchonSecurityPortocolofSecheduledServicesonCloudComputing ICITEL2015"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": "开设Web程序设计的网络Mook教学平台"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": "带领2个队参加陆金所竞赛"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        }
+                    ]
+                }
+            ],
+            "auditor_score": ""
+        },
+        {
+            "first_indicator": "其他",
+            "second_indicator": [
+                {
+                    "title": "减分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        }
+                    ]
+                }
+            ],
+            "auditor_score": ""
+        }
+    ]
+}
+{
+    "_id": {
+        "$oid": "5937b648ed8865d3fcb1037f"
+    },
+    "cardID": "20102012",
+    "academic_year": "2016",
+    "is_submit": true,
+    "is_audit": false,
+    "audit_level": "",
+    "grade_proof": "",
+    "teacher_total_sco": "",
+    "auditor_total_sco": "",
+    "college_admin_sco": "",
+    "scores": [
+        {
+            "first_indicator": "教学工作量",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 30,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                }
+            ],
+            "effort_table": [
+                "web程序设计,计算机131(39),39,64,64*(1.1+0)=70.4,\"\"",
+                "web程序设计,计算机132(39),39,64,64*(1.1+0)=70.4,\"\"",
+                "毕业设计,\"\",10,12,120,\"\""
+            ]
+        },
+        {
+            "first_indicator": "教学常规",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                },
+                {
+                    "title": "加分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        }
+                    ],
+                    "auditor_score": ""
+                }
+            ]
+        },
+        {
+            "first_indicator": "教学建设",
+            "second_indicator": [
+                {
+                    "title": "基本分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 7,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 3,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 2,
+                            "proof": ""
+                        }
+                    ]
+                },
+                {
+                    "title": "加分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 1,
+                            "proof": "发布Ei收录论文一篇ResearchonSecurityPortocolofSecheduledServicesonCloudComputing ICITEL2015"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 5,
+                            "proof": "开设Web程序设计的网络Mook教学平台"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 4,
+                            "proof": "带领2个队参加陆金所竞赛"
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": 0,
+                            "proof": ""
+                        }
+                    ]
+                }
+            ],
+            "auditor_score": ""
+        },
+        {
+            "first_indicator": "其他",
+            "second_indicator": [
+                {
+                    "title": "减分",
+                    "third_indicator": [
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        },
+                        {
+                            "teacher_score": "",
+                            "proof": ""
+                        }
+                    ]
+                }
+            ],
+            "auditor_score": ""
+        }
+    ]
+}

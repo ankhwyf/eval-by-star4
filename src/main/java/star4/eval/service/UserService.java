@@ -50,7 +50,7 @@ public class UserService {
         MongoDatabase database = MongoDB.INSTANCE.getDatabase();
         MongoCollection<Document> collection = database.getCollection(cname);
         Document document = collection.find(eq("cardID", cardId)).first();
-        if (!document.isEmpty()) {
+        if (document != null) {
             return parseByDocument(document);
         }
         return null;
@@ -65,9 +65,20 @@ public class UserService {
         }
         return null;
     }
-
+    
+    public User findByName(String name, String cname) {
+        MongoDatabase database = MongoDB.INSTANCE.getDatabase();
+        MongoCollection<Document> collection = database.getCollection(cname);
+        Document document = collection.find(eq("name", name)).first();
+        if (!document.isEmpty()) {
+            return parseByDocument(document);
+        }
+        return null;
+    }
+    
     public User parseByDocument(Document document) {
         User user = new User();
+        user.setCardID(document.getString("cardID"));
         user.setName(document.getString("name"));
         user.setEmail(document.getString("email"));
         user.setPassword(document.getString("pwd"));

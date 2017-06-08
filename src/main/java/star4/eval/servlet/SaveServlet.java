@@ -6,26 +6,18 @@
 package star4.eval.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import star4.eval.bean.EvalTable;
-import star4.eval.bean.User;
-import star4.eval.service.EvalTableService;
-import star4.eval.service.UserService;
 
 /**
  *
  * @author ankhyfw
  */
-@WebServlet(urlPatterns = {"/getTable.do"})
-public class TableServlet extends HttpServlet {
-
-    private final EvalTableService evalTableService = new EvalTableService();
+@WebServlet(urlPatterns = {"/process.do"})
+public class SaveServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,29 +31,26 @@ public class TableServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String year = request.getParameter("year");
-        System.out.println("------" + year);
-        HttpSession session = request.getSession();
-        User user=(User)session.getAttribute("user");
-        String type=user.getType();
-        EvalTable evalTable = evalTableService.findByAcademicYear(year);
-        session.setAttribute("evalTable", evalTable);
-        switch (type) {
-                case UserService.CNCOLLECTIONC:
-                    response.sendRedirect("admin.jsp");
-                    break;
-                case UserService.CNCOLLECTIONA:
-                    response.sendRedirect("auditor.jsp");
-                    break;
-                default:
-                    response.sendRedirect("teacher.jsp");
-                    break;
-            }
-//        request.getRequestDispatcher("teachingEffort_admin.jsp").forward(request, response);
-        System.out.println("getTableServlet...");
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet SaveServlet</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet SaveServlet at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
+        String[] keypoints=request.getParameterValues("keypoint");
+        String[] contents=request.getParameterValues("content");
+        if(keypoints.length>0)
+            System.out.println("dgdfsghds-----"+keypoints[0]);
+        System.out.println("get SaveServlet...");
     }
 
-    // <editor-fold defaultstate="flapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -88,7 +77,6 @@ public class TableServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-       
     }
 
     /**

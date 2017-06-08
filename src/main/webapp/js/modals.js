@@ -36,15 +36,55 @@ Modals.prototype.alertSmHide=function(){
     $('.alert-sm-backdrop').remove();
 };
 
+Modals.prototype.judge =function (cont,fn) {
+    var dom ="<div class='alert-sm-backdrop'>"
+                +"<div class='alert-sm'>"
+                +"<div class='alert-sm-body'>"+cont+"</div>"
+                +"<div class='alert-sm-foot'>"
+                +"<button id='btnAlertSmNO'>取消</button>"
+                +"<button id='btnAlertSmYes'>确定</button>"
+                +"</div>"
+                +"</div>"
+            +"</div>";
 
+
+    $(document.body).append(dom);
+    $("#btnAlertSmYes").click(function () {
+        if(fn){
+            fn();
+        }else {
+            $('.alert-sm-backdrop').remove();
+        }
+    });
+    $("#btnAlertSmNO").click(function () {
+        if(fn){
+            fn();
+        }else {
+            $('.alert-sm-backdrop').remove();
+        }
+    });
+};
 //问题反馈
-Modals.prototype.feedBackShow =function (fn) {
+Modals.prototype.feedBackShow =function (con,unit,fn) {
     var dom ="<div class='feed-back-backdrop'>"
                 +"<div class='fb-cont'>"
-                    +"<div class='fb-hd c-blue '>数据需求反馈</div>"
+                    +"<div class='fb-hd c-blue '><i class='fa fa-edit'></i>"+con+"</div>"
                     +" <button class='fb-xx' id='btnFbX'>X</button>"
-                    +"<textarea class='fb-bd' placeholder='请输入您的数据需求' id='feedBackMsg'></textarea>"
-                    +"<button class='fb-ft' id='btnFeedBackPost'>提交</button>"
+                    +"<div class='line'>" 
+                    +"<span>指标名称：</span>"
+                    +"<input type='text' class='form-control' id='name'>"
+                    +"</div>";
+                    if(unit!=0) {
+                  dom +="<div class='line'>" 
+                    +"<span>指标分值：</span>"
+                    +"<input type='text' class='form-control' id='grades'>"+"分"
+                    +"</div>"
+                }
+                dom +="<div class='line'>" 
+                    +"<span class='line-s'>指标说明：</span>"
+                    +"<textarea class='fb-bd' placeholder='请输入您的指标说明' id='feedBackMsg'></textarea>"
+                    +"</div>"
+                    +"<button class='fb-ft' id='btnFeedBackPost'>保存</button>"
                 +"</div>"
              +"</div>";
 
@@ -53,6 +93,24 @@ Modals.prototype.feedBackShow =function (fn) {
         if(fn){
             fn();
         }else {
+            var name=$('#name').val();
+            if(unit!=0) {
+                
+            var grades=$('#grades').val();
+        }
+        else {
+            grades="";
+        }
+            var feedBackMsg=$('#feedBackMsg').val();
+            // return {'name':name,'grades':grades,'feedBackMsg':feedBackMsg};
+            var bulidtpl='';
+            bulidtpl+='<tr><td>';
+            bulidtpl+='<div class="pull-left"><strong>'+name+'</strong><span>'+grades+'分</span></div>';
+            bulidtpl+='<div class="pull-right">';
+            bulidtpl+='<i class="fa fa-edit"></i><i class="fa fa-trash"></i>/div></td></tr>';
+
+            $(".container .content .col-md-4 .configure table").eq(unit).append(bulidtpl);
+
             $('.feed-back-backdrop').remove();
         }
     });
