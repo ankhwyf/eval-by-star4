@@ -1,4 +1,6 @@
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.ArrayList"%>
 <%@page import="star4.eval.bean.EvalTable.ThirdIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.SecondIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.Remark"%>
@@ -101,7 +103,8 @@
                 <div class="col-md-12">
                     <div class="tab-content" style="height:auto;min-height:100px">
                         <div class="tab-pane active" id="tab1">
-                            <div id="table1" >
+                            <div id="table-gzl" >
+                                <form id="tableGzl" action="process.do" method="post" onsubmit="submitGzl()">
                                 <!--整个单元格为3行，4列。
                                 其中“一级指标”那个文字对应一行，“操作”下面每个图标分别对应一行；
                                 “一级标题”文字对应一列，“二级指标”、“内涵”、“指标分值”、
@@ -109,56 +112,14 @@
                                 <table border="1" cellspacing="0" cellpadding="0" >
                                     <!--第一行开始-->
                                     <tr>
-                                        <td class="width_100">一级指标</td>
-                                        <!--“指标分值”、“教师自评分”、“自评分依据”放在子table里，作为一列，且在外层table里跨行-->
-                                        <td rowspan="2">
-                                            <!--单元格跨行，指标、自评分等放在一个table里 开始-->
-                                            <table border="1" cellspacing="0" cellpadding="0">
-                                                <!--子table第一行 开始-->
-                                                <tr>
-                                                    <td class="width_100">二级指标</td>
-                                                    <td class="width_400">内涵</td>
-                                                    <td class="width_60">指标分值</td>
-                                                    <td class="width_60">教师自评分</td>
-                                                    <td>自评分依据（教学建设项目或教学成果奖励需提供原始文件）</td>
-                                                </tr>
-                                                <!--子table第一行 结束-->
-                                                <%
-                                                    List<SecondIndicator> secondIndicators = tab1.second_indicator;
-                                                    for (int i = 0; i < secondIndicators.size(); i++) {
-                                                        SecondIndicator secondIndicator = tab1.second_indicator.get(i);
-                                                        for (int j = 0; j < secondIndicator.third_indicator.size(); j++) {
-                                                            String content = secondIndicator.third_indicator.get(j).content;
-                                                            String score = secondIndicator.third_indicator.get(j).score;
-                                                %>
-                                                <!--子table第二行 开始-->
-                                                <tr>
-                                                    <!--二级标题内容 开始-->
-                                                    <td class="width_100">
-                                                        <%=secondIndicator.title%> <%=secondIndicator.score%>分
-                                                    </td>
-                                                    <!--二级标题内容 结束-->
-                                                    <!--内涵的内容 开始-->
-                                                    <td class="width_400">
-                                                        <div class="textarea" contenteditable="true" name="content"><%=content%></div>
-                                                        <i class="fa fa-trash delete"></i>
-                                                    </td>
-                                                    <!--内涵的内容 结束-->
-                                                    <td><div class="textarea" contenteditable="true" name="score" style="width:100%;height:100%;"><%=score%></div>
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <!--子table第二行 结束-->
-                                                <%
-                                                        }
-                                                    }
-                                                %>
-                                            </table>
-                                            <!--单元格跨列，指标、自评分等放在一个table里 结束-->
-                                        </td>
-                                        <td>系部审核分</td> 
-                                        <td>操作</td>
+                                        <td class="width_100" style="max-height: 30px">一级指标</td>
+                                        <td class="width_100">二级指标</td>
+                                        <td>内涵</td>
+                                        <td class="width_100">指标分值</td>
+                                        <td class="width_100">教师自评分</td>
+                                        <td class="width_100">自评分依据</td>
+                                        <td class="width_100">系部审核分</td> 
+                                        <td class="width_100">操作</td>
                                     </tr>
                                     <!--第一行结束-->
 
@@ -169,6 +130,53 @@
                                             <%=tab1.first_indicator%> <%=outputScore(tab1)%>
                                         </td>
                                         <!--一级标题内容，跨行 结束-->
+                                        <td colspan="5">
+                                            <!--单元格跨行，指标、自评分等放在一个table里 开始-->
+                                            <table border="1" cellspacing="0" cellpadding="0">
+                                                <%
+                                                    List<SecondIndicator> secondIndicators = tab1.second_indicator;
+                                                    for (int i = 0; i < secondIndicators.size(); i++) {
+                                                        SecondIndicator secondIndicator = tab1.second_indicator.get(i);
+                                                %>
+                                                <!--子table第二行 开始-->
+                                                <tr>
+                                                    <!--二级标题内容 开始-->
+                                                    <td class="width_100">
+                                                        <%=secondIndicator.title%> <%=secondIndicator.score%>分
+                                                    </td>
+                                                    <!--二级标题内容 结束-->
+                                                    <td colspan="4">
+                                                        <table class="gzl_basice_score" border="1px" cellspacing="0" cellpadding="0">
+                                                            <%
+                                                                for (int j = 0; j < secondIndicator.third_indicator.size(); j++) {
+                                                                    String content = secondIndicator.third_indicator.get(j).content;
+                                                                    String score = secondIndicator.third_indicator.get(j).score;
+                                                            %>
+
+                                                            <tr>
+
+                                                                <!--内涵的内容 开始-->
+                                                                <td>
+                                                                    <div class="textarea" contenteditable="true" name="content"><%=content%></div>
+                                                                    <i class="fa fa-trash delete"></i>
+                                                                </td>
+                                                                <!--内涵的内容 结束-->
+                                                                <td class="width_100"><div class="textarea" contenteditable="true" name="score" style="width:100%;height:100%;"><%=score%></div>
+                                                                </td>
+                                                                <td class="width_100"></td>
+                                                                <td class="width_100"></td>
+                                                            </tr>
+                                                            <%}%>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <!--子table第二行 结束-->
+                                                <%
+                                                    }
+                                                %>
+                                            </table>
+                                            <!--单元格跨列，指标、自评分等放在一个table里 结束-->
+                                        </td>
                                         <!--系统审核分内容 开始-->
                                         <td>
 
@@ -176,7 +184,7 @@
                                         <!--系统审核分内容 结束-->
                                         <!--操作图标 开始-->
                                         <td>
-                                            <i class="fa fa-plus-square green add"></i>
+                                            <i class="fa fa-plus-square green add_gzl"></i>
                                         </td>
                                         <!--操作图标 结束-->
                                     </tr>
@@ -184,7 +192,7 @@
 
                                     <!--第三行开始-->
                                     <tr>
-                                        <td>
+                                        <td colspan="5">
                                             <!--工作内容、教学对象、人数、总学时、各项教学工作内容总学时核算、合计放在一个table里 开始-->
                                             <table class="t_in_t" border="1" cellspacing="0" cellpadding="0">
                                                 <!-- 标题行 开始 -->
@@ -289,7 +297,7 @@
                                                     </td>
                                                     <td class="width_100">
                                                         <!--<input type="text" name="score" value="" style="border:0;width:80%">-->
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                        <div class="textarea" contenteditable="true" style="height:100%;width:100%"><%=thirdIndicator.score%></div>
                                                     </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
@@ -326,7 +334,7 @@
                                                     </td>
                                                     <td class="width_100">
                                                         <!--<input type="text" name="score" value="" style="border:0;width:80%">-->
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                        <div class="textarea" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
                                                     </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
@@ -336,7 +344,7 @@
                                         </td>
                                         <td></td>
                                         <td><i class="fa fa-plus-square green add"></i></td>
-                                        <%}%>
+                                            <%}%>
                                     </tr>
                                 </table>
                             </div>
@@ -398,7 +406,7 @@
                                                     </td>
                                                     <td class="width_100">
                                                         <!--                                                        <input type="text" name="score" value="" style="border:0;width:80%">-->
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                        <div class="textarea" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
                                                     </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
@@ -433,7 +441,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="width_100">
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                        <div class="textarea" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
                                                     </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
@@ -443,7 +451,7 @@
                                         </td>
                                         <td></td>
                                         <td><i class="fa fa-plus-square green add"></i></td>
-                                        <%}%>
+                                            <%}%>
                                     </tr>
                                 </table>
                             </div>
@@ -502,7 +510,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="width_100">
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                        <div class="textarea" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
                                                     </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
@@ -535,7 +543,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="width_100">
-                                                        <div class="textarea" contenteditable="true" style="height:100%"><%=thirdIndicator.score%></div>
+                                                        <div class="textarea" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
                                                     </td>
                                                     <td class="width_100"></td>
                                                     <td class="width_100"></td>
@@ -545,13 +553,13 @@
                                         </td>
                                         <td></td>
                                         <td><i class="fa fa-plus-square green add"></i></td>
-                                        <%}%>
+                                            <%}%>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab5">
-                            <form id="table5" action="process.do" method="post">
+                            <form id="tableRemark" action="process.do" method="post" onsubmit="submitRemark()">
                                 <i class="fa fa-flag blue"></i>
                                 <span class="message">备注信息</span>
                                 <span class="add-point float-right add-me">新增备注</span>
@@ -572,13 +580,15 @@
                                     <tr class="hover">
                                         <td>
                                             <!--<input type="text" name="keypoint" value="" style="border:0;"/>-->
-                                            <div class="textarea" contenteditable="true" name="keypoint">
+                                            <div class="textarea remark-keypoint" contenteditable="true">
                                                 <%=remark.keypoint%>
-                                            </div>
+                                           </div>
+                                           <input class="keypoint-input" name="keypoint" style="display: none;" />
                                         </td>
                                         <td>
                                             <!--<textarea name="remark_content" style="border:0"></textarea>-->
-                                            <div class="textarea" contenteditable="true" name="content"><%=remark.content%></div>
+                                            <div class="textarea remark-content" contenteditable="true"><%=remark.content%></div>
+                                            <input class="content-input" name="content" style="display: none;" />
                                             <i class="fa fa-trash delete"></i>
                                         </td>
                                     </tr>
@@ -588,72 +598,12 @@
                                 </table>
                                 <input type="submit" class="btn btn-primary float-right" value="保存" style="width:120px;">
                             </form>
-                                
+
                         </div>
                     </div>
                 </div>
             </div>
-            <script>
-                function addLine() {
-                    var tpl = "";
-                    tpl += "<tr class=\"hover\">";
-                    tpl += "<td>";
-                    tpl += "<div>";
-                    tpl += " <div class=\"textarea\" contenteditable=\"true\" name=\"content\"></div>";
-                    tpl += "<i class=\"fa fa-trash delete\"></i>";
-                    tpl += "<div>";
-                    tpl += "</td>";
-                    tpl += "<td class=\"width_100\"><div class=\"textarea\" contenteditable=\"true\"></div></td>";
-                    tpl += " <td class=\"width_100\"></td>";
-                    tpl += " <td class=\"width_100\"></td>";
-                    tpl += "<tr>";
-                    return tpl;
-                }
-                function addMessage() {
-                    var tpl = "";
-                    tpl += "<tr class=\"hover\">";
-                    tpl += "<td>";
-                    tpl += "<div class=\"textarea\" contenteditable=\"true\" name=\"keypoint\"></div>";
-                    tpl += "</td>";
-                    tpl += "<td>";
-                    tpl += "<div class=\"textarea\" contenteditable=\"true\" name=\"content\" style=\"height:100%\"></div>";
-                    tpl += "<i class=\"fa fa-trash delete\"></i>";
-                    tpl += "</td>";
-                    tpl += "</tr>";
-                    return tpl;
-                }
-                function del() {
-                    $(".delete").click(function () {
-                        if ($(this).parent().parent().children().length === 2) {
-                            $(this).parent().parent().remove();
-                        } else
-                            $(this).parent().parent().parent().remove();
-                    });
-                }
-                $(".add").click(function () {
-                    if ($(this).parent().parent().children('td').length === 5) {
-                        $(this).parent().parent().children().eq(2).children().append(addLine());
-                    } else
-                        $(this).parent().parent().children().eq(1).children().append(addLine());
-
-                    $('.delete').bind('click', function () {
-                        del();
-                    });
-                });
-                $('.add-me').click(function () {
-                    $(this).parent().children().eq(4).append(addMessage());
-                    $('.delete').bind('click', function () {
-                        del();
-                    });
-                });
-                
-                $(".form-control").change(function(){
-                     var value = $(".form-control").val();
-                    $("#endyear").text(parseInt(value) + 1);
-                    $("#submit").submit();
-                });
-                del();
-            </script>
+            <script type="text/javascript" src="js/admin.js"></script>
         </main>
         <footer>
             © 2017 <img src="img/heart.png" alt=""> 杭州师范大学繁星四月小组

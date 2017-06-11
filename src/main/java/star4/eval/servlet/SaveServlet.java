@@ -6,11 +6,17 @@
 package star4.eval.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import star4.eval.bean.EvalTable;
+import star4.eval.bean.EvalTable.Remark;
+import star4.eval.service.EvalTableService;
 
 /**
  *
@@ -31,23 +37,36 @@ public class SaveServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet SaveServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet SaveServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
+        request.setCharacterEncoding("UTF-8");
+        
         String[] keypoints=request.getParameterValues("keypoint");
         String[] contents=request.getParameterValues("content");
-        if(keypoints.length>0)
-            System.out.println("dgdfsghds-----"+keypoints[0]);
+        
+        System.out.println("keypoints:" + keypoints[keypoints.length - 1]);
         System.out.println("get SaveServlet...");
+        
+        HttpSession session = request.getSession();
+        EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
+        
+        List<Remark> remarkList = new ArrayList<>();
+        EvalTableService service = new EvalTableService();
+        for (int i = 0; i < keypoints.length || i < contents.length; i++) {
+            String keypoint = keypoints[i];
+            String content = contents[i];
+            Remark remark = (new EvalTable()).new Remark();
+            if (keypoint == null) {
+                keypoint = "";
+            }
+            if (content == null) {
+                content = "";
+            }
+            remark.keypoint = keypoint;
+            remark.content = content;
+            remarkList.add(remark);
+        }
+        evalTable.getRemark().clear();
+        evalTable.getRemark().addAll(remarkList);
+        service.update(evalTable);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
