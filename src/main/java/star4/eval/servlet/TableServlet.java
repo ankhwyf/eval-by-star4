@@ -46,9 +46,11 @@ public class TableServlet extends HttpServlet {
         String type=user.getType();
         EvalTable evalTable = evalTableService.findByAcademicYear(year);
         session.setAttribute("evalTable", evalTable);
+        request.setAttribute("year", year);
         switch (type) {
                 case UserService.CNCOLLECTIONC:
-                    response.sendRedirect("admin.jsp");
+//                    response.sendRedirect("admin.jsp");
+                    request.getRequestDispatcher("admin.jsp").forward(request, response);
                     break;
                 case UserService.CNCOLLECTIONA:
                     response.sendRedirect("auditor.jsp");

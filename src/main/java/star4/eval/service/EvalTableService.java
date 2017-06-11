@@ -21,4 +21,22 @@ public class EvalTableService {
         }
         return null;
     }
+    
+    public void update(EvalTable table) {
+        String year = table.getAcademic_year();
+        MongoCollection<Document> collection
+                = MongoDB.INSTANCE.getDatabase().getCollection("eval_admin");
+        Document queryObject = new Document("academic_year", year);
+//        Document updateObject = new Document("$set", new Document("remark",
+//                new BsonArray(Arrays.asList(table.getRemark()))));
+//        String remarkStr = new Gson().toJson(table.getRemark());
+//        remarkStr = remarkStr.replace("\\\"", "\"");
+//        Document remarkDoc = Document.parse(remarkStr);
+//        String jsonStr = new Gson().toJson(table);
+//        Document document = Document.parse(jsonStr);
+//        BasicDBObject searchQuery = new BasicDBObject().append("academic_year", year);
+//        collection.updateOne(searchQuery, document);
+//        collection.updateOne(queryObject, updateObject);
+        
+    }
 }
