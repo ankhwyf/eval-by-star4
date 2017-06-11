@@ -6,7 +6,7 @@
 <%@page import="java.util.List"%>
 <%@page import="star4.eval.bean.EvalTable"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="titleBar.jspf" %>
+<%@include file="/titleBar.jspf" %>
 <!DOCTYPE html>
 <html>
     <head>
