@@ -88,7 +88,7 @@
                         <i class="fa fa-rocket" style="font-size: 18px"></i>
                         <span>发布</span>
                     </a>
-                    <a href="statistics.html">
+                    <a href="statistics.jsp">
                         <i class="fa fa-bar-chart" style="font-size: 18px"></i>
                         <span>统计</span>
                     </a>
@@ -147,7 +147,7 @@
                                                         </td>
                                                         <!--二级标题内容 结束-->
                                                         <td colspan="4">
-                                                            <table class="gzl_basic_score" border="1px" cellspacing="0" cellpadding="0">
+                                                            <table class="gzl-basic" border="1px" cellspacing="0" cellpadding="0">
                                                                 <%
                                                                     for (int j = 0; j < secondIndicator.third_indicator.size(); j++) {
                                                                         String content = secondIndicator.third_indicator.get(j).content;
@@ -158,14 +158,16 @@
 
                                                                     <!--内涵的内容 开始-->
                                                                     <td>
-                                                                        <div class="textarea basic-content" contenteditable="true" name="content"><%=content%></div>
-                                                                        <input class="basic-content-input" name="baisc-content" style="display:none;" />
-                                                                        <i class="fa fa-trash delete"></i>
+                                                                        <div>
+                                                                            <div class="textarea gzl-basic-content" contenteditable="true" name="content"><%=content%></div>
+                                                                            <input class="gzl-basic-content-input" name="content" style="display:none;" />
+                                                                            <i class="fa fa-trash delete"></i>
+                                                                        </div>
                                                                     </td>
                                                                     <!--内涵的内容 结束-->
                                                                     <td class="width_100">
-                                                                        <div class="textarea basic-score" contenteditable="true" name="score" style="width:100%;height:100%;"><%=score%></div>
-                                                                        <input class="basic-score-input" name="score" style="display:none;" />
+                                                                        <div class="textarea gzl-basic-score" contenteditable="true" name="score" style="width:100%;height:100%;"><%=score%></div>
+                                                                        <input class="gzl-basic-score-input" name="score" style="display:none;" />
                                                                     </td>
                                                                     <td class="width_100"></td>
                                                                     <td class="width_100"></td>
@@ -188,7 +190,7 @@
                                             <!--系统审核分内容 结束-->
                                             <!--操作图标 开始-->
                                             <td>
-                                                <i class="fa fa-plus-square green add_gzl"></i>
+                                                <i class="fa fa-plus-square green add-gzl"></i>
                                             </td>
                                             <!--操作图标 结束-->
                                         </tr>
@@ -299,14 +301,14 @@
                                                     <tr class="hover">
                                                         <td>
                                                             <div>
-                                                                <div class="textarea basic-content" contenteditable="true"><%=thirdIndicator.content%></div>
-                                                                <input name="basic-content" class="basic-content-input" style="display:none;"/>
+                                                                <div class="textarea routine-basic-content" contenteditable="true"><%=thirdIndicator.content%></div>
+                                                                <input name="basic-content" class="routine-basic-content-input" style="display:none;"/>
                                                                 <i class="fa fa-trash delete"></i>
                                                             </div>
                                                         </td>
                                                         <td class="width_100">
-                                                            <div class="textarea" contenteditable="true" style="height:100%;width:100%"><%=thirdIndicator.score%></div>
-                                                            <input name="basic-score" class="basic-score-input" style="display:none;"/>
+                                                            <div class="textarea routine-basic-score" contenteditable="true" style="height:100%;width:100%"><%=thirdIndicator.score%></div>
+                                                            <input name="basic-score" class="routine-basic-score-input" style="display:none;"/>
                                                         </td>
                                                         <td class="width_100"></td>
                                                         <td class="width_100"></td>
@@ -337,14 +339,14 @@
                                                     <tr class="hover">
                                                         <td>
                                                             <div>
-                                                                <div class="textarea" contenteditable="true"><%=thirdIndicator.content%></div>
-                                                                <input name="extend-content" class="extend-content-input" />
+                                                                <div class="textarea routine-extend-content" contenteditable="true"><%=thirdIndicator.content%></div>
+                                                                <input name="extend-content" class="routine-extend-content-input" style="display:none;" />
                                                                 <i class="fa fa-trash delete"></i>
                                                             </div>
                                                         </td>
                                                         <td class="width_100">
-                                                            <div class="textarea" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
-                                                            <input name="extend-score" class="extend-score-input" />
+                                                            <div class="textarea routine-extend-score" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
+                                                            <input name="extend-score" class="routine-extend-score-input" style="display:none;"/>
                                                         </td>
                                                         <td class="width_100"></td>
                                                         <td class="width_100"></td>
@@ -363,8 +365,8 @@
                         </div>
                         <div class="tab-pane" id="tab3">
                             <div id="table-construct">
-                                <form action="process.do" method="post" onsubmit="submitRoutine()">
-                                    <input name="type" value="construct" />
+                                <form action="process.do" method="post" onsubmit="submitConstruct()">
+                                    <input name="type" value="construct" style="display:none;"/>
                                     <table border="1" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
@@ -415,14 +417,14 @@
                                                         <td>
                                                             <div>
                                                                 <div class="textarea construct-basic-content" contenteditable="true"><%=thirdIndicator.content%></div>
-                                                                <input class="construct-basic-content-input" name="construct-basic-content" style="display:none;" />
+                                                                <input class="construct-basic-content-input" name="basic-content" style="display:none;" />
                                                                 <i class="fa fa-trash delete"></i>
                                                             </div>
                                                         </td>
                                                         <td class="width_100">
                                                             <!--                                                        <input type="text" name="score" value="" style="border:0;width:80%">-->
                                                             <div class="textarea construct-basic-score" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
-                                                            <input class="construct-basic-score-input" name="construct-basic-score" style="display:none;" />
+                                                            <input class="construct-basic-score-input" name="basic-score" style="display:none;" />
                                                         </td>
                                                         <td class="width_100"></td>
                                                         <td class="width_100"></td>
@@ -453,13 +455,13 @@
                                                         <td>
                                                             <div>
                                                                 <div class="textarea construct-extend-content" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
-                                                                <input class="construct-extend-content-input" name="construct-extend-content" style="display:none;" />
+                                                                <input class="construct-extend-content-input" name="extend-content" style="display:none;" />
                                                                 <i class="fa fa-trash delete"></i>
                                                             </div>
                                                         </td>
                                                         <td class="width_100">
-                                                            <div class="textarea construct-score-content" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
-                                                            <input class="construct-extend-score-input" name="construct-extend-score" style="display:none;" />
+                                                            <div class="textarea construct-extend-score" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
+                                                            <input class="construct-extend-score-input" name="extend-score" style="display:none;" />
                                                         </td>
                                                         <td class="width_100"></td>
                                                         <td class="width_100"></td>
@@ -527,14 +529,14 @@
                                                     <tr class="hover">
                                                         <td>
                                                             <div>
-                                                                <div class="textarea basic-content" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
-                                                                <input class="basic-content-input" name="basic-content" style="display:none;" />
+                                                                <div class="textarea others-basic-content" contenteditable="true"><%=thirdIndicator.content%></div>
+                                                                <input class="others-basic-content-input" name="content" style="display:none;" />
                                                                 <i class="fa fa-trash delete"></i>
                                                             </div>
                                                         </td>
                                                         <td class="width_100">
-                                                            <div class="textarea basic-score" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
-                                                            <input class="basic-score-input" name="basic-score" style="display:none;" />
+                                                            <div class="textarea others-basic-score" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
+                                                            <input class="others-basic-score-input" name="score" style="display:none;" />
                                                         </td>
                                                         <td class="width_100"></td>
                                                         <td class="width_100"></td>
@@ -545,44 +547,8 @@
                                             <td></td>
                                             <td><i class="fa fa-plus-square green add-others-basic"></i></td>
                                         </tr>
-
-                                        <tr>
-                                            <%
-                                                for (int i = 1; i < secondIndicatorSize; i++) {
-                                                    secondIndicator = tab4.second_indicator.get(i);
-                                            %>
-                                            <td>
-                                                <%=secondIndicator.title%> <%=secondIndicator.score%>分 <%=secondIndicator.remark%>
-                                            </td>
-                                            <td colspan="4">
-                                                <table class="others-extend" border="1" cellspacing="0" cellpadding="0">
-                                                    <%for (int j = 0; j < secondIndicator.third_indicator.size(); j++) {
-                                                            ThirdIndicator thirdIndicator = secondIndicator.third_indicator.get(j);
-                                                    %>
-                                                    <tr>
-                                                        <td>
-                                                            <div>
-                                                                <div class="textarea extend-content" contenteditable="true" name="content"><%=thirdIndicator.content%></div>
-                                                                <input class="extend-content-input" name="extend-content" style="display:none;" />
-                                                                <i class="fa fa-trash delete"></i>
-                                                            </div>
-                                                        </td>
-                                                        <td class="width_100">
-                                                            <div class="textarea extend-score" contenteditable="true" style="height:100%;width:100%;"><%=thirdIndicator.score%></div>
-                                                            <input class="extend-score-input" name="extend-score" style="display:none;" />
-                                                        </td>
-                                                        <td class="width_100"></td>
-                                                        <td class="width_100"></td>
-                                                    </tr>
-                                                    <%}%>
-                                                </table>
-                                            </td>
-                                            <td></td>
-                                            <td><i class="fa fa-plus-square green add-others-extend"></i></td>
-                                                <%}%>
-                                        </tr>
                                     </table>
-                                    <input type="submit" class="btn btn-primary float-right" value="保存" style="width:120px;">Ï
+                                    <input type="submit" class="btn btn-primary float-right" value="保存" style="width:120px;">
                                 </form>
                             </div>
                         </div>
@@ -593,7 +559,7 @@
                                 <span class="message">备注信息</span>
                                 <span class="add-point float-right add-me">新增备注</span>
                                 <i class="fa fa-plus-square-o blue-add float-right add-me"></i>
-                                <table border="1" cellspacing="0" cellpadding="0">
+                                <table class="remark-table" border="1" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td>
                                             备注项
@@ -632,7 +598,7 @@
                     </div>
                 </div>
             </div>
-            <script type="text/javascript" src="js/admin.js"></script>
+            <script type="text/javascript" src="js/admin_new.js"></script>
         </main>
         <footer>
             © 2017 <img src="img/heart.png" alt=""> 杭州师范大学繁星四月小组

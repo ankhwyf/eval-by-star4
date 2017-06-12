@@ -1,0 +1,33 @@
+.container
+{
+    width: 80%;
+    padding: 0;
+
+    border: 1px solid #aaa;
+    background: white;
+}
+.container .title
+{
+    margin: 0;
+    padding: 9px 4px;
+
+    border-bottom: 1px solid #aaa;
+}
+.container .title .smalltitle i
+{
+    font-size: 18px;
+    color: #44b6d2;
+}
+.container .content .col-md-4
+{
+    text-align: center;
+}
+.container .content .col-md-4 .configure
+{
+    width: 270px;
+    height: 280px; 
+    margin: 30px auto;
+}
+
+
+/*# sourceMappingURL=configure.css.map */
