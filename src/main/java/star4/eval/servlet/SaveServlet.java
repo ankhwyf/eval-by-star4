@@ -90,7 +90,7 @@ public class SaveServlet extends HttpServlet {
         }
         evalTable.getRemark().clear();
         evalTable.getRemark().addAll(remarkList);
-        service.updateRemark(evalTable);
+        service.update(evalTable);
     }
     
     public void dealGzl(HttpServletRequest request, HttpServletResponse response) {
@@ -120,7 +120,7 @@ public class SaveServlet extends HttpServlet {
         }
         evalTable.getTables().get(0).second_indicator.get(0).third_indicator.clear();
         evalTable.getTables().get(0).second_indicator.get(0).third_indicator.addAll(thirdList);
-        service.updateGzl(evalTable);
+        service.update(evalTable);
     }
     
     public void dealRoutine(HttpServletRequest request, HttpServletResponse response) {
@@ -169,7 +169,7 @@ public class SaveServlet extends HttpServlet {
         evalTable.getTables().get(1).second_indicator.get(1).third_indicator.clear();
         evalTable.getTables().get(1).second_indicator.get(0).third_indicator.addAll(basicThirdList);
         evalTable.getTables().get(1).second_indicator.get(1).third_indicator.addAll(extendThirdList);
-        service.updateRoutine(evalTable);
+        service.update(evalTable);
     }
     
     public void dealConstruct(HttpServletRequest request, HttpServletResponse response) {
@@ -218,7 +218,7 @@ public class SaveServlet extends HttpServlet {
         evalTable.getTables().get(1).second_indicator.get(1).third_indicator.clear();
         evalTable.getTables().get(1).second_indicator.get(0).third_indicator.addAll(basicThirdList);
         evalTable.getTables().get(1).second_indicator.get(1).third_indicator.addAll(extendThirdList);
-        service.updateConstruct(evalTable);
+        service.update(evalTable);
     }
     
     public void dealOthers(HttpServletRequest request, HttpServletResponse response) {
@@ -267,7 +267,7 @@ public class SaveServlet extends HttpServlet {
         evalTable.getTables().get(1).second_indicator.get(1).third_indicator.clear();
         evalTable.getTables().get(1).second_indicator.get(0).third_indicator.addAll(basicThirdList);
         evalTable.getTables().get(1).second_indicator.get(1).third_indicator.addAll(extendThirdList);
-        service.updateOthers(evalTable);
+        service.update(evalTable);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

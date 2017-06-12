@@ -6,8 +6,6 @@ package star4.eval.service;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.eq;
-import java.util.Arrays;
-import org.bson.BsonArray;
 import org.bson.Document;
 import star4.eval.bean.EvalTable;
 import star4.eval.utils.MongoDB;
@@ -24,115 +22,13 @@ public class EvalTableService {
         return null;
     }
 
-    public void updateRemark(EvalTable table) {
-        String year = table.getAcademic_year();
-        MongoCollection<Document> collection
-                = MongoDB.INSTANCE.getDatabase().getCollection("eval_admin");
-        Document queryObject = new Document("academic_year", year);
-        Document updateObject = new Document("$set", new Document("remark",
-                new BsonArray(Arrays.asList(table.getRemark()))));
-//        String remarkStr = new Gson().toJson(table.getRemark());
-//        remarkStr = remarkStr.replace("\\\"", "\"");
-//        Document remarkDoc = Document.parse(remarkStr);
-//        String jsonStr = new Gson().toJson(table);
-//        Document document = Document.parse(jsonStr);
-//        BasicDBObject searchQuery = new BasicDBObject().append("academic_year", year);
-//        collection.updateOne(searchQuery, document);
-        collection.updateOne(queryObject, updateObject);
-
-    }
-    
-    /**
-     * 未完成
-     * @param table 
-     */
-     public void updateGzl(EvalTable table) {
-        String year = table.getAcademic_year();
-        MongoCollection<Document> collection
-                = MongoDB.INSTANCE.getDatabase().getCollection("eval_admin");
-        Document queryObject = new Document("academic_year", year);
-        Document updateObject = new Document("$set", new Document("remark",
-                new BsonArray(Arrays.asList(table.getRemark()))));
-//        String remarkStr = new Gson().toJson(table.getRemark());
-//        remarkStr = remarkStr.replace("\\\"", "\"");
-//        Document remarkDoc = Document.parse(remarkStr);
-//        String jsonStr = new Gson().toJson(table);
-//        Document document = Document.parse(jsonStr);
-//        BasicDBObject searchQuery = new BasicDBObject().append("academic_year", year);
-//        collection.updateOne(searchQuery, document);
-        collection.updateOne(queryObject, updateObject);
-
-    }
-
-     /**
-      * 未完成
-      * @param table 
-      */
-    public void updateRoutine(EvalTable table) {
-        String year = table.getAcademic_year();
-        MongoCollection<Document> collection
-                = MongoDB.INSTANCE.getDatabase().getCollection("eval_admin");
-        Document queryObject = new Document("academic_year", year);
-        Document updateObject = new Document("$set", new Document("remark",
-                new BsonArray(Arrays.asList(table.getRemark()))));
-//        String remarkStr = new Gson().toJson(table.getRemark());
-//        remarkStr = remarkStr.replace("\\\"", "\"");
-//        Document remarkDoc = Document.parse(remarkStr);
-//        String jsonStr = new Gson().toJson(table);
-//        Document document = Document.parse(jsonStr);
-//        BasicDBObject searchQuery = new BasicDBObject().append("academic_year", year);
-//        collection.updateOne(searchQuery, document);
-        collection.updateOne(queryObject, updateObject);
-
-    }
-    
-    /**
-     * 未完成
-     * @param table 
-     */
-     public void updateConstruct(EvalTable table) {
-        String year = table.getAcademic_year();
-        MongoCollection<Document> collection
-                = MongoDB.INSTANCE.getDatabase().getCollection("eval_admin");
-        Document queryObject = new Document("academic_year", year);
-
-        Document updateObject = new Document("$set", new Document("remark",
-                new BsonArray(Arrays.asList(table.getRemark()))));
-
-//        Document updateObject = new Document("$set", new Document("remark",
-//                new BsonArray(Arrays.asList(table.getRemark()))));
-
-//        String remarkStr = new Gson().toJson(table.getRemark());
-//        remarkStr = remarkStr.replace("\\\"", "\"");
-//        Document remarkDoc = Document.parse(remarkStr);
-//        String jsonStr = new Gson().toJson(table);
-//        Document document = Document.parse(jsonStr);
-//        BasicDBObject searchQuery = new BasicDBObject().append("academic_year", year);
-//        collection.updateOne(searchQuery, document);
-
-        collection.updateOne(queryObject, updateObject);
-
-    }
-     
-     /**
-     * 未完成
-     * @param table 
-     */
-     public void updateOthers(EvalTable table) {
-        String year = table.getAcademic_year();
-        MongoCollection<Document> collection
-                = MongoDB.INSTANCE.getDatabase().getCollection("eval_admin");
-        Document queryObject = new Document("academic_year", year);
-        Document updateObject = new Document("$set", new Document("remark",
-                new BsonArray(Arrays.asList(table.getRemark()))));
-//        String remarkStr = new Gson().toJson(table.getRemark());
-//        remarkStr = remarkStr.replace("\\\"", "\"");
-//        Document remarkDoc = Document.parse(remarkStr);
-//        String jsonStr = new Gson().toJson(table);
-//        Document document = Document.parse(jsonStr);
-//        BasicDBObject searchQuery = new BasicDBObject().append("academic_year", year);
-//        collection.updateOne(searchQuery, document);
-        collection.updateOne(queryObject, updateObject);
-
+    public void update(EvalTable table) {
+        if (table != null) {
+            String year = table.getAcademic_year();
+            MongoCollection<Document> collection
+                    = MongoDB.INSTANCE.getDatabase().getCollection("eval_admin");
+            Document document = Document.parse(new Gson().toJson(table));
+            collection.updateOne(eq("academic_year", year), new Document("$set", document));
+        }
     }
 }
