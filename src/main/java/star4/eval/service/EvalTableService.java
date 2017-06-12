@@ -21,7 +21,7 @@ public class EvalTableService {
         }
         return null;
     }
-    
+
     public void update(EvalTable table) {
         if (table != null) {
             String year = table.getAcademic_year();
