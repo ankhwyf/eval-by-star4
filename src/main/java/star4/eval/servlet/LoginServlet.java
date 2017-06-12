@@ -12,54 +12,46 @@ import star4.eval.bean.User;
 import star4.eval.service.EvalTableService;
 import star4.eval.service.UserService;
 
-@WebServlet(urlPatterns = {"/login.do"})
+@WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
     private final UserService userService = new UserService();
 
     private final EvalTableService evalTableService = new EvalTableService();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        super.doGet(req, resp);
+    private void logonFailure(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("loginError", true);
+        this.doGet(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        req.setCharacterEncoding("UTF-8");
-        String loginName = req.getParameter("login_name");
-        String loginPwd = req.getParameter("login_pwd");
-        String loginType = req.getParameter("radio_item");
-        HttpSession session = req.getSession();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String loginName = request.getParameter("login_name");
+        String loginPwd = request.getParameter("login_pwd");
+        String loginType = request.getParameter("radio_item");
+        HttpSession session = request.getSession();
         if (loginName == null || loginPwd == null) {
-            req.setAttribute("loginError", true);
-            req.getRequestDispatcher("/login.jsp").forward(req, resp);
+            logonFailure(request, response);
         } else {
             User user = userService.checkLoginUser(loginName, loginPwd, loginType);
 //	查询失败
             if (user == null) {
-                req.setAttribute("loginError", true);
-                req.getRequestDispatcher("/login.jsp").forward(req, resp);
+                logonFailure(request, response);
             } else {
                 session.setAttribute("user", user);
-                session.setMaxInactiveInterval(60*60);
             }
             EvalTable evalTable = evalTableService.findByAcademicYear("2016");
             session.setAttribute("evalTable", evalTable);
-            switch (loginType) {
-                case UserService.CNCOLLECTIONC:
-                    resp.sendRedirect("admin.jsp");
-                    break;
-                case UserService.CNCOLLECTIONA:
-                    resp.sendRedirect("auditor.jsp");
-                    break;
-                default:
-                    resp.sendRedirect("teacher.jsp");
-                    break;
-            }
+            response.sendRedirect("home");
         }
-        System.out.println("get LoginServlet...");
     }
 }

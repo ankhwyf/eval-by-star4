@@ -50,7 +50,7 @@ public class UserService {
         MongoDatabase database = MongoDB.INSTANCE.getDatabase();
         MongoCollection<Document> collection = database.getCollection(cname);
         Document document = collection.find(eq("cardID", cardId)).first();
-        if (!document.isEmpty()) {
+        if (document != null) {
             return parseByDocument(document);
         }
         return null;
