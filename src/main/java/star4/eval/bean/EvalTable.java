@@ -5,17 +5,13 @@
  */
 package star4.eval.bean;
 
-import com.mongodb.DBObject;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import org.bson.BSONObject;
 
 /**
  *
  * @author ankhyfw
  */
-public class EvalTable implements DBObject {
+public class EvalTable {
     private String academic_year;
     private List<SubTable> tables;
     private List<Remark> remark;
@@ -53,63 +49,6 @@ public class EvalTable implements DBObject {
         this.is_publish = is_publish;
     }
 
-    @Override
-    public void markAsPartialObject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean isPartialObject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object put(String string, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void putAll(BSONObject bsono) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void putAll(Map map) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object get(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Map toMap() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object removeField(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean containsKey(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean containsField(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Set<String> keySet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    
     public class SubTable {
         public String first_indicator;
         public List<SecondIndicator> second_indicator;
