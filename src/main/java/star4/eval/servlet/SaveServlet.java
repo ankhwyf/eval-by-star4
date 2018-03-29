@@ -39,10 +39,12 @@ public class SaveServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+        String success="false";
         String type = request.getParameter("type");
-        
-        switch(type) {
+        if (type == null || type.equals("")) {
+            type = "publish";
+        }
+        switch (type) {
             case "remark":
                 dealRemark(request, response);
                 break;
@@ -58,21 +60,26 @@ public class SaveServlet extends HttpServlet {
             case "others":
                 dealOthers(request, response);
                 break;
+            case "publish":
+                dealPublish(request, response);
+                success="true";
+                break;
         }
-       response.sendRedirect("home");
-        
+        request.setAttribute("success", success);
+        response.sendRedirect("home");
+
     }
-    
+
     public void dealRemark(HttpServletRequest request, HttpServletResponse response) {
-        String[] keypoints=request.getParameterValues("keypoint");
-        String[] contents=request.getParameterValues("content");
-        
+        String[] keypoints = request.getParameterValues("keypoint");
+        String[] contents = request.getParameterValues("content");
+
         System.out.println("keypoints:" + keypoints[keypoints.length - 1]);
         System.out.println("get SaveServlet...");
-        
+
         HttpSession session = request.getSession();
         EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
-        
+
         List<Remark> remarkList = new ArrayList<>();
         EvalTableService service = new EvalTableService();
         for (int i = 0; i < keypoints.length || i < contents.length; i++) {
@@ -93,16 +100,16 @@ public class SaveServlet extends HttpServlet {
         evalTable.getRemark().addAll(remarkList);
         service.update(evalTable);
     }
-    
+
     public void dealGzl(HttpServletRequest request, HttpServletResponse response) {
-        String[] contents=request.getParameterValues("content");
-        String[] scores=request.getParameterValues("score");
-        
+        String[] contents = request.getParameterValues("content");
+        String[] scores = request.getParameterValues("score");
+
         System.out.println("get SaveServlet...");
-        
+
         HttpSession session = request.getSession();
         EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
-        
+
         List<ThirdIndicator> thirdList = new ArrayList<>();
         EvalTableService service = new EvalTableService();
         int contentLength = contents.length;
@@ -126,18 +133,18 @@ public class SaveServlet extends HttpServlet {
         evalTable.getTables().get(0).second_indicator.get(0).third_indicator.addAll(thirdList);
         service.update(evalTable);
     }
-    
+
     public void dealRoutine(HttpServletRequest request, HttpServletResponse response) {
-        String[] basicContents=request.getParameterValues("basic-content");
-        String[] basicScores=request.getParameterValues("basic-score");
-        String[] extendContents=request.getParameterValues("extend-content");
-        String[] extendScores=request.getParameterValues("extend-score");
-        
+        String[] basicContents = request.getParameterValues("basic-content");
+        String[] basicScores = request.getParameterValues("basic-score");
+        String[] extendContents = request.getParameterValues("extend-content");
+        String[] extendScores = request.getParameterValues("extend-score");
+
         System.out.println("get SaveServlet...");
-        
+
         HttpSession session = request.getSession();
         EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
-        
+
         List<ThirdIndicator> basicThirdList = new ArrayList<>();
         EvalTableService service = new EvalTableService();
         for (int i = 0; i < basicContents.length || i < basicScores.length; i++) {
@@ -175,18 +182,18 @@ public class SaveServlet extends HttpServlet {
         evalTable.getTables().get(1).second_indicator.get(1).third_indicator.addAll(extendThirdList);
         service.update(evalTable);
     }
-    
+
     public void dealConstruct(HttpServletRequest request, HttpServletResponse response) {
-        String[] basicContents=request.getParameterValues("basic-content");
-        String[] basicScores=request.getParameterValues("basic-score");
-        String[] extendContents=request.getParameterValues("extend-content");
-        String[] extendScores=request.getParameterValues("extend-score");
-        
+        String[] basicContents = request.getParameterValues("basic-content");
+        String[] basicScores = request.getParameterValues("basic-score");
+        String[] extendContents = request.getParameterValues("extend-content");
+        String[] extendScores = request.getParameterValues("extend-score");
+
         System.out.println("get SaveServlet...");
-        
+
         HttpSession session = request.getSession();
         EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
-        
+
         List<ThirdIndicator> basicThirdList = new ArrayList<>();
         EvalTableService service = new EvalTableService();
         for (int i = 0; i < basicContents.length || i < basicScores.length; i++) {
@@ -224,16 +231,16 @@ public class SaveServlet extends HttpServlet {
         evalTable.getTables().get(2).second_indicator.get(1).third_indicator.addAll(extendThirdList);
         service.update(evalTable);
     }
-    
+
     public void dealOthers(HttpServletRequest request, HttpServletResponse response) {
-        String[] contents=request.getParameterValues("content");
-        String[] scores=request.getParameterValues("score");
-        
+        String[] contents = request.getParameterValues("content");
+        String[] scores = request.getParameterValues("score");
+
         System.out.println("get SaveServlet...");
-        
+
         HttpSession session = request.getSession();
         EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
-        
+
         List<ThirdIndicator> thirdList = new ArrayList<>();
         EvalTableService service = new EvalTableService();
         int contentLength = contents.length;
@@ -257,6 +264,14 @@ public class SaveServlet extends HttpServlet {
 //        evalTable.getTables().get(3).second_indicator.get(1).third_indicator.clear();
         evalTable.getTables().get(3).second_indicator.get(0).third_indicator.addAll(thirdList);
 //        evalTable.getTables().get(3).second_indicator.get(1).third_indicator.addAll(extendThirdList);
+        service.update(evalTable);
+    }
+
+    public void dealPublish(HttpServletRequest request, HttpServletResponse response) {
+        EvalTableService service = new EvalTableService();
+        HttpSession session = request.getSession();
+        EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
+        evalTable.setIs_publish(true);
         service.update(evalTable);
     }
 

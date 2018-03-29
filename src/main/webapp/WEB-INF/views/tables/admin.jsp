@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/common.css">
+        <link rel="stylesheet" href="css/modals.css">
         <link rel="stylesheet" href="css/teachingRoutine.css">
         <link rel="stylesheet" href="css/table.css">
         <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
@@ -63,7 +64,12 @@
                     return output + "分";
                 }
             %>
-            <%            EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
+            <%            
+                String success=(String)request.getAttribute("success");
+                if(success==null){
+                    success="";
+                }
+                EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
                 List<SubTable> evalTables = evalTable.getTables();
                 SubTable tab1 = evalTables.get(0);
                 SubTable tab2 = evalTables.get(1);
@@ -84,7 +90,7 @@
                     </div>
                 </div>
                 <div class="col-md-5 text-right operation">
-                    <a href="#" onclick="ajaxSubmit()">
+                    <a href="process.do" class="publish">
                         <i class="fa fa-rocket" style="font-size: 18px"></i>
                         <span>发布</span>
                     </a>
@@ -606,6 +612,15 @@
         <!-- 
 <iframe src="wenzhang_xinwen.html" id="Mainindex" name="Mainindex" width="100%" height="100%" marginheight="0" marginwidth="0" frameborder="0"></iframe> -->
         <!-- 内置浏览器 -->
+        <script>
+            var success=<%=success%>;
+            if(success==='true'){
+                modals.alertSmShow("发布成功！");
+            }
+            $('.publish').click(function () {
+                 modals.loadingShow();
+              });
+        </script>
     </body>
 
 </html>

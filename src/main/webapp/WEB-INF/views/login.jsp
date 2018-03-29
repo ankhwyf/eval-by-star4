@@ -61,21 +61,21 @@
                     <a class="login-panel__forget" href="forget.html">忘记登录密码？</a>
                     <input type="password" class="input-pass form-control" id="user" placeholder="登录密码" name="login_pwd">
                 </div>
-                <div class="radiomutiple">
+<!--                <div class="radiomutiple">
                     <input type="radio" class="radio1"  name="radio_item"  value="管理员" checked="checked">
                     管理员
                     <input type="radio" class="radio1"  name="radio_item" value="审核员">
                     审核员
                     <input type="radio" class="radio1"  name="radio_item" value="教师">
                     教师
-                </div>
+                </div>-->
                 <div class="form-group">
                     <input type="submit" class="login-panel__submit input-submit  btn btn-primary" value="登录">
                 </div>
             </form>
         </div>
         <div class="footer">
-            © 2017 <img src="img/heart.png" alt=""> 杭州师范大学繁星四月小组
+            © 2017 <img src="img/heart.png" alt=""> 杭州师范大学
         </div>
 
         <script>

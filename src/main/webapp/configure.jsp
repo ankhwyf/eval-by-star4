@@ -1,3 +1,4 @@
+<%@page import="star4.eval.bean.EvalTable.SecondIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.SubTable"%>
 <%@page import="java.util.List"%>
 <%@page import="star4.eval.bean.EvalTable"%>
@@ -16,7 +17,7 @@
         <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/common.js"></script>
-        <script type="text/javascript" src="js/modals.js"></script>
+        <script type="text/javascript" src="js/modal.js"></script>
 
     </head>
     <body>
@@ -27,10 +28,15 @@
                     <strong>一二级指标配置</strong>
                 </div>
                 <div class="col-md-5 text-right back">
-                    <a href="admin.jsp">返回>></a>
+                    <a href="home">返回>></a>
                 </div>
             </div>
-
+            <%                           EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
+                List<SubTable> evalTables = evalTable.getTables();
+                SubTable tab;
+                SecondIndicator secondIndicator;
+            %>
+            
             <div class="row content">
                 <div class="col-md-4">
                     <div class="configure">
@@ -41,43 +47,25 @@
                                 <i class="fa fa-plus" id="addFirst"></i>
                             </div>
                         </div>
-                        <%                            EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
-                            List<SubTable> evalTables = evalTable.getTables();
-                            SubTable tab1 = evalTables.get(0);
-                            SubTable tab2 = evalTables.get(1);
-                            SubTable tab3 = evalTables.get(2);
-                            SubTable tab4 = evalTables.get(3);
-                        %>
+
                         <div class="configure-content">
                             <table class="table table-bordered">
+                                <%
+                                    for (int i = 0; i < evalTables.size(); i++) {
+                                        tab = evalTables.get(i);
+                                %>
                                 <tr><td>
-                                        <div class="pull-left"><strong><%=tab1.first_indicator%></strong></div>
+                                        <div class="pull-left">
+                                            <strong><%=tab.first_indicator%></strong>
+                                        </div>
                                         <div class="pull-right">
                                             <i class="fa fa-edit"></i>
                                             <i class="fa fa-trash"></i>
                                         </div>
                                     </td></tr>
-                                <tr><td>
-                                        <div class="pull-left"><strong><%=tab2.first_indicator%></strong></div>
-                                        <div class="pull-right">
-                                            <i class="fa fa-edit"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                    </td></tr>
-                                <tr><td>
-                                        <div class="pull-left"><strong><%=tab3.first_indicator%></strong></div>
-                                        <div class="pull-right">
-                                            <i class="fa fa-edit"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                    </td></tr>
-                                <tr><td>
-                                        <div class="pull-left"><strong><%=tab4.first_indicator%></strong></div>
-                                        <div class="pull-right">
-                                            <i class="fa fa-edit"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                    </td></tr>
+                                    <%
+                                        }
+                                    %>
                             </table>
                         </div>
                     </div>
@@ -95,27 +83,23 @@
 
                         <div class="configure-content">
                             <table class="table table-bordered table-hover">
+                                <%
+                                    tab = evalTables.get(0);
+                                    List<SecondIndicator> secondIndicators=tab.second_indicator;
+                                    
+                                 for(int i=0;i<secondIndicators.size();i++){
+                                    secondIndicator=secondIndicators.get(i);
+                                %>
                                 <tr><td>
-                                        <div class="pull-left"><strong>教学工作量</strong><span>30分</span></div>
+                                        <div class="pull-left"><strong><%=secondIndicator.title%></strong><span><%=secondIndicator.score%>分</span></div>
                                         <div class="pull-right">
                                             <i class="fa fa-edit"></i>
                                             <i class="fa fa-trash"></i>
                                         </div>
                                     </td></tr>
-                                <tr><td>
-                                        <div class="pull-left"><strong>教学常规</strong><span>40分</span></div>
-                                        <div class="pull-right">
-                                            <i class="fa fa-edit"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                    </td></tr>
-                                <tr><td>
-                                        <div class="pull-left"><strong>教学建设</strong><span>30分</span></div>
-                                        <div class="pull-right">
-                                            <i class="fa fa-edit"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                    </td></tr>
+                                <%
+                                 }
+                                %>
                             </table>
                         </div>
                     </div>
@@ -133,27 +117,20 @@
 
                         <div class="configure-content">
                             <table class="table table-bordered table-hover">
-                                <tr><td>
-                                        <div class="pull-left"><strong>教学工作量</strong><span>30分</span></div>
+                                <%
+                                  List<String> effortTable=tab.effort_table;
+                                  for(int i=0;i<effortTable.size();i++){
+                                %>
+                                 <tr><td>
+                                        <div class="pull-left"><strong><%=effortTable.get(i)%></strong></div>
                                         <div class="pull-right">
                                             <i class="fa fa-edit"></i>
                                             <i class="fa fa-trash"></i>
                                         </div>
                                     </td></tr>
-                                <tr><td>
-                                        <div class="pull-left"><strong>教学常规</strong><span>40分</span></div>
-                                        <div class="pull-right">
-                                            <i class="fa fa-edit"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                    </td></tr>
-                                <tr><td>
-                                        <div class="pull-left"><strong>教学建设</strong><span>30分</span></div>
-                                        <div class="pull-right">
-                                            <i class="fa fa-edit"></i>
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                    </td></tr>
+                                <%
+                                  }
+                                %>
                             </table>
                         </div>
                     </div>
@@ -172,38 +149,7 @@
         <!-- <div class="configure">
                 
         </div> -->
-        <script type="text/javascript" src="js/configure.js"></script>
-        <script>
-
-// 鼠标悬停和离开
-
-            $(".container .content .col-md-4 .configure table tr").hover(function () {
-                $(this).css('background', '#f5f5f5');
-                $(this).find('.pull-right').show();
-            }, function () {
-                $(this).css('background', '#ffffff');
-                $(this).find('.pull-right').hide();
-            })
-
-            $(".container .content .col-md-4 .configure table tr .fa-trash").click(function () {
-                console.log("1");
-                $(this).parent().parent().remove();
-            });
-
-            $(".container .content .col-md-4 .configure table tr .fa-edit").click(function () {
-                $(this).parent().parent().remove();
-            });
-
-            $('#addFirst').click(function () {
-                modals.feedBackShow('添加一级目录', 0);
-            });
-            $('#addSecond').click(function () {
-                modals.feedBackShow('添加二级目录',1);
-            });
-            $('#addThird').click(function () {
-                modals.feedBackShow('添加工作内容',1);
-            });
-        </script>
+        <script type="text/javascript" src="js/configure_new.js"></script>
     </body>
 
 </html>

@@ -8,45 +8,48 @@ import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
 import star4.eval.bean.User;
+import star4.eval.utils.DocumentUtil;
 import star4.eval.utils.MongoDB;
 
 public class UserService {
 
-    private static final String COLLECTIONT = "teacher";
-    private static final String COLLECTIONA = "auditor";
-    private static final String COLLECTIONC = "college_admin";
-    public static final String CNCOLLECTIONT = "教师";
-    public static final String CNCOLLECTIONA = "审核员";
-    public static final String CNCOLLECTIONC = "管理员";
+//    private static final String COLLECTIONT = "teacher";
+//    private static final String COLLECTIONA = "auditor";
+//    private static final String COLLECTIONC = "college_admin";
+//    public static final String CNCOLLECTIONT = "教师";
+//    public static final String CNCOLLECTIONA = "审核员";
+//    public static final String CNCOLLECTIONC = "管理员";
+    public static final String COLLECTIONUSER="user";
 
-    public User checkLoginUser(String name, String pwd, String type) {
+    public User checkLoginUser(String name, String pwd) {
 
         String cname;
-        switch (type) {
-            case CNCOLLECTIONT:
-                cname = COLLECTIONT;
-                break;
-            case CNCOLLECTIONA:
-                cname = COLLECTIONA;
-                break;
-            default:
-                cname = COLLECTIONC;
-                break;
-        }
+        cname=COLLECTIONUSER;
+//        switch (type) {
+//            case CNCOLLECTIONT:
+//                cname = COLLECTIONT;
+//                break;
+//            case CNCOLLECTIONA:
+//                cname = COLLECTIONA;
+//                break;
+//            default:
+//                cname = COLLECTIONC;
+//                break;
+//        }
         User user;
         if (name.contains("@")) {
-            user = this.findByEmail(name, cname);
+            user = this.findByEmail(name,cname);
         } else {
-            user = this.findByCardID(name, cname);
+            user = this.findByCardID(name,cname);
         }
         if (user != null && user.getPassword().equals(pwd)) {
-            user.setType(type);
+//            user.setType(type);
             return user;
         }
         return null;
     }
 
-    public User findByCardID(String cardId, String cname) {
+    public User findByCardID(String cardId,String cname) {
         MongoDatabase database = MongoDB.INSTANCE.getDatabase();
         MongoCollection<Document> collection = database.getCollection(cname);
         Document document = collection.find(eq("cardID", cardId)).first();
@@ -56,7 +59,7 @@ public class UserService {
         return null;
     }
 
-    public User findByEmail(String email, String cname) {
+    public User findByEmail(String email,String cname) {
         MongoDatabase database = MongoDB.INSTANCE.getDatabase();
         MongoCollection<Document> collection = database.getCollection(cname);
         Document document = collection.find(eq("email", email)).first();
@@ -66,7 +69,7 @@ public class UserService {
         return null;
     }
     
-    public User findByName(String name, String cname) {
+    public User findByName(String name,String cname) {
         MongoDatabase database = MongoDB.INSTANCE.getDatabase();
         MongoCollection<Document> collection = database.getCollection(cname);
         Document document = collection.find(eq("name", name)).first();
@@ -76,12 +79,17 @@ public class UserService {
         return null;
     }
     
+//    public User parseByDocument(Document document) {
+//        User user = new User();
+//        user.setCardID(document.getString("cardID"));
+//        user.setName(document.getString("name"));
+//        user.setEmail(document.getString("email"));
+//        user.setPassword(document.getString("password"));
+//        return user;
+//    }
+    
     public User parseByDocument(Document document) {
-        User user = new User();
-        user.setCardID(document.getString("cardID"));
-        user.setName(document.getString("name"));
-        user.setEmail(document.getString("email"));
-        user.setPassword(document.getString("pwd"));
+        User user =(User) DocumentUtil.getInstance().parse(document, DocumentUtil.PARSE_USER);
         return user;
     }
 }

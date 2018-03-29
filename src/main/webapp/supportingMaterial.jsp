@@ -54,7 +54,7 @@
                             <span class="title-name">佐证材料</span>
                         </div>
                         <div class="back-bt">
-                            <a href="auditor.jsp" class="back-name">返回>></a>
+                            <a href="home" class="back-name">返回>></a>
                         </div>
                     </div>
                     <div class="row search">

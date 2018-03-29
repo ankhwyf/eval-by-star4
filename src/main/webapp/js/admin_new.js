@@ -1,3 +1,4 @@
+
 function addLine(model, prefix) {
     if (model === null)
         model = "";
@@ -48,7 +49,10 @@ function del() {
             $(this).parent().parent().parent().remove();
     });
 }
-
+function publish(){
+    
+    
+}
 function submitRemark() {
     var keypoints = document.getElementsByClassName('remark-keypoint');
     var contents = document.getElementsByClassName('remark-content');
