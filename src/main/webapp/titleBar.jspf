@@ -1,11 +1,28 @@
 <%-- any content can be specified here e.g.: --%>
+<%@page import="star4.eval.service.UserService"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="star4.eval.bean.User"%>
 <%@ page pageEncoding="UTF-8" %>
 
 <%
     User user = (User) session.getAttribute("user");
     String username = user.getName();
-    String type=user.getType();
+    List<String> identity=new ArrayList();
+    List<String> cnIden=new ArrayList();
+    
+    identity=user.getIdentity();
+//    String type=user.getType();
+//  汉字化
+    for(int i=0;i<identity.size();i++){
+        if(identity.get(i).equals(UserService.COLLECTIONC)){
+            cnIden.add(UserService.CNCOLLECTIONC);break;//管理员
+        } else if(identity.get(i).equals(UserService.COLLECTIONA)){
+            cnIden.add(UserService.CNCOLLECTIONA);break;//审核员
+        } else {
+            cnIden.add(UserService.CNCOLLECTIONT);break;
+        }//教师
+    }
 %>
 <header>
     <nav class="navbar navbar-default">
@@ -18,9 +35,18 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="accountsetting.jsp">
-                        <%=type%>
-                        ：
-                        <%=username%></a></li>
+                        <%=username%>
+                     </a>
+                     <select>
+                         <%
+                            for(int i=0;i<cnIden.size();i++){
+                            %>
+                            <option value="<%=cnIden.get(i)%>"><%=cnIden.get(i)%></option>
+                         <%
+                            }
+                         %>
+                     </select>
+                </li>
                 <li><a href="quit_login.jsp"><img src="img/quit.png" alt="">退出</a></li>
             </ul>
         </div>

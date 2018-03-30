@@ -1,11 +1,13 @@
 package star4.eval.bean;
 
+import java.util.List;
+
 public class User {
 	private String name;
 	private String password;
 	private String cardID;
 	private String email;
-        private String[] identity;
+        private List<String> identity;
 	public String getEmail() {
 		return email;
 	}
@@ -30,10 +32,10 @@ public class User {
 	public void setCardID(String cardID) {
 		this.cardID = cardID;
 	}
-        public String[] getIdentity() {
+        public List<String> getIdentity() {
 		return identity;
 	}
-	public void setIdentity(String[] identity) {
+	public void setIdentity(List<String> identity) {
 		this.identity =identity;
 	}
 	

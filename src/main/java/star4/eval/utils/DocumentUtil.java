@@ -9,7 +9,7 @@ import star4.eval.bean.User;
 
 public class DocumentUtil {
 
-    private static DocumentUtil mInstance;
+    private static volatile DocumentUtil mInstance;
     
     public static final int PARSE_DETAIL_TABLE = 0x01;
     public static final int PARSE_EVAL_TABLE = 0x02;
@@ -17,10 +17,12 @@ public class DocumentUtil {
     public static final int PARSE_USER = 0x04;
     
     public static DocumentUtil getInstance() {
+        DocumentUtil mInstance = DocumentUtil.mInstance;
         if (mInstance == null) {
             synchronized(DocumentUtil.class) {
+                mInstance = DocumentUtil.mInstance;
                 if (mInstance == null) {
-                    mInstance = new DocumentUtil();
+                    DocumentUtil.mInstance = mInstance = new DocumentUtil();
                 }
             }
         }

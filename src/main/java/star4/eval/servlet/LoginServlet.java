@@ -37,12 +37,11 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String loginName = request.getParameter("login_name");
         String loginPwd = request.getParameter("login_pwd");
-        String loginType = request.getParameter("radio_item");
         HttpSession session = request.getSession();
         if (loginName == null || loginPwd == null) {
             logonFailure(request, response);
         } else {
-            User user = userService.checkLoginUser(loginName, loginPwd, loginType);
+            User user = userService.checkLoginUser(loginName, loginPwd);
 //	查询失败
             if (user == null) {
                 logonFailure(request, response);

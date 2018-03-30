@@ -3,26 +3,25 @@
  */
 package star4.eval.service;
 
+import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
 import star4.eval.bean.User;
-import star4.eval.utils.DocumentUtil;
 import star4.eval.utils.MongoDB;
 
 public class UserService {
 
-//    private static final String COLLECTIONT = "teacher";
-//    private static final String COLLECTIONA = "auditor";
-//    private static final String COLLECTIONC = "college_admin";
-//    public static final String CNCOLLECTIONT = "教师";
-//    public static final String CNCOLLECTIONA = "审核员";
-//    public static final String CNCOLLECTIONC = "管理员";
+    public static final String COLLECTIONT = "teacher";
+    public static final String COLLECTIONA = "auditor";
+    public static final String COLLECTIONC = "college_admin";
+    public static final String CNCOLLECTIONT = "教师";
+    public static final String CNCOLLECTIONA = "审核员";
+    public static final String CNCOLLECTIONC = "管理员";
     public static final String COLLECTIONUSER="user";
 
     public User checkLoginUser(String name, String pwd) {
-
         String cname;
         cname=COLLECTIONUSER;
 //        switch (type) {
@@ -54,7 +53,7 @@ public class UserService {
         MongoCollection<Document> collection = database.getCollection(cname);
         Document document = collection.find(eq("cardID", cardId)).first();
         if (document != null) {
-            return parseByDocument(document);
+            return parse(document);
         }
         return null;
     }
@@ -64,7 +63,7 @@ public class UserService {
         MongoCollection<Document> collection = database.getCollection(cname);
         Document document = collection.find(eq("email", email)).first();
         if (!document.isEmpty()) {
-            return parseByDocument(document);
+            return parse(document);
         }
         return null;
     }
@@ -74,7 +73,7 @@ public class UserService {
         MongoCollection<Document> collection = database.getCollection(cname);
         Document document = collection.find(eq("name", name)).first();
         if (!document.isEmpty()) {
-            return parseByDocument(document);
+            return parse(document);
         }
         return null;
     }
@@ -87,9 +86,9 @@ public class UserService {
 //        user.setPassword(document.getString("password"));
 //        return user;
 //    }
-    
-    public User parseByDocument(Document document) {
-        User user =(User) DocumentUtil.getInstance().parse(document, DocumentUtil.PARSE_USER);
-        return user;
+    public User parse(Document doc) {
+        String jsonStr = doc.toJson();
+        Gson gson = new Gson();
+        return gson.fromJson(jsonStr, User.class);
     }
 }

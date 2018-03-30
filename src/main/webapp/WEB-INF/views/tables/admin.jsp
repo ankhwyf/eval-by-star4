@@ -202,53 +202,7 @@
                                         </tr>
                                         <!--第二行结束-->
 
-                                        <!--第三行开始-->
-                                        <tr>
-                                            <td colspan="5">
-                                                <!--工作内容、教学对象、人数、总学时、各项教学工作内容总学时核算、合计放在一个table里 开始-->
-                                                <table class="t_in_t" border="1" cellspacing="0" cellpadding="0">
-                                                    <!-- 标题行 开始 -->
-                                                    <tr>
-                                                        <%
-                                                            List<String> effortTable = tab1.effort_table;
-                                                            int effortSize = effortTable.size();
-                                                            for (int i = 0; i < effortSize; i++) {
-                                                        %><td>
-                                                            <%=effortTable.get(i)%>
-                                                        </td><%
-                                                            }
-                                                        %>
-
-                                                    </tr>
-                                                    <!-- 标题行 结束 -->
-                                                    <%
-                                                        for (int i = 0; i < 3; i++) {
-                                                    %>
-                                                    <tr>
-                                                        <%
-                                                            for (int j = 0; j < effortSize; j++) {
-                                                        %><td></td><%
-                                                            }
-                                                        %>
-                                                    </tr>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </table>
-                                                <!--工作内容、教学对象、人数、总学时、各项教学工作内容总学时核算、合计放在一个table里 结束-->
-                                            </td>
-                                            <!--留白 / 开始-->
-                                            <td>
-                                                <i class="fa fa-minus gray"></i>
-                                            </td>
-                                            <!--留白 / 结束-->
-                                            <!--操作图标2 开始-->
-                                            <td>
-                                                <i class="fa fa-minus gray"></i>
-                                            </td>
-                                            <!--操作图标2 结束-->
-                                        </tr>
-                                        <!--第三行结束-->
+                                       
                                     </table>
                                     <input type="submit" class="btn btn-primary float-right" value="保存" style="width:120px;">
                                 </form>
@@ -607,7 +561,7 @@
             <script type="text/javascript" src="js/admin_new.js"></script>
         </main>
         <footer>
-            © 2017 <img src="img/heart.png" alt=""> 杭州师范大学繁星四月小组
+            © 2017 <img src="img/heart.png" alt=""> 杭州师范大学
         </footer>
         <!-- 
 <iframe src="wenzhang_xinwen.html" id="Mainindex" name="Mainindex" width="100%" height="100%" marginheight="0" marginwidth="0" frameborder="0"></iframe> -->

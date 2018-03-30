@@ -4,6 +4,8 @@
 package star4.eval.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,31 +25,37 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user != null && user.getType() != null) {
-            String type = user.getType();
-            if (type.equals(UserService.CNCOLLECTIONC)) {
-                logonByAdmin(request, response);
-            } else if (type.equals(UserService.CNCOLLECTIONA)) {
-                logonByAuditor(request, response);
-            } else {
-                logonByTeacher(request, response);
+        if (user != null && user.getIdentity() != null) {
+            List<String> identity =new ArrayList();
+            identity=user.getIdentity();
+            switch (identity.get(0)) {
+                case UserService.COLLECTIONC:
+                    loginByAdmin(request, response);
+                    break;
+                case UserService.COLLECTIONA:
+                    loginByAuditor(request, response);
+                    break;
+                default:
+                    loginByTeacher(request, response);
+                    break;
             }
+            
         } else {
             response.sendRedirect("login");
         }
     }
 
-    private void logonByAdmin(HttpServletRequest request, HttpServletResponse response)
+    private void loginByAdmin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/views/tables/admin.jsp").forward(request, response);
     }
 
-    private void logonByAuditor(HttpServletRequest request, HttpServletResponse response)
+    private void loginByAuditor(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/views/tables/auditor.jsp").forward(request, response);
     }
 
-    private void logonByTeacher(HttpServletRequest request, HttpServletResponse response)
+    private void loginByTeacher(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/views/tables/teacher.jsp").forward(request, response);
     }

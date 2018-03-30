@@ -19,7 +19,7 @@ public class EvalTableServiceTest {
     public void updateTest() {
         EvalTable table = evalTableService.findByAcademicYear("2016");
         String first_indicator = "hehe";
-        table.getTables().get(0).first_indicator = first_indicator;
+//        table.getTables().get(0).first_indicator = first_indicator;
         evalTableService.update(table);
         EvalTable expectedTable = evalTableService.findByAcademicYear("2016");
         assertEquals("修改 第一栏信息为 \"hehe\"?", first_indicator, expectedTable.getTables().get(0).first_indicator);

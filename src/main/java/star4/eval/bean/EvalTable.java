@@ -52,7 +52,7 @@ public class EvalTable {
     public class SubTable {
         public String first_indicator;
         public List<SecondIndicator> second_indicator;
-        public List<String> effort_table;
+//        public List<String> effort_table;
     }
     
     public class SecondIndicator {
@@ -65,6 +65,11 @@ public class EvalTable {
     public class ThirdIndicator {
         public String content;
         public String score;
+    }
+    
+    public class EffortTable {
+        public EffortTable(){}
+        public List<String> effort_table;
     }
     
     public class Remark {

@@ -6,7 +6,8 @@
 package star4.eval.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,18 +42,24 @@ public class TableServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String year = request.getParameter("year");
         System.out.println("------" + year);
+        
         HttpSession session = request.getSession();
         User user=(User)session.getAttribute("user");
-        String type=user.getType();
+        
+        List<String> identity=new ArrayList();
+        identity=user.getIdentity();
+        
         EvalTable evalTable = evalTableService.findByAcademicYear(year);
+        
         session.setAttribute("evalTable", evalTable);
         request.setAttribute("year", year);
-        switch (type) {
-                case UserService.CNCOLLECTIONC:
+        
+        switch (identity.get(0)) {
+                case UserService.COLLECTIONC:
 //                    response.sendRedirect("admin.jsp");
                     request.getRequestDispatcher("admin.jsp").forward(request, response);
                     break;
-                case UserService.CNCOLLECTIONA:
+                case UserService.COLLECTIONA:
                     response.sendRedirect("auditor.jsp");
                     break;
                 default:
