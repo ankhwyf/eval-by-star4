@@ -15,6 +15,7 @@ public class EvalTable {
     private String academic_year;
     private List<SubTable> tables;
     private List<Remark> remark;
+    private List<String> effort_table;
     private boolean is_publish;
 
     public String getAcademic_year() {
@@ -41,6 +42,14 @@ public class EvalTable {
         this.remark = remark;
     }
 
+    public List<String> getEffortTable(){
+        return effort_table;
+    }
+    
+    public void setEffortTable(List<String> effort_table){
+        this.effort_table=effort_table;
+    }
+    
     public boolean isIs_publish() {
         return is_publish;
     }
@@ -49,6 +58,8 @@ public class EvalTable {
         this.is_publish = is_publish;
     }
 
+    
+    
     public class SubTable {
         public String first_indicator;
         public List<SecondIndicator> second_indicator;
@@ -65,11 +76,6 @@ public class EvalTable {
     public class ThirdIndicator {
         public String content;
         public String score;
-    }
-    
-    public class EffortTable {
-        public EffortTable(){}
-        public List<String> effort_table;
     }
     
     public class Remark {

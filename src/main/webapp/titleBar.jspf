@@ -37,7 +37,8 @@
                 <li><a href="accountsetting.jsp">
                         <%=username%>
                      </a>
-                     <select>
+                     <form method="post" action="getTable.do" id="submit">
+                        <select name="type">
                          <%
                             for(int i=0;i<cnIden.size();i++){
                             %>
@@ -45,7 +46,9 @@
                          <%
                             }
                          %>
-                     </select>
+                        </select> 
+                     </form>
+                     
                 </li>
                 <li><a href="quit_login.jsp"><img src="img/quit.png" alt="">退出</a></li>
             </ul>

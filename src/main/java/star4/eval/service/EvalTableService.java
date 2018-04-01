@@ -14,7 +14,7 @@ public class EvalTableService {
 
     public EvalTable findByAcademicYear(String academicYear) {
         MongoCollection<Document> collection
-                = MongoDB.INSTANCE.getDatabase().getCollection("eval_admin");
+                = MongoDB.INSTANCE.getDatabase().getCollection("eval_table");
         Document document = collection.find(eq("academic_year", academicYear)).first();
         if (document != null) {
             return new Gson().fromJson(document.toJson(), EvalTable.class);
@@ -26,7 +26,7 @@ public class EvalTableService {
         if (table != null) {
             String year = table.getAcademic_year();
             MongoCollection<Document> collection
-                    = MongoDB.INSTANCE.getDatabase().getCollection("eval_admin");
+                    = MongoDB.INSTANCE.getDatabase().getCollection("eval_table");
             Document document = Document.parse(new Gson().toJson(table));
             collection.updateOne(eq("academic_year", year), new Document("$set", document));
         }

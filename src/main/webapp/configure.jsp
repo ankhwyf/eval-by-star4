@@ -31,7 +31,7 @@
                     <a href="home">返回>></a>
                 </div>
             </div>
-            <%                           EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
+            <%  EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
                 List<SubTable> evalTables = evalTable.getTables();
                 SubTable tab;
                 SecondIndicator secondIndicator;
@@ -118,7 +118,7 @@
                         <div class="configure-content">
                             <table class="table table-bordered table-hover">
                                 <%
-                                  List<String> effortTable=tab.effort_table;
+                                  List<String> effortTable=evalTable.getEffortTable();
                                   for(int i=0;i<effortTable.size();i++){
                                 %>
                                  <tr><td>

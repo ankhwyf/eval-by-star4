@@ -43,23 +43,23 @@ public class TableServlet extends HttpServlet {
         String year = request.getParameter("year");
         System.out.println("------" + year);
         
-        HttpSession session = request.getSession();
-        User user=(User)session.getAttribute("user");
+        String type=request.getParameter("type");
         
-        List<String> identity=new ArrayList();
-        identity=user.getIdentity();
+        HttpSession session = request.getSession();
+//        User user=(User)session.getAttribute("user");
         
         EvalTable evalTable = evalTableService.findByAcademicYear(year);
         
         session.setAttribute("evalTable", evalTable);
         request.setAttribute("year", year);
+        request.setAttribute("type", type);
         
-        switch (identity.get(0)) {
-                case UserService.COLLECTIONC:
+        switch (type) {
+                case UserService.CNCOLLECTIONC:
 //                    response.sendRedirect("admin.jsp");
                     request.getRequestDispatcher("admin.jsp").forward(request, response);
                     break;
-                case UserService.COLLECTIONA:
+                case UserService.CNCOLLECTIONA:
                     response.sendRedirect("auditor.jsp");
                     break;
                 default:
