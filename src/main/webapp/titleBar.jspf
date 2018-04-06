@@ -3,55 +3,80 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="star4.eval.bean.User"%>
-<%@ page pageEncoding="UTF-8" %>
+<%@page pageEncoding="UTF-8" %>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>home</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/modals.css">
+    <link rel="stylesheet" href="css/teachingRoutine.css">
+    <link rel="stylesheet" href="css/table.css">
+    <script type="text/javascript" src="js/tools/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript" src="js/tools/bootstrap.js"></script>
+    <script type="text/javascript" src="js/modal.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+</head>
 
-<%
-    User user = (User) session.getAttribute("user");
-    String username = user.getName();
-    List<String> identity=new ArrayList();
-    List<String> cnIden=new ArrayList();
-    
-    identity=user.getIdentity();
-//    String type=user.getType();
-//  汉字化
-    for(int i=0;i<identity.size();i++){
-        if(identity.get(i).equals(UserService.COLLECTIONC)){
-            cnIden.add(UserService.CNCOLLECTIONC);break;//管理员
-        } else if(identity.get(i).equals(UserService.COLLECTIONA)){
-            cnIden.add(UserService.CNCOLLECTIONA);break;//审核员
-        } else {
-            cnIden.add(UserService.CNCOLLECTIONT);break;
-        }//教师
-    }
-%>
-<header>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    <img alt="Brand" src="img/icon.png" class="brand-icon">
-                </a>
-                <p class="navbar-left">教师考核平台</p>
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="Brand" src="img/icon.png" class="brand-icon" style="margin:4px 8px 0 0;">
+                    </a>
+                    <p class="navbar-left">教师考核平台</p>
+                </div>
+                <%
+//                    System.out.println("titleBar");
+                    User user = (User) session.getAttribute("user");
+                    String iden=(String) request.getAttribute("identity");
+                    
+                    UserService userService = new UserService();
+                    
+                    List<String> identity = new ArrayList();
+                    List<String> cnIden = new ArrayList();
+                    identity = user.getIdentity();
+                    //  汉字化
+                    cnIden = userService.enToCn(identity);
+                    String username = user.getName();
+
+                %>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>  <a href="accountsetting.jsp">  <%=username%> </a> </li>
+                    <li>
+                        <form method="post" action="getTable.do">
+                            <select name="identity" class="form-control">
+                                <%
+                                    if(iden == null || iden.length()==0){
+                                       iden=identity.get(0);
+                                    for (int i = 0; i < cnIden.size(); i++) {
+                                %>
+                                <option value="<%=identity.get(i)%>"><%=cnIden.get(i)%></option>
+                                <%
+                                    }
+                                } else{
+                                   for (int i = 0; i < cnIden.size(); i++) {
+                                    if(identity.get(i).equals(iden)){
+                                %>
+                                <option value="<%=identity.get(i)%>" selected="selected"><%=cnIden.get(i)%></option>
+                                <% 
+                                } else{
+                                %>
+                                 <option value="<%=identity.get(i)%>"><%=cnIden.get(i)%></option>
+                                <%
+                                  }       
+                                %>
+                                <%}}
+                                %>
+                            </select> 
+                        </form> 
+                    </li>
+                    <li><a href="quit_login.jsp"><img src="img/quit.png" alt="" style="width: 20px; height:20px;">退出</a></li>
+                </ul>
             </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="accountsetting.jsp">
-                        <%=username%>
-                     </a>
-                     <form method="post" action="getTable.do" id="submit">
-                        <select name="type">
-                         <%
-                            for(int i=0;i<cnIden.size();i++){
-                            %>
-                            <option value="<%=cnIden.get(i)%>"><%=cnIden.get(i)%></option>
-                         <%
-                            }
-                         %>
-                        </select> 
-                     </form>
-                     
-                </li>
-                <li><a href="quit_login.jsp"><img src="img/quit.png" alt="">退出</a></li>
-            </ul>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
+
+

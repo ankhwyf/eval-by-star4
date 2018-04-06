@@ -14,11 +14,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import star4.eval.bean.DetailTable;
+import star4.eval.bean.DetailTable.SecondIndicatorDe;
+import star4.eval.bean.DetailTable.SubTableDe;
 import star4.eval.bean.EvalTable;
 import star4.eval.bean.EvalTable.Remark;
 import star4.eval.bean.EvalTable.SecondIndicator;
 import star4.eval.bean.EvalTable.ThirdIndicator;
+import star4.eval.bean.DetailTable.ThirdIndicatorDe;
+import star4.eval.bean.EvalTable.SubTable;
+import star4.eval.bean.User;
+import star4.eval.service.DetailService;
 import star4.eval.service.EvalTableService;
+import star4.eval.service.UserService;
 
 /**
  *
@@ -26,6 +34,7 @@ import star4.eval.service.EvalTableService;
  */
 @WebServlet(urlPatterns = {"/process.do"})
 public class SaveServlet extends HttpServlet {
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,8 +49,8 @@ public class SaveServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        String success="";
-        int temp=0;
+        String success= "";
+        int temp = 0;
         
         //处理提交类型
         String type = request.getParameter("type");
@@ -57,6 +66,9 @@ public class SaveServlet extends HttpServlet {
                 dealRemark(request, response);
                 break;
             case "gzl":
+                
+                break;
+            case "advanced":
                 
                 break;
             case "publish":
@@ -94,7 +106,7 @@ public class SaveServlet extends HttpServlet {
         List<Remark> remarkList = new ArrayList<>();
         EvalTableService service = new EvalTableService();
         
-        if(keypoints!=null && contents!=null){
+        if(keypoints != null && contents!=null){
             for (int i = 0; i < keypoints.length || i < contents.length; i++) {
                 String keypoint = keypoints[i];
                 String content = contents[i];
@@ -112,7 +124,7 @@ public class SaveServlet extends HttpServlet {
         } 
         evalTable.getRemark().clear();
         evalTable.getRemark().addAll(remarkList);
-        service.update(evalTable);
+        service.updateEval(evalTable);
     }
 
     public void dealSubTable(HttpServletRequest request, HttpServletResponse response,int temp) {
@@ -153,17 +165,74 @@ public class SaveServlet extends HttpServlet {
                 secondIndicator.get(i).third_indicator.addAll(thirdList);
             }
         }
-        service.update(evalTable);
+        service.updateEval(evalTable);
     }
 
 
     public void dealPublish(HttpServletRequest request, HttpServletResponse response) {
         EvalTableService service = new EvalTableService();
+        DetailService detailService = new DetailService();
+        UserService userService = new UserService();
+        DetailTable detailTable = new DetailTable();
+        
+        List<User> usersList = new ArrayList();
+        usersList = userService.findAll();
+        
         HttpSession session = request.getSession();
         EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
         
+        // 未发布时，则为所有教师更新表格
+        if(!evalTable.isIs_publish()) {
+            for (User usersList1 : usersList) {
+                detailTable.setCardID(usersList1.getCardID());
+                detailTable.setAcademic_year(evalTable.getAcademic_year());
+                detailTable.setIs_submit(false);
+                detailTable.setIs_audit(false);
+                detailTable.setAudit_level("");
+                detailTable.setGrade_proof("");
+                detailTable.setTeacher_total_sco("");
+                detailTable.setAuditor_total_sco("");
+                detailTable.setCollege_admin_sco("");
+                
+                SubTableDe subTableDe = (new DetailTable()).new SubTableDe();
+                
+                List<SubTable> evalTables = evalTable.getTables();
+                List<String> effortTable = evalTable.getEffortTable();
+                
+                List<String> effort = new ArrayList();
+                List<SubTableDe> detailTables = new ArrayList<>();
+                List<ThirdIndicatorDe> thirdIndicatorDes = new ArrayList<>();
+                List<SecondIndicatorDe> secondIndicatorDes = new ArrayList<>();
+                for (int z = 0; z < evalTables.size(); z++) {
+                    SubTable sub = evalTables.get(z);
+                    for(int j = 0; j< sub.second_indicator.size(); j++) {
+                        SecondIndicatorDe second = (new DetailTable()).new SecondIndicatorDe();
+                        SecondIndicator sec = sub.second_indicator.get(j);
+                        second.auditor_score = "";
+                        for (int i=0;i<sec.third_indicator.size();i++) {
+                            ThirdIndicatorDe third = (new DetailTable()).new ThirdIndicatorDe();
+                            third.teacher_score = "";
+                            third.proof = "";
+                            thirdIndicatorDes.add(third);
+                        }
+                        secondIndicatorDes.add(second);
+                        subTableDe.second_indicator = secondIndicatorDes;
+                    }
+                    detailTables.add(subTableDe);
+                }
+                
+                detailTable.setTables(detailTables);
+                String str="";
+                for(int i=1;i<effortTable.size();i++){
+                    str+=",";
+                }
+                effort.add(str);
+                detailTable.setEffortTable(effort);
+                detailService.insertDetail(detailTable);
+            }
+        }
         evalTable.setIs_publish(true);
-        service.update(evalTable);
+        service.updateEval(evalTable);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -204,137 +273,4 @@ public class SaveServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-//       public void dealRoutine(HttpServletRequest request, HttpServletResponse response) {
-//        String[] basicContents = request.getParameterValues("basic-content");
-//        String[] basicScores = request.getParameterValues("basic-score");
-//        String[] extendContents = request.getParameterValues("extend-content");
-//        String[] extendScores = request.getParameterValues("extend-score");
-//
-//        System.out.println("get SaveServlet...");
-//
-//        HttpSession session = request.getSession();
-//        EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
-//
-//        List<ThirdIndicator> basicThirdList = new ArrayList<>();
-//        EvalTableService service = new EvalTableService();
-//        for (int i = 0; i < basicContents.length || i < basicScores.length; i++) {
-//            String score = "";
-//            String content = "";
-//            if (i < basicContents.length) {
-//                score = basicScores[i];
-//            }
-//            if (i < basicScores.length) {
-//                content = basicContents[i];
-//            }
-//            ThirdIndicator third = (new EvalTable()).new ThirdIndicator();
-//            third.score = score;
-//            third.content = content;
-//            basicThirdList.add(third);
-//        }
-//        List<ThirdIndicator> extendThirdList = new ArrayList<>();
-//        for (int i = 0; i < extendContents.length || i < extendScores.length; i++) {
-//            String score = "";
-//            String content = "";
-//            if (i < extendContents.length) {
-//                score = extendScores[i];
-//            }
-//            if (i < extendScores.length) {
-//                content = extendContents[i];
-//            }
-//            ThirdIndicator third = (new EvalTable()).new ThirdIndicator();
-//            third.score = score;
-//            third.content = content;
-//            extendThirdList.add(third);
-//        }
-//        evalTable.getTables().get(1).second_indicator.get(0).third_indicator.clear();
-//        evalTable.getTables().get(1).second_indicator.get(1).third_indicator.clear();
-//        evalTable.getTables().get(1).second_indicator.get(0).third_indicator.addAll(basicThirdList);
-//        evalTable.getTables().get(1).second_indicator.get(1).third_indicator.addAll(extendThirdList);
-//        service.update(evalTable);
-//    }
-//
-//    public void dealConstruct(HttpServletRequest request, HttpServletResponse response) {
-//        String[] basicContents = request.getParameterValues("basic-content");
-//        String[] basicScores = request.getParameterValues("basic-score");
-//        String[] extendContents = request.getParameterValues("extend-content");
-//        String[] extendScores = request.getParameterValues("extend-score");
-//
-//        System.out.println("get SaveServlet...");
-//
-//        HttpSession session = request.getSession();
-//        EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
-//
-//        List<ThirdIndicator> basicThirdList = new ArrayList<>();
-//        EvalTableService service = new EvalTableService();
-//        for (int i = 0; i < basicContents.length || i < basicScores.length; i++) {
-//            String score = "";
-//            String content = "";
-//            if (i < basicContents.length) {
-//                score = basicScores[i];
-//            }
-//            if (i < basicScores.length) {
-//                content = basicContents[i];
-//            }
-//            ThirdIndicator third = (new EvalTable()).new ThirdIndicator();
-//            third.score = score;
-//            third.content = content;
-//            basicThirdList.add(third);
-//        }
-//        List<ThirdIndicator> extendThirdList = new ArrayList<>();
-//        for (int i = 0; i < extendContents.length || i < extendScores.length; i++) {
-//            String score = "";
-//            String content = "";
-//            if (i < extendContents.length) {
-//                score = extendScores[i];
-//            }
-//            if (i < extendScores.length) {
-//                content = extendContents[i];
-//            }
-//            ThirdIndicator third = (new EvalTable()).new ThirdIndicator();
-//            third.score = score;
-//            third.content = content;
-//            extendThirdList.add(third);
-//        }
-//        evalTable.getTables().get(2).second_indicator.get(0).third_indicator.clear();
-//        evalTable.getTables().get(2).second_indicator.get(1).third_indicator.clear();
-//        evalTable.getTables().get(2).second_indicator.get(0).third_indicator.addAll(basicThirdList);
-//        evalTable.getTables().get(2).second_indicator.get(1).third_indicator.addAll(extendThirdList);
-//        service.update(evalTable);
-//    }
-//
-//    public void dealOthers(HttpServletRequest request, HttpServletResponse response) {
-//        String[] contents = request.getParameterValues("content");
-//        String[] scores = request.getParameterValues("score");
-//
-//        System.out.println("get SaveServlet...");
-//
-//        HttpSession session = request.getSession();
-//        EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
-//
-//        List<ThirdIndicator> thirdList = new ArrayList<>();
-//        EvalTableService service = new EvalTableService();
-//        int contentLength = contents.length;
-//        int scoreLength = scores.length;
-//        for (int i = 0; i < contentLength && i < scoreLength; i++) {
-//            String score = "";
-//            String content = "";
-//            if (i < contentLength) {
-//                score = scores[i];
-//            }
-//            if (i < scoreLength) {
-//                content = contents[i];
-//            }
-//            ThirdIndicator third = (new EvalTable()).new ThirdIndicator();
-//            third.score = score;
-//            third.content = content;
-//            System.out.println(score + "---" + content);
-//            thirdList.add(third);
-//        }
-//        evalTable.getTables().get(3).second_indicator.get(0).third_indicator.clear();
-////        evalTable.getTables().get(3).second_indicator.get(1).third_indicator.clear();
-//        evalTable.getTables().get(3).second_indicator.get(0).third_indicator.addAll(thirdList);
-////        evalTable.getTables().get(3).second_indicator.get(1).third_indicator.addAll(extendThirdList);
-//        service.update(evalTable);
-//    }
 }

@@ -68,7 +68,7 @@ public class EvalTable {
     
     public class SecondIndicator {
         public String title;
-        public int score;
+        public String score;
         public String remark;
         public List<ThirdIndicator> third_indicator;
     }

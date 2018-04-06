@@ -5,10 +5,15 @@ table {
 table tr td {
     min-height: 100px;
     height: 20px;
+   
 }
 table {
     border: none;
     width: 100%;
+    
+}
+tbody {
+    border-color: #000;
 }
 
 .width_60 {
@@ -16,6 +21,7 @@ table {
 }
 .width_100 {
     width: 100px;
+    text-align: center;
 }
 .width_120 {
     width: 120px;
@@ -25,6 +31,12 @@ table {
 }
 .width_400 {
     width: 400px;
+}
+dl dt {
+    line-height: 20px;
+}
+dl dd {
+    line-height: 20px;
 }
 .textarea{
     float:left;

@@ -4,9 +4,13 @@
 package star4.eval.service;
 
 import com.google.gson.Gson;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
+import java.util.ArrayList;
+import java.util.List;
 import org.bson.Document;
 import star4.eval.bean.User;
 import star4.eval.utils.MongoDB;
@@ -78,6 +82,29 @@ public class UserService {
         return null;
     }
     
+    public List<User> findAll(){
+        MongoCollection<Document> collection
+                = MongoDB.INSTANCE.getDatabase().getCollection(COLLECTIONUSER);
+        FindIterable<Document> findIterable = collection.find();
+        MongoCursor<Document> mongoCursor = findIterable.iterator();
+        
+        List<User> usersList = new ArrayList<>();
+        while (mongoCursor.hasNext()) {
+            Document doc = mongoCursor.next();
+            User user = parse(doc);
+            List<String> userIden = user.getIdentity();
+            if (!usersList.contains(user)) {
+                for(int i = 0;i < userIden.size(); i++){
+                    if(userIden.get(i).equals(COLLECTIONT)){
+                        usersList.add(user);
+                        break;
+                    }
+                }
+            }
+        }
+        return usersList;
+    }
+    
 //    public User parseByDocument(Document document) {
 //        User user = new User();
 //        user.setCardID(document.getString("cardID"));
@@ -90,5 +117,19 @@ public class UserService {
         String jsonStr = doc.toJson();
         Gson gson = new Gson();
         return gson.fromJson(jsonStr, User.class);
+    }
+    
+    public List<String> enToCn(List<String> en){
+        List<String> cn = new ArrayList();
+        for(int i=0;i<en.size();i++){
+            if(en.get(i).equals(UserService.COLLECTIONC)){
+                cn.add(UserService.CNCOLLECTIONC);//管理员
+            } else if(en.get(i).equals(UserService.COLLECTIONA)){
+                cn.add(UserService.CNCOLLECTIONA);//审核员
+            } else {
+                cn.add(UserService.CNCOLLECTIONT);// 教师
+            }
+        }
+        return cn;
     }
 }

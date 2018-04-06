@@ -4,6 +4,10 @@
     Author     : ankhyfw
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="star4.eval.service.UserService"%>
+<%@page import="star4.eval.bean.User"%>
 <%@page import="star4.eval.bean.EvalTable.ThirdIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.SecondIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.Remark"%>
@@ -13,23 +17,23 @@
 <%@include file="/titleBar.jspf" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>admin</title>
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/common.css">
-        <link rel="stylesheet" href="css/modals.css">
-        <link rel="stylesheet" href="css/teachingRoutine.css">
-        <link rel="stylesheet" href="css/table.css">
-        <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script>
-        <script type="text/javascript" src="js/modals.js"></script>
-        <script type="text/javascript" src="js/common.js"></script>
-    </head>
-    <body>
+
         <main class="container">
-            
+            <%!
+                String outputYear(String year){
+                String outputYear="";
+                int yearInt = Integer.parseInt(year);
+                yearInt = yearInt + 1;
+                outputYear = yearInt + "";
+                return outputYear;
+            }
+            %>
+            <%
+                String[] years = (String[])session.getAttribute("years");
+                String year = (String)request.getAttribute("year");
+                
+                int y=0;
+            %>
             <!--<标题行 和 其他高级配置按钮>-->
             <div class="row title">
                 <div class="col-md-8">
@@ -37,13 +41,31 @@
                   （
                     <form method="post" action="getTable.do" id="submit">
                         <select class="form-control" name="year">
-                            <option value="2013">2013</option>
-                            <option value="2014">2014</option>
-                            <option value="2015">2015</option>
-                            <option value="2016" selected>2016</option>
+                        <%
+                            if(year == null || year.length() == 0){
+                                year = years[years.length-1];
+                                for(y = years.length-1;y >= 0; y--){
+                        %>
+                            <option value="<%=years[y]%>"><%=years[y]%></option>
+                        <%  }
+                           } else{
+                            for(y = years.length-1;y >= 0; y--){
+                                if(years[y].equals(year)) 
+                        {%>
+                            <option value="<%=years[y]%>" selected="selected"><%=years[y]%></option>
+                        <%}
+                        else{
+                        %>
+                            <option value="<%=years[y]%>"><%=years[y]%></option>
+                        <%
+                            }
+                           }
+                         }
+                        %>
+                           
                         </select>
                     </form>
-                    -<span id="endyear">2017</span> 学年）
+                    -<span id="endyear"><%=outputYear(year)%></span> 学年）
                 </div>
                  <div class="col-md-4 text-right operation">
                     <a href="configure.jsp">
@@ -70,8 +92,10 @@
                 String success=(String)request.getAttribute("success");
                 if(success==null){
                     success="";
-                } else{
-                    System.out.println("success:"+success);
+                } 
+                String successCreated=(String)request.getAttribute("successCreated");
+                if(successCreated==null){
+                    successCreated="";
                 }
                 //考核表
                 EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
@@ -117,8 +141,8 @@
                     <a href="preview.jsp">
                         <i class="fa fa-file-text-o" style="font-size: 18px"></i>
                         <span>预览表格</span>
-                    </a>
-                    <a href="#">
+                    </a>id 
+                    <a href="process.do" id="create">
                         <i class="fa fa-file-text-o" style="font-size: 18px"></i>
                         <span>新建表格</span>
                     </a>
@@ -281,21 +305,25 @@
         <script type="text/javascript" src="js/admin_new.js"></script>                   
         </main>
          <footer>
-            © 2017 <img src="img/heart.png" alt=""> 杭州师范大学
+            © 2018 <img src="img/heart.png" alt=""> 杭州师范大学
         </footer>
          <script>
-//            function alerts(pa){
-//                if(pa==='true'){
-//                modals.alertSmShow("发布成功！");
-//            }
-          var m='<%=success%>';
-          console.log(m);
-          if(m==='true'){
+          var m = '<%=success%>';
+          if(m === 'true'){
               modals.alertSmShow("发布成功！");
           }
           $('#publish').click(function () {
                  modals.loadingShow();
               });
+              
+        var n = '<%=successCreated%>';
+        if(n === 'true'){
+              modals.alertSmShow("新建成功！");
+          }
+          $('#create').click(function () {
+                 modals.loadingShow();
+              });
+              
         </script>
         
     </body>

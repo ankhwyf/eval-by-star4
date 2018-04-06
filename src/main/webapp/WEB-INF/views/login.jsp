@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/modals.css">
         <link rel="stylesheet" href="css/login.css">
-        <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script>
-        <script type="text/javascript" src="js/modals.js"></script>
+        <script type="text/javascript" src="js/tools/jquery-1.12.2.min.js"></script>
+        <script type="text/javascript" src="js/tools/bootstrap.js"></script>
+        <script type="text/javascript" src="js/modal.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
     </head>
     <body>
@@ -61,21 +61,14 @@
                     <a class="login-panel__forget" href="forget.html">忘记登录密码？</a>
                     <input type="password" class="input-pass form-control" id="user" placeholder="登录密码" name="login_pwd">
                 </div>
-<!--                <div class="radiomutiple">
-                    <input type="radio" class="radio1"  name="radio_item"  value="管理员" checked="checked">
-                    管理员
-                    <input type="radio" class="radio1"  name="radio_item" value="审核员">
-                    审核员
-                    <input type="radio" class="radio1"  name="radio_item" value="教师">
-                    教师
-                </div>-->
+
                 <div class="form-group">
                     <input type="submit" class="login-panel__submit input-submit  btn btn-primary" value="登录">
                 </div>
             </form>
         </div>
         <div class="footer">
-            © 2017 <img src="img/heart.png" alt=""> 杭州师范大学
+            © 2018 <img src="img/heart.png" alt=""> 杭州师范大学
         </div>
 
         <script>

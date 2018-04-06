@@ -19,10 +19,11 @@ public class DetailTable extends ReflectionDBObject {
     private boolean is_audit;
     private String audit_level;
     private String grade_proof;
-    private int teacher_total_sco;
-    private int auditor_total_sco;
-    private int college_admin_sco;
-    private List<SubTable> tables;
+    private String teacher_total_sco;
+    private String auditor_total_sco;
+    private String college_admin_sco;
+    private List<SubTableDe> scores;
+    private List<String> effort_tables;
     
 
     public String getAcademic_year() {
@@ -33,12 +34,20 @@ public class DetailTable extends ReflectionDBObject {
         this.academic_year = academic_year;
     }
 
-    public List<SubTable> getTables() {
-        return tables;
+    public List<SubTableDe> getTables() {
+        return scores;
     }
 
-    public void setTables(List<SubTable> tables) {
-        this.tables = tables;
+    public void setTables(List<SubTableDe> tables) {
+        this.scores = tables;
+    }
+    
+    public List<String> getEffortTable() {
+        return effort_tables;
+    }
+    
+    public void setEffortTable(List<String> table) {
+        this.effort_tables = table;
     }
 
     public String getCardID() {
@@ -81,50 +90,51 @@ public class DetailTable extends ReflectionDBObject {
         this.grade_proof = grade_proof;
     }
 
-    public int getTeacher_total_sco() {
+    public String getTeacher_total_sco() {
         return teacher_total_sco;
     }
 
-    public void setTeacher_total_sco(int teacher_total_sco) {
+    public void setTeacher_total_sco(String teacher_total_sco) {
         this.teacher_total_sco = teacher_total_sco;
     }
 
-    public int getAuditor_total_sco() {
+    public String getAuditor_total_sco() {
         return auditor_total_sco;
     }
 
-    public void setAuditor_total_sco(int auditor_total_sco) {
+    public void setAuditor_total_sco(String auditor_total_sco) {
         this.auditor_total_sco = auditor_total_sco;
     }
 
-    public int getCollege_admin_sco() {
+    public String getCollege_admin_sco() {
         return college_admin_sco;
     }
 
-    public void setCollege_admin_sco(int college_admin_sco) {
+    public void setCollege_admin_sco(String college_admin_sco) {
         this.college_admin_sco = college_admin_sco;
     }
 
    
-    public class SubTable {
-        public String first_indicator;
-        public List<SecondIndicator> second_indicator;
+    public class SubTableDe {
+        public SubTableDe() {}
+//        public String first_indicator;
+        public List<SecondIndicatorDe> second_indicator;
 //        public List<String> effort_table;
     }
     
-    public class SecondIndicator {
-        public String title;
+    
+    public class SecondIndicatorDe {
+        public SecondIndicatorDe(){}
+//        public String title;
+//        public String score;
+//        public String remark;
         public String auditor_score;
-        public List<ThirdIndicator> third_indicator;
+        public List<ThirdIndicatorDe> third_indicator;
     }
     
-    public class ThirdIndicator {
+    public class ThirdIndicatorDe {
         public String teacher_score;
         public String proof;
     }
     
-    public class EffortTable{
-        public EffortTable(){}
-          public List<String> effort_table;
-    }
 }

@@ -5,17 +5,19 @@
  */
 package star4.eval.servlet;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.IOException;import java.util.ArrayList;
 import java.util.List;
+;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import star4.eval.bean.DetailTable;
 import star4.eval.bean.EvalTable;
 import star4.eval.bean.User;
+import star4.eval.service.DetailService;
 import star4.eval.service.EvalTableService;
 import star4.eval.service.UserService;
 
@@ -27,6 +29,8 @@ import star4.eval.service.UserService;
 public class TableServlet extends HttpServlet {
 
     private final EvalTableService evalTableService = new EvalTableService();
+     private final DetailService detailTableService = new DetailService();
+    private final UserService userService=new UserService();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,31 +47,41 @@ public class TableServlet extends HttpServlet {
         String year = request.getParameter("year");
         System.out.println("------" + year);
         
-        String type=request.getParameter("type");
+        String identity = request.getParameter("identity");
         
         HttpSession session = request.getSession();
-//        User user=(User)session.getAttribute("user");
+        EvalTable evalTable;
+        DetailTable detailTable;
         
-        EvalTable evalTable = evalTableService.findByAcademicYear(year);
+        if(identity==null || identity.length()==0){
+             User user = (User) session.getAttribute("user");
+             identity = user.getIdentity().get(0);
+             request.setAttribute("identity", identity);
+             System.out.println("identity"+identity);
+        }
         
-        session.setAttribute("evalTable", evalTable);
         request.setAttribute("year", year);
-        request.setAttribute("type", type);
+        request.setAttribute("identity", identity);
+        System.out.println("getTableServlet..."+year);
         
-        switch (type) {
-                case UserService.CNCOLLECTIONC:
+        switch (identity) {
+                case UserService.COLLECTIONA: //审核员
+                    detailTable=detailTableService.findDetailByAcademicYear(year);
+                    session.setAttribute("detailTable", detailTable);
+                    request.getRequestDispatcher("/WEB-INF/views/tables/auditor.jsp").forward(request, response);
+                    break;
+                case UserService.COLLECTIONT: //教师
+                    detailTable=detailTableService.findDetailByAcademicYear(year);
+                    session.setAttribute("detailTable", detailTable);
+                    request.getRequestDispatcher("/WEB-INF/views/tables/teacher.jsp").forward(request, response);
+                    break;
+                default: //管理员
+                    evalTable = evalTableService.findEvalByAcademicYear(year);
+                    session.setAttribute("evalTable", evalTable);
 //                    response.sendRedirect("admin.jsp");
-                    request.getRequestDispatcher("admin.jsp").forward(request, response);
-                    break;
-                case UserService.CNCOLLECTIONA:
-                    response.sendRedirect("auditor.jsp");
-                    break;
-                default:
-                    response.sendRedirect("teacher.jsp");
+                    request.getRequestDispatcher("/WEB-INF/views/tables/admin.jsp").forward(request, response);
                     break;
             }
-//        request.getRequestDispatcher("teachingEffort_admin.jsp").forward(request, response);
-        System.out.println("getTableServlet...");
     }
 
     // <editor-fold defaultstate="flapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

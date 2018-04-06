@@ -67,8 +67,11 @@
 
 
         </main>
+        <footer>
+            © 2018 <img src="img/heart.png" alt=""> 杭州师范大学
+        </footer>
     </body>
-    
+
     <script type="text/javascript">
         var submit = new Array();
         var audit = new Array();
