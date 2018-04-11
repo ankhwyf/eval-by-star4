@@ -49,8 +49,9 @@ public class SaveServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        String success= "";
+        String success = "";
         int temp = 0;
+        
         
         //处理提交类型
         String type = request.getParameter("type");
@@ -72,8 +73,7 @@ public class SaveServlet extends HttpServlet {
                 
                 break;
             case "publish":
-                dealPublish(request, response);
-                success="true";
+                success = dealPublish(request, response)+"";
                 break;
             default:dealSubTable(request, response,temp);
                 break;
@@ -88,12 +88,12 @@ public class SaveServlet extends HttpServlet {
 //                break;
         }
         request.setAttribute("success", success);
-//        response.sendRedirect("home");
+        
         request.getRequestDispatcher("home").forward(request, response);
 
     }
 
-    public void dealRemark(HttpServletRequest request, HttpServletResponse response) {
+    public boolean dealRemark(HttpServletRequest request, HttpServletResponse response) {
         String[] keypoints = request.getParameterValues("keypoint");
         String[] contents = request.getParameterValues("content");
 
@@ -124,10 +124,10 @@ public class SaveServlet extends HttpServlet {
         } 
         evalTable.getRemark().clear();
         evalTable.getRemark().addAll(remarkList);
-        service.updateEval(evalTable);
+        return service.updateEval(evalTable);
     }
 
-    public void dealSubTable(HttpServletRequest request, HttpServletResponse response,int temp) {
+    public boolean dealSubTable(HttpServletRequest request, HttpServletResponse response,int temp) {
         String[] contents = request.getParameterValues("content");
         String[] scores = request.getParameterValues("score");
 
@@ -165,11 +165,11 @@ public class SaveServlet extends HttpServlet {
                 secondIndicator.get(i).third_indicator.addAll(thirdList);
             }
         }
-        service.updateEval(evalTable);
+        return service.updateEval(evalTable);
     }
 
 
-    public void dealPublish(HttpServletRequest request, HttpServletResponse response) {
+    public boolean dealPublish(HttpServletRequest request, HttpServletResponse response) {
         EvalTableService service = new EvalTableService();
         DetailService detailService = new DetailService();
         UserService userService = new UserService();
@@ -194,10 +194,10 @@ public class SaveServlet extends HttpServlet {
                 detailTable.setAuditor_total_sco("");
                 detailTable.setCollege_admin_sco("");
                 
-                SubTableDe subTableDe = (new DetailTable()).new SubTableDe();
-                
                 List<SubTable> evalTables = evalTable.getTables();
                 List<String> effortTable = evalTable.getEffortTable();
+                
+                SubTableDe subTableDe = new DetailTable().new SubTableDe();
                 
                 List<String> effort = new ArrayList();
                 List<SubTableDe> detailTables = new ArrayList<>();
@@ -232,8 +232,9 @@ public class SaveServlet extends HttpServlet {
             }
         }
         evalTable.setIs_publish(true);
-        service.updateEval(evalTable);
+        return service.updateEval(evalTable);
     }
+  
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

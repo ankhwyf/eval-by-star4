@@ -14,9 +14,11 @@ import star4.eval.bean.SupportingMaterial;
 import star4.eval.utils.MongoDB;
 
 public class MaterialService {
-    public List<SupportingMaterial> findAll() {
+    private static final String COLLECTIONED = "doc_manage";
+    
+    public List<SupportingMaterial> findAllMS() {
         MongoCollection<Document> collection
-                = MongoDB.INSTANCE.getDatabase().getCollection("doc_manage");
+                = MongoDB.INSTANCE.getDatabase().getCollection(COLLECTIONED);
         List<SupportingMaterial> materials = new ArrayList<>();
         for(Document cur:collection.find()){
             SupportingMaterial temp=new Gson().fromJson(cur.toJson(), SupportingMaterial.class);

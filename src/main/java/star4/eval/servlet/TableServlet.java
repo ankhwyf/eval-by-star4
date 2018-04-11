@@ -5,9 +5,7 @@
  */
 package star4.eval.servlet;
 
-import java.io.IOException;import java.util.ArrayList;
-import java.util.List;
-;
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +28,6 @@ public class TableServlet extends HttpServlet {
 
     private final EvalTableService evalTableService = new EvalTableService();
      private final DetailService detailTableService = new DetailService();
-    private final UserService userService=new UserService();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,38 +44,43 @@ public class TableServlet extends HttpServlet {
         String year = request.getParameter("year");
         System.out.println("------" + year);
         
+        String yearDetail = request.getParameter("yearDetail");
+        
         String identity = request.getParameter("identity");
+        
         
         HttpSession session = request.getSession();
         EvalTable evalTable;
         DetailTable detailTable;
-        
-        if(identity==null || identity.length()==0){
-             User user = (User) session.getAttribute("user");
-             identity = user.getIdentity().get(0);
-             request.setAttribute("identity", identity);
-             System.out.println("identity"+identity);
+        System.out.println("getTable--identity:" + identity);
+        if(identity == null || identity.length() == 0){
+            User user = (User) session.getAttribute("user");
+            identity = user.getIdentity().get(0);
         }
         
         request.setAttribute("year", year);
+        request.setAttribute("yearDetail", yearDetail);
         request.setAttribute("identity", identity);
         System.out.println("getTableServlet..."+year);
         
         switch (identity) {
                 case UserService.COLLECTIONA: //审核员
-                    detailTable=detailTableService.findDetailByAcademicYear(year);
+                    detailTable = detailTableService.findDetailByAcademicYear(yearDetail);
+                    evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
                     session.setAttribute("detailTable", detailTable);
+                    session.setAttribute("evalTable", evalTable);
                     request.getRequestDispatcher("/WEB-INF/views/tables/auditor.jsp").forward(request, response);
                     break;
                 case UserService.COLLECTIONT: //教师
-                    detailTable=detailTableService.findDetailByAcademicYear(year);
+                    detailTable = detailTableService.findDetailByAcademicYear(yearDetail);
+                    evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
                     session.setAttribute("detailTable", detailTable);
+                    session.setAttribute("evalTable", evalTable);
                     request.getRequestDispatcher("/WEB-INF/views/tables/teacher.jsp").forward(request, response);
                     break;
                 default: //管理员
                     evalTable = evalTableService.findEvalByAcademicYear(year);
                     session.setAttribute("evalTable", evalTable);
-//                    response.sendRedirect("admin.jsp");
                     request.getRequestDispatcher("/WEB-INF/views/tables/admin.jsp").forward(request, response);
                     break;
             }

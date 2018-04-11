@@ -1,0 +1,15 @@
+.auditor-formate {
+    padding-right: 0;
+}
+.auditor{
+    height: 485px;
+    border: 1px solid #aaa;
+    background: #fff;
+}
+.auditor li {
+    text-align: center;
+    margin: 5px 0;
+}
+.list-teacher {
+    cursor:pointer;
+}

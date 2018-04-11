@@ -12,37 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>佐证材料</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="font-awesome/css/font-awesome.min.css" rel='stylesheet' />
-        <link rel="stylesheet" href="css/common.css">
         <link href="css/supportingMaterial.css" rel="stylesheet">
-        <style>
-            .container {
-                width: 80%;
-                height: 500px;
-                border: solid 1px #aaa;
-                background: white;
-
-            }
-            .page-hd {
-                border-bottom: solid 1px #aaa;
-            }
-            .search {
-                border-bottom: solid 1px #aaa;
-            }
-            .student {
-                height: 411px;
-                border-right: solid 1px #aaa;
-            }
-            .fa-file-text, .fa-eye, .fa-download,.back-name, .search-bt  {
-                color: #44b6d2;
-            }
-            .search-bt {
-                border: solid 1px #44b6d2;
-            }
-        </style>
-        <script src="js/jquery-1.12.2.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
     </head>
     <body>
         <form action="" id="form1">
@@ -61,7 +31,7 @@
                         <div class="col-md-2">
                             <section id="search-box"> <label for="search-input">
                                 </label> <input id="search-input" class="search-input" type="text"
-                                                placeholder="请输入工号/姓名/学年"\> </section>
+                                                placeholder="请输入工号/姓名/学年"/> </section>
                         </div>
                         <div class="col-md-1 search-bt-box">
                             <button type="button" class="btn btn-default search-bt">搜索</button>
@@ -80,7 +50,7 @@
                                 <%                                    String indexStr = request.getParameter("index");
                                     // 查询所有 学号 姓名 学年
                                     MaterialService materialService = new MaterialService();//实例化
-                                    List<SupportingMaterial> materials = materialService.findAll();//拿到教师列表
+                                    List<SupportingMaterial> materials = materialService.findAllMS();//拿到教师列表
                                     SupportingMaterial material = new SupportingMaterial();
                                     boolean flag = false;
                                     int index = 0;
@@ -89,15 +59,9 @@
                                         material = materials.get(index - 1);
                                         flag = true;
                                     }
-                                    String teacherId;//工号
-                                    String teacherName;//姓名
-                                    String academicYear;//学年
+
                                     for (int i = 0; i < materials.size(); i++) {
                                         SupportingMaterial temp = materials.get(i);
-                                        teacherId = temp.getTeacher_id();
-                                        teacherName = temp.getTeacher_name();
-                                        academicYear = temp.getAcademic_year();
-                                        System.out.println(teacherId);
                                 %>
                                 <tr class="select"
                                     <%
@@ -106,9 +70,9 @@
                                         }
                                     %>
                                     >
-                                    <td><%=teacherId%></td>
-                                    <td><%=teacherName%></td>
-                                    <td><%=academicYear%></td>
+                                    <td><%=temp.getTeacher_id()%></td>
+                                    <td><%=temp.getTeacher_name()%></td>
+                                    <td><%=temp.getAcademic_year()%></td>
                                 </tr>
                                 <%
                                     }
@@ -145,17 +109,20 @@
                 </div>
             </div>
         </form>
-        <script type="text/javascript">
-            var orgBgColor = null;
-            $('.select').click(function () {
-                $('.select').css('background', '#fff');
-                $(this).css('background', '#eee');
-                $('.material-item').remove();
-                // 获取点击的行中的数据
-                var cell = document.getElementById("supportingMaterialIdNameYear").rows[this.rowIndex].cells;
-                window.location = "supportingMaterial.jsp?index=" + this.rowIndex;
+    <footer>
+        © 2018 <img src="img/heart.png" alt=""> 杭州师范大学
+    </footer>
+    <script type="text/javascript">
+        var orgBgColor = null;
+        $('.select').click(function () {
+            $('.select').css('background', '#fff');
+            $(this).css('background', '#eee');
+            $('.material-item').remove();
+            // 获取点击的行中的数据
+            var cell = document.getElementById("supportingMaterialIdNameYear").rows[this.rowIndex].cells;
+            window.location = "supportingMaterial.jsp?index=" + this.rowIndex;
 
-            });
+        });
 
 //            $('.select').hover(function () {
 //                orgBgColor = $(this).css("background-color");
@@ -163,6 +130,6 @@
 //            },function(){
 //                $(this).css('background-color', orgBgColor);
 //            });
-        </script>
-    </body>
+    </script>
+</body>
 </html>

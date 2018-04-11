@@ -4,6 +4,7 @@
     Author     : ankhyfw
 --%>
 
+<%@page import="star4.eval.service.EvalTableService"%>
 <%@page import="star4.eval.bean.EvalTable.ThirdIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.SecondIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.Remark"%>
@@ -26,30 +27,9 @@
         <script type="text/javascript" src="js/jspdf/libs/base64.js"></script>
     </head>
     <body>
-        <%!
-            String outputYear(String year) {
-                String outputYear = "";
-                int yearInt = Integer.parseInt(year);
-                yearInt = yearInt + 1;
-                outputYear = yearInt + "";
-                return outputYear;
-            }
-        %>
-        <%!
-            String outputScore(SubTable tab) {
-                List<SecondIndicator> list = tab.second_indicator;
-                String output = "";
-                for (int i = 0; i < list.size(); i++) {
-                    if (i == 0) {
-                        output += list.get(i).score;
-                    } else {
-                        output += "+" + list.get(i).score;
-                    }
-                }
-                return output + "分";
-            }
-        %>
+       
         <%
+            EvalTableService service = new EvalTableService();
             //考核表
             EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
             //考核子表
@@ -68,7 +48,7 @@
                     <div class="tab-content">
                         <div class="tab-pane" style="display:inline;">
                             <table id="preview-table" border="1" cellspacing="0" cellpadding="0" style="border-color:#000;">
-                                <caption> <Strong>杭州国际服务工程学院教师本科教学工作业绩考核评分表 ( <%=year%> - <%=outputYear(year)%> 年)</Strong>
+                                <caption> <Strong>杭州国际服务工程学院教师本科教学工作业绩考核评分表 ( <%=year%> - <%=service.changeYear(year)%> 年)</Strong>
                                 <button type="button" class="btn btn-info" onclick="$('#preview-table').tableExport({type: 'pdf', escape: 'false'});" style="float:right;">生成PDF</button>
                                 <button type="button" class="btn btn-success" onclick="$('#preview-table').tableExport({type: 'excel', escape: 'false'});" style="float:right;">生成Excel</button>
                                 </caption>
@@ -89,7 +69,7 @@
                                 %>
                                 <tr>
                                     <td rowspan="2" class="width_100"> <!--一级指标-->
-                                        <%=tab.first_indicator%>  <%=outputScore(tab)%>
+                                        <%=tab.first_indicator%>  <%=service.outputScore(tab)%>
                                     </td>
                                     <%
                                         for (int j = 0; j < tab.second_indicator.size(); j++) {

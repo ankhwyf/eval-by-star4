@@ -25,26 +25,6 @@
             </div>
         </nav>
         <div class="main">
-            <div class="notice">
-                <div class="notice-title">
-                    <img src="img/notice.png" alt="" class="notice-icon">
-                    <span>公告</span>
-                </div>
-                <ul class="notice-content">
-                    <li>
-                        <span class="new">2016-2017年度第二学期本科教学工作考核将于06月18日开始。</span>
-                        <span class="date">2017-06-01</span>
-                    </li>
-                    <li>
-                        <span class="new">2016-2017年度第二学期本科教学工作考核将于06月18日开始。</span>
-                        <span class="date">2017-06-01</span>
-                    </li>
-                    <li>
-                        <span class="new">2016-2017年度第二学期本科教学工作考核将于06月18日开始。</span>
-                        <span class="date">2017-06-01</span>
-                    </li>
-                </ul>
-            </div>
             <form class="login" action="login" method="post">
                 <c:if test="${loginError}">
                     <div class="login-panel__msg input-msg">

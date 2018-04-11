@@ -5,14 +5,13 @@
  */
 package star4.eval.bean;
 
-import com.mongodb.ReflectionDBObject;
 import java.util.List;
 
 /**
  *
  * @author ankhyfw
  */
-public class DetailTable extends ReflectionDBObject {
+public class DetailTable {
     private String cardID;
     private String academic_year;
     private boolean is_submit;
@@ -113,10 +112,9 @@ public class DetailTable extends ReflectionDBObject {
     public void setCollege_admin_sco(String college_admin_sco) {
         this.college_admin_sco = college_admin_sco;
     }
-
    
     public class SubTableDe {
-        public SubTableDe() {}
+//        public SubTableDe() {}
 //        public String first_indicator;
         public List<SecondIndicatorDe> second_indicator;
 //        public List<String> effort_table;
@@ -124,7 +122,7 @@ public class DetailTable extends ReflectionDBObject {
     
     
     public class SecondIndicatorDe {
-        public SecondIndicatorDe(){}
+//        public SecondIndicatorDe(){}
 //        public String title;
 //        public String score;
 //        public String remark;

@@ -10,10 +10,6 @@ table tr td {
 table {
     border: none;
     width: 100%;
-    
-}
-tbody {
-    border-color: #000;
 }
 
 .width_60 {
@@ -40,7 +36,8 @@ dl dd {
 }
 .textarea{
     float:left;
-    width: 90%;
+    width: 100%;
+    height: 100%;
     min-height: 20px; 
     max-height: 300px;
     _height: 120px; 
@@ -58,6 +55,7 @@ dl dd {
 
     border-color: rgba(82, 168, 236, 0.8);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    
 }
 .hover:hover{background: #eeeeee}
 .delete {

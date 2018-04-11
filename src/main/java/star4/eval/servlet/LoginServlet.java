@@ -43,8 +43,9 @@ public class LoginServlet extends HttpServlet {
                 logonFailure(request, response);
             } else {
                 session.setAttribute("user", user);
+                response.sendRedirect("home");
             }
-            response.sendRedirect("home");
+            
         }
     }
 }

@@ -6,9 +6,12 @@
 package star4.eval.service;
 
 import com.google.gson.Gson;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.bson.Document;
 import star4.eval.bean.DetailTable;
@@ -20,12 +23,12 @@ import star4.eval.utils.MongoDB;
  */
 public class DetailService {
     
-    private static final String COLLECTIONED = "eval_detail";
+    private static final String COLLECTIONED = "detail_table";
     private static final String ACADEMICYEAR = "academic_year";
     
-        public List<DetailTable> findAll() {
+        public List<DetailTable> findAllTables() {
         MongoCollection<Document> collection
-                = MongoDB.INSTANCE.getDatabase().getCollection("eval_detail");
+                = MongoDB.INSTANCE.getDatabase().getCollection(COLLECTIONED);
         //创建List
         List<DetailTable> details = new ArrayList<>();
         //遍历 生成Gson
@@ -34,6 +37,30 @@ public class DetailService {
             details.add(temp);
         }
         return details;
+    }
+        
+        public String[] findAllYearsDe() {
+        MongoCollection<Document> collection
+                = MongoDB.INSTANCE.getDatabase().getCollection(COLLECTIONED);
+        FindIterable<Document> findIterable = collection.find();
+        MongoCursor<Document> mongoCursor = findIterable.iterator();
+
+        List<String> yearList = new ArrayList<>();
+        while (mongoCursor.hasNext()) {
+            Document doc = mongoCursor.next();
+            DetailTable table = parseDetail(doc);
+            String year = table.getAcademic_year();
+            if (!yearList.contains(year)) {
+                yearList.add(year);
+            }
+        }
+
+        Collections.sort(yearList);
+
+        String[] years = new String[yearList.size()];
+
+        yearList.toArray(years);
+        return years;
     }
         
         public DetailTable findDetailByAcademicYear(String academicYear) {
@@ -64,4 +91,9 @@ public class DetailService {
                 collection.insertOne(document);
             }
         }
+        
+        public DetailTable parseDetail(Document doc) {
+        String jsonStr = doc.toJson();
+        return new Gson().fromJson(jsonStr, DetailTable.class);
+    }
 }

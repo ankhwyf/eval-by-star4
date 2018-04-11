@@ -29,33 +29,46 @@ public class HomeServlet extends HttpServlet {
         
         User user = (User) session.getAttribute("user");
         
-        String[] years=evalTableService.findAll();
-        String year=years[years.length-1];
+        // 考核表年份列表
+        String[] years = evalTableService.findAllYears();
+        String year = years[years.length-1];
         System.out.println("get Year..."+year);
         
         session.setAttribute("years", years);
         
+        // 细则年份列表
+        String[] yearsDetail = detailService.findAllYearsDe();
+        String yearDetail = yearsDetail[yearsDetail.length-1];
+        
+        session.setAttribute("yearsDetail", yearsDetail);
+        
         EvalTable evalTable;
         DetailTable detailTable;
         
-        
         if (user != null && user.getIdentity() != null) {
-            String id=user.getIdentity().get(0);
-            
-            switch (id) {
-                case UserService.COLLECTIONC:
+             String identity = request.getParameter("identity");
+            if(identity == null || identity.length() == 0){
+                identity = user.getIdentity().get(1);
+            }
+        request.setAttribute("identity", identity);
+            switch (identity) {
+                case UserService.COLLECTIONC: //管理員
                     evalTable = evalTableService.findEvalByAcademicYear(year);
                     session.setAttribute("evalTable", evalTable);
                     loginByAdmin(request, response);
                     break;
-                case UserService.COLLECTIONA:
-                    detailTable=detailService.findDetailByAcademicYear(year);
+                case UserService.COLLECTIONA: //审核员
+                    evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
+                    detailTable=detailService.findDetailByAcademicYear(yearDetail);
                     session.setAttribute("detailTable", detailTable);
+                    session.setAttribute("evalTable", evalTable);
                     loginByAuditor(request, response);
                     break;
                 default:
-                    detailTable=detailService.findDetailByAcademicYear(year);
+                    evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
+                    detailTable=detailService.findDetailByAcademicYear(yearDetail);
                     session.setAttribute("detailTable", detailTable);
+                    session.setAttribute("evalTable", evalTable);
                     loginByTeacher(request, response);
                     break;
             }
