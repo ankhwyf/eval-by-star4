@@ -26,16 +26,9 @@
                 <div class="col-md-8">
                     <strong>杭州国际服务工程学院教师本科教学工作业绩考核评分表</strong>
                     （
-                    <form method="post" action="getTable.do" id="submit">
-                        <select class="form-control" name="yearDetail">
+                    <form method="post" action="getTable.do" id="submit-teacher">
+                        <select class="form-control" name="yearDetail" id="select-teacher-year">
                             <%
-                                if (yearDetail == null || yearDetail.length() == 0) {
-                                    yearDetail = yearsDetail[yearsDetail.length - 1];
-                                    for (y = yearsDetail.length - 1; y >= 0; y--) {
-                            %>
-                            <option value="<%=yearsDetail[y]%>"><%=yearsDetail[y]%></option>
-                            <%  }
-                            } else {
                                 for (y = yearsDetail.length - 1; y >= 0; y--) {
                                     if (yearsDetail[y].equals(yearDetail)) {%>
                             <option value="<%=yearsDetail[y]%>" selected="selected"><%=yearsDetail[y]%></option>
@@ -45,9 +38,7 @@
                             <%
                                         }
                                     }
-                                }
                             %>
-
                         </select>
                     </form>
                     -<span id="endyear"><%=service.changeYear(yearDetail)%></span> 学年）
@@ -70,7 +61,6 @@
 
                 SubTable tab;
                 SubTableDe score;
-
             %>
             <div class="row content">
                 <div class="col-md-7 show">

@@ -31,9 +31,9 @@
                 <%
 //                    System.out.println("titleBar");
                     User user = (User) session.getAttribute("user");
-                    String iden = (String) request.getAttribute("identity");
-                    System.out.println("titleBar:"+iden);
                     UserService userService = new UserService();
+                    String iden = (String) request.getAttribute("identity");
+                    System.out.println("iden:"+iden);
                     
                     List<String> identity = new ArrayList();
                     List<String> cnIden = new ArrayList();
@@ -46,17 +46,10 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>  <a href="accountsetting.jsp">  <%=username%> </a> </li>
                     <li>
-                        <form method="post" action="getTable.do">
-                            <select name="identity" class="form-control">
+                        <form class="select-title" method="post" action="home" id="submit-title">
+                            <select name="identity" class="form-control" id="select-title-iden">
+                                
                                 <%
-                                    if(iden == null || iden.length()==0){
-//                                       iden = identity.get(2);
-                                    for (int i = 0; i < cnIden.size(); i++) {
-                                %>
-                                <option value="<%=identity.get(i)%>"><%=cnIden.get(i)%></option>
-                                <%
-                                    }
-                                } else{
                                    for (int i = 0; i < cnIden.size(); i++) {
                                     if(identity.get(i).equals(iden)){
                                 %>
@@ -68,7 +61,6 @@
                                 <%
                                               }  
                                         }
-                                    }     
                                 %>
                                 
                             </select> 

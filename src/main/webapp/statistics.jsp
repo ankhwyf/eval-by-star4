@@ -27,7 +27,7 @@
                 </div>
             </div>
             <%                DetailService detailService = new DetailService();
-                List<DetailTable> details = detailService.findAll();
+                List<DetailTable> details = detailService.findAllTables();
                 DetailTable detailTable;
                 int[] submit = {0, 0};
                 int[] audit = {0, 0};

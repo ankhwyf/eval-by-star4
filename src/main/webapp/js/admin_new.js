@@ -113,92 +113,22 @@ $('.add-me').click(function () {
 
 
               
-$(".form-control").change(function () {
-    var value = $(".form-control").val();
-    $("#endyear").text(parseInt(value) + 1);
-    $("#submit").submit();
+$("#select-admin-year").change(function () {
+    var value = $("select-admin-year").val();
+    $("#endyear").text(parseInt(value)+1);
+    $("#submit-admin").submit();
 });
-
+$("#select-auditor-year").change(function () {
+    var value = $("select-auditor-year").val();
+    $("#endyear").text(parseInt(value)+1);
+    $("#submit-auditor").submit();
+});
+$("#select-teacher-year").change(function () {
+     var value = $("select-teacher-year").val();
+    $("#endyear").text(parseInt(value)+1);
+    $("#submit-teacher").submit();
+});
+$("#select-title-iden").change(function () {
+    $("#submit-title").submit();
+});
 del();
-
-//$(".add-routine-basic").click(function () {
-//    $(".routine-basic").append(addLine("routine-basic", "basic"));
-//    
-//    $('.delete').bind('click', function () {
-//        del();
-//    });
-//});
-//
-//$(".add-routine-extend").click(function () {
-//    $(".routine-extend").append(addLine("routine-extend", "extend"));
-//    
-//    $('.delete').bind('click', function () {
-//        del();
-//    });
-//});
-//
-//$(".add-construct-basic").click(function () {
-//    $(".construct-basic").append(addLine("construct-basic", "basic"));
-//    
-//    $('.delete').bind('click', function () {
-//        del();
-//    });
-//});
-//
-//$(".add-construct-extend").click(function () {
-//    $(".construct-extend").append(addLine("construct-extend", "extend"));
-//    
-//    $('.delete').bind('click', function () {
-//        del();
-//    });
-//});
-//
-//$(".add-others-basic").click(function () {
-//    $(".others-basic").append(addLine("others-basic", null));
-//    
-//    $('.delete').bind('click', function () {
-//        del();
-//    });
-//});
-
-//function submit(param) {
-//    var basicContents = document.getElementsByClassName(param + '-basic-content');
-//    var basicScores = document.getElementsByClassName(param + '-basic-score');
-//    var extendContents = document.getElementsByClassName(param + '-extend-content');
-//    var extendScores = document.getElementsByClassName(param + '-extend-score');
-//    
-//    var basicContentInput = document.getElementsByClassName(param + '-basic-content-input');
-//    var basicScoreInput = document.getElementsByClassName(param + '-basic-score-input');
-//    var extendContentInput = document.getElementsByClassName(param + '-extend-content-input');
-//    var extendScoreInput = document.getElementsByClassName(param + '-extend-score-input');
-//    
-//    if (basicContents === null || basicScores === null || extendContents === null || extendScores === null || 
-//            basicContents.length === 0 || basicScores.length === 0 || extendContents.length === 0 || extendScores.length === 0) 
-//        return false;
-//    
-//    for (var i = 0; i < basicContents.length; i++) {
-//        basicContentInput[i].value = basicContents[i].innerHTML;
-//        console.log(basicContentInput[i].value);
-//    }
-//    for (var i = 0; i < basicScores.length; i++) {
-//        basicScoreInput[i].value = basicScores[i].innerHTML;
-//        console.log(basicScoreInput[i].value);
-//    }
-//    for (var i = 0; i < extendContents.length; i++) {
-//        extendContentInput[i].value = extendContents[i].innerHTML;
-//        console.log(extendContentInput[i].value);
-//    }
-//    for (var i = 0; i < extendScores.length; i++) {
-//        extendScoreInput[i].value = extendScores[i].innerHTML;
-//        console.log(extendScoreInput[i].value);
-//    }
-//    return true;
-//}
-//
-//function submitRoutine() {
-//    return submit('routine');
-//}
-//
-//function submitConstruct() {
-//    return submit('construct');
-//}

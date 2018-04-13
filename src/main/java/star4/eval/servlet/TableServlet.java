@@ -48,7 +48,6 @@ public class TableServlet extends HttpServlet {
         
         String identity = request.getParameter("identity");
         
-        
         HttpSession session = request.getSession();
         EvalTable evalTable;
         DetailTable detailTable;
@@ -57,9 +56,7 @@ public class TableServlet extends HttpServlet {
             User user = (User) session.getAttribute("user");
             identity = user.getIdentity().get(0);
         }
-        
-        request.setAttribute("year", year);
-        request.setAttribute("yearDetail", yearDetail);
+       
         request.setAttribute("identity", identity);
         System.out.println("getTableServlet..."+year);
         
@@ -69,6 +66,7 @@ public class TableServlet extends HttpServlet {
                     evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
                     session.setAttribute("detailTable", detailTable);
                     session.setAttribute("evalTable", evalTable);
+                    request.setAttribute("yearDetail", yearDetail);
                     request.getRequestDispatcher("/WEB-INF/views/tables/auditor.jsp").forward(request, response);
                     break;
                 case UserService.COLLECTIONT: //教师
@@ -76,11 +74,13 @@ public class TableServlet extends HttpServlet {
                     evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
                     session.setAttribute("detailTable", detailTable);
                     session.setAttribute("evalTable", evalTable);
+                    request.setAttribute("yearDetail", yearDetail);
                     request.getRequestDispatcher("/WEB-INF/views/tables/teacher.jsp").forward(request, response);
                     break;
                 default: //管理员
                     evalTable = evalTableService.findEvalByAcademicYear(year);
                     session.setAttribute("evalTable", evalTable);
+                    request.setAttribute("year", year);
                     request.getRequestDispatcher("/WEB-INF/views/tables/admin.jsp").forward(request, response);
                     break;
             }

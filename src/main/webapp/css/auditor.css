@@ -11,5 +11,12 @@
     margin: 5px 0;
 }
 .list-teacher {
-    cursor:pointer;
+    cursor: pointer;
+}
+.width_50 {
+	width: 50px;
+	text-align: center;
+}
+.width_300 {
+	width: 300px;
 }

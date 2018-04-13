@@ -20,14 +20,15 @@
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/table.css">
         <script type="text/javascript" src="js/tools/jquery-1.12.2.min.js"></script>
-        <script type="text/javascript" src="js/tools/tableExport.js"></script>
-        <script type="text/javascript" src="js/tools/jquery.base64.js"></script>
-        <script type="text/javascript" src="js/jspdf/jspdf.js"></script>
-        <script type="text/javascript" src="js/jspdf/libs/sprintf.js"></script>
-        <script type="text/javascript" src="js/jspdf/libs/base64.js"></script>
+        <!--<script type="text/javascript" src="js/tools/tableExport.js"></script>-->
+        <!--<script type="text/javascript" src="js/tools/jquery.base64.js"></script>-->
+        <!--<script type="text/javascript" src="js/jspdf/libs/sprintf.js"></script>-->
+        <!--<script type="text/javascript" src="js/jspdf/libs/base64.js"></script>-->
+        <!--<script type="text/javascript" src="js/tools/jquery.table2excel.js"></script>-->
+        <!--<script type="text/javascript" src="js/tools/jquery.base64.ext.js"></script>-->
     </head>
     <body>
-       
+
         <%
             EvalTableService service = new EvalTableService();
             //考核表
@@ -49,8 +50,7 @@
                         <div class="tab-pane" style="display:inline;">
                             <table id="preview-table" border="1" cellspacing="0" cellpadding="0" style="border-color:#000;">
                                 <caption> <Strong>杭州国际服务工程学院教师本科教学工作业绩考核评分表 ( <%=year%> - <%=service.changeYear(year)%> 年)</Strong>
-                                <button type="button" class="btn btn-info" onclick="$('#preview-table').tableExport({type: 'pdf', escape: 'false'});" style="float:right;">生成PDF</button>
-                                <button type="button" class="btn btn-success" onclick="$('#preview-table').tableExport({type: 'excel', escape: 'false'});" style="float:right;">生成Excel</button>
+                                    <button type="button" class="btn btn-success" onclick="tableToExcel('preview-table','name','myfile.xls')" style="float:right;">生成Excel</button>
                                 </caption>
                                 <tr>
                                     <td class="width_100">一级指标</td>
@@ -103,7 +103,7 @@
                                     }
                                 %>
                                 <% if (i == 0) {
-                                  int effortSize = effortTable.size();
+                                        int effortSize = effortTable.size();
                                 %>
                                 <tr>
                                     <td colspan="5">
@@ -132,7 +132,7 @@
                                 </tr>
 
                                 <%}
-                                }%>
+                                    }%>
                                 <tr></tr>
                                 <tr>
                                     <td colspan="3" style="text-align:center;"><strong>考核分合计</strong></td>
@@ -149,7 +149,7 @@
                                     <td colspan="2"><strong>直接定级</strong></td>
                                     <td colspan="5">直接定为优秀（含免考核）或直接定为不合格依据：</td>
                                 </tr>
-                               <tr>
+                                <tr>
                                     <td colspan="2">直接定为优秀或不合格</td>
                                     <td colspan="5"></td>
                                 </tr>
@@ -158,10 +158,10 @@
                                     <td colspan="5"></td>
                                 </tr>
                             </table>
-                                <h5>备注：</h5>
+                            <h5>备注：</h5>
                             <dl class="dl-horizontal">
                                 <%
-                                for(int i=0;i<remarks.size();i++){
+                                    for (int i = 0; i < remarks.size(); i++) {
                                 %>
                                 <dt class="width_280"><%=remarks.get(i).keypoint%></dt>
                                 <dd><%=remarks.get(i).content%></dd>
@@ -172,5 +172,6 @@
                 </div>
             </div>
         </main>
+        
     </body>
 </html>
