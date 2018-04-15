@@ -27,7 +27,7 @@ import star4.eval.service.UserService;
 public class TableServlet extends HttpServlet {
 
     private final EvalTableService evalTableService = new EvalTableService();
-     private final DetailService detailTableService = new DetailService();
+    private final DetailService detailTableService = new DetailService();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,49 +41,53 @@ public class TableServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         String year = request.getParameter("year");
-        System.out.println("------" + year);
-        
         String yearDetail = request.getParameter("yearDetail");
-        
+
         String identity = request.getParameter("identity");
         
-        HttpSession session = request.getSession();
         EvalTable evalTable;
         DetailTable detailTable;
-        System.out.println("getTable--identity:" + identity);
-        if(identity == null || identity.length() == 0){
-            User user = (User) session.getAttribute("user");
-            identity = user.getIdentity().get(0);
-        }
-       
-        request.setAttribute("identity", identity);
-        System.out.println("getTableServlet..."+year);
-        
-        switch (identity) {
-                case UserService.COLLECTIONA: //审核员
-                    detailTable = detailTableService.findDetailByAcademicYear(yearDetail);
-                    evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
-                    session.setAttribute("detailTable", detailTable);
-                    session.setAttribute("evalTable", evalTable);
-                    request.setAttribute("yearDetail", yearDetail);
-                    request.getRequestDispatcher("/WEB-INF/views/tables/auditor.jsp").forward(request, response);
-                    break;
-                case UserService.COLLECTIONT: //教师
-                    detailTable = detailTableService.findDetailByAcademicYear(yearDetail);
-                    evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
-                    session.setAttribute("detailTable", detailTable);
-                    session.setAttribute("evalTable", evalTable);
-                    request.setAttribute("yearDetail", yearDetail);
-                    request.getRequestDispatcher("/WEB-INF/views/tables/teacher.jsp").forward(request, response);
-                    break;
-                default: //管理员
-                    evalTable = evalTableService.findEvalByAcademicYear(year);
-                    session.setAttribute("evalTable", evalTable);
-                    request.setAttribute("year", year);
-                    request.getRequestDispatcher("/WEB-INF/views/tables/admin.jsp").forward(request, response);
-                    break;
+
+        if (identity == null || identity.length() == 0) {
+            identity = (String) session.getAttribute("identity");
+            if (identity == null || identity.length() == 0) {
+                User user = (User) session.getAttribute("user");
+                identity = user.getIdentity().get(0);
             }
+        }
+
+        System.out.println("getTable--identity:" + identity);
+
+        session.setAttribute("identity", identity);
+
+        switch (identity) {
+            case UserService.COLLECTIONA: //审核员
+                detailTable = detailTableService.findDetailByAcademicYear(yearDetail);
+                evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
+                session.setAttribute("detailTable", detailTable);
+                session.setAttribute("evalTable", evalTable);
+                session.setAttribute("yearDetail", yearDetail);
+                break;
+            case UserService.COLLECTIONT: //教师
+                detailTable = detailTableService.findDetailByAcademicYear(yearDetail);
+                evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
+                System.out.println("------tableServlet" + yearDetail);
+                
+                session.setAttribute("detailTable", detailTable);
+                session.setAttribute("evalTable", evalTable);
+                session.setAttribute("yearDetail", yearDetail);
+                break;
+            default: //管理员
+                evalTable = evalTableService.findEvalByAcademicYear(year);
+                System.out.println("getTableServlet..." + year);
+                
+                session.setAttribute("evalTable", evalTable);
+                session.setAttribute("year", year);
+                break;
+        }
+        response.sendRedirect("home");
     }
 
     // <editor-fold defaultstate="flapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -113,7 +117,7 @@ public class TableServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-       
+
     }
 
     /**

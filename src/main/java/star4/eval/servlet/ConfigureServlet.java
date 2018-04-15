@@ -38,8 +38,8 @@ public class ConfigureServlet extends HttpServlet {
         if (test == null || test.length() == 0) {
             test = "0";
         }
-        System.out.println("test" + test);
         request.setAttribute("test", test);
+        
         String successCreated = "";
         successCreated = dealCreate(request,response) + "";
         request.setAttribute("successCreated", successCreated);

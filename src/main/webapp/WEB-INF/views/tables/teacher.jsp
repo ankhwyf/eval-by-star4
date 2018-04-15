@@ -13,12 +13,18 @@
 <%@include file="/titleBar.jspf"%>
 <!DOCTYPE html>
 <html>
-
+    <head>
+        <link rel="stylesheet" href="css/teacher.css">
+        <script type="text/javascript" src="js/teacher.js"></script>
+    </head>
     <body>
 
         <main class="container">
-            <%            String[] yearsDetail = (String[]) session.getAttribute("yearsDetail");
-                String yearDetail = (String) request.getAttribute("yearDetail");
+            <%  
+                String success = (String)request.getAttribute("success");
+                String[] yearsDetail = (String[]) session.getAttribute("yearsDetail");
+                String yearDetail = (String) session.getAttribute("yearDetail");
+                System.out.println("yearDetailfromteacher.jsp:" + yearDetail);
                 EvalTableService service = new EvalTableService();
                 int y = 0;
             %>
@@ -36,12 +42,12 @@
                             %>
                             <option value="<%=yearsDetail[y]%>"><%=yearsDetail[y]%></option>
                             <%
-                                        }
                                     }
+                                }
                             %>
                         </select>
                     </form>
-                    -<span id="endyear"><%=service.changeYear(yearDetail)%></span> 学年）
+                    -<span id="endyear-teacher"><%=service.changeYear(yearDetail)%></span> 学年）
                 </div>
             </div>      
 
@@ -79,7 +85,7 @@
                     </div>
                 </div>
                 <div class="col-md-5 text-right operation">
-                    <a href="processDetail.do" onclick="ajaxSend()">
+                    <a href="processDetail.do" id="submit-table">
                         <i class="fa fa-send" style="font-size: 18px"></i>
                         <span>提交</span>
                     </a>
@@ -109,7 +115,7 @@
                         %>
                         <div class="tab-pane" id="tab<%=i%>">
                             <div id="table-<%=i%>">
-                                <form action="processDetail.do" method="post" onsubmit="">
+                                <form action="processDetail.do" method="post" onsubmit="submitDetail(<%=i%>)">
                                     <input name="type" value="detail-<%=i%>" type="hidden">
                                     <table border="1" cellspacing="0" cellpadding="0" >
                                         <tr>
@@ -150,12 +156,12 @@
                                                             <%=thirdIndicator.score%>
                                                         </td>
                                                         <td class="width_100"> <!--教师自评分-->
-                                                            <div class="textarea <%=i%>-score" contenteditable="true" style="height:100%;width:100%;"><%=thirdDetail.teacher_score%></div>
-                                                            <input class="<%=i%>-score-input" name="score" type="hidden" />
+                                                            <div class="textarea <%=i%>-score" contenteditable="true"><%=thirdDetail.teacher_score%></div>
+                                                            <input class="<%=i%>-score-input" name="score" type="hidden"/>
                                                         </td>
                                                         <td> <!--依据-->
-                                                            <div class="textarea <%=i%>-proof" contenteditable="true" style="height:100%;width:100%;"><%=thirdDetail.proof%></div>
-                                                            <input class="<%=i%>-proof-input" name="content" type="hidden" />
+                                                            <div class="textarea <%=i%>-proof" contenteditable="true"><%=thirdDetail.proof%></div>
+                                                            <input class="<%=i%>-proof-input" name="proof" type="hidden"/>
                                                         </td>
                                                     </tr>
                                                     <%}%>
@@ -173,15 +179,16 @@
                         <%}%>
 
                         <!--<工作量>-->
+                        <%int effortSize = effortTable.size();%>
                         <div class="tab-pane" id="tab<%=i%>">
-                            <form id="tableGzl" action="processDetail.do" method="post" onsubmit="submitGzl()">
-                                <input name="type" value="detail-<%=i%>" style="display:none"/>
-                                <span class="add-point float-right add-me">新增一行</span>
-                                <i class="fa fa-plus-square-o blue-add float-right add-me"></i>
-                                <table border="1" cellspacing="0" cellpadding="0">
+                            <form action="processDetail.do" method="post" onsubmit="submitLoad(<%=effortSize%>)">
+                                <input name="type" value="load-detail" type="hidden"/>
+                                <input name="loadSize" value="<%=effortSize%>" type="hidden"/>
+                                <span class="add-point float-right add-me" onclick="addLoadClick(<%=effortSize%>)">新增一行</span>
+                                <i class="fa fa-plus-square-o blue-add float-right add-load"></i>
+                                <table class="load-table" border="1" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <%
-                                            int effortSize = effortTable.size();
                                             for (int j = 0; j < effortSize; j++) {
                                         %>
                                         <td> <%=effortTable.get(j)%> </td>
@@ -195,15 +202,15 @@
                                     <tr class="hover">
                                         <%
                                             String[] strSp = effortDetail.get(j).split(",");
-                                            
-                                            for (int z = 0; z < effortSize && z < strSp.length; z++) {%>
+
+                                            for (int z = 0; z < effortSize; z++) {%>
                                         <td>
-                                            <div class="textarea remark-content" contenteditable="true"> <%=strSp[z]%></div>
-                                            <input class="effort-input" name="effort-<%=z%>" type="hidden" />
+                                            <div class="textarea load-content-<%=z%>" contenteditable="true"> <%=strSp[z]%></div>
+                                            <input class="load-input-<%=z%>" name="load-<%=z%>" type="hidden" />
                                         </td>
 
                                         <%}%>
-                                        <td><i class="fa fa-trash delete"></i></td>
+                                        <td><i class="fa fa-trash load-delete" ></i></td>
                                     </tr>
                                     <%
                                         }
@@ -248,20 +255,12 @@
             © 2018 <img src="img/heart.png" alt=""> 杭州师范大学
         </footer>
         <script>
-            function addLine() {
-                var tpl = "";
-                tpl += "<tr>";
-                for (j = 0; j < 6; j++) {
-                    tpl += "<td>";
-                    tpl += "<div class=\"textarea\" contenteditable=\"true\" style=\"width:100%;\"></div>";
-                    tpl += "</td>";
-                }
-                tpl += "</tr>";
-                return tpl;
+            var m = '<%=success%>';
+            if (m === 'true') {
+                modals.alertSmShow("提交成功！");
             }
-
-            $(".add").click(function () {
-                $(this).parent().parent().children().eq(0).children().append(addLine());
+            $('#submit-table').click(function () {
+                modals.loadingShow();
             });
 
         </script>

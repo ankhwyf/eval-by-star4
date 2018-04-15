@@ -22,7 +22,7 @@
 <body>
 	<main class="container"> <%
  	String[] yearsDetail = (String[]) session.getAttribute("yearsDetail");
- 	String yearDetail = (String) request.getAttribute("yearDetail");
+ 	String yearDetail = (String) session.getAttribute("yearDetail");
  	EvalTableService service = new EvalTableService();
  	int y = 0;
  %>
@@ -47,7 +47,7 @@
 
 				</select>
 			</form>
-			-<span id="endyear"><%=service.changeYear(yearDetail)%></span> 学年）
+			-<span id="endyear-auditor"><%=service.changeYear(yearDetail)%></span> 学年）
 		</div>
 	</div>
 	<div class="row">
@@ -56,7 +56,7 @@
 				<%
 					String name;
 					DetailService detailService = new DetailService();
-					List<DetailTable> detailTables = detailService.findAllTables();
+					List<DetailTable> detailTables = detailService.findAllTablesByYear(yearDetail);
 					DetailTable detailTemp;
 
 					for (int i = 0; i < detailTables.size(); i++) {

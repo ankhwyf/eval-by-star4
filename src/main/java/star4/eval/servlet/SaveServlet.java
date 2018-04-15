@@ -55,7 +55,7 @@ public class SaveServlet extends HttpServlet {
         
         //处理提交类型
         String type = request.getParameter("type");
-        if (type == null || type.equals("")) {
+        if (type == null || type.length() == 0) {
             type = "publish";
         } else if(!type.equals("remark")){
             String[] strSpilt=type.split("-");
@@ -66,28 +66,17 @@ public class SaveServlet extends HttpServlet {
             case "remark":
                 dealRemark(request, response);
                 break;
-            case "gzl":
-                
-                break;
             case "advanced":
                 
                 break;
             case "publish":
                 success = dealPublish(request, response)+"";
+                request.setAttribute("success", success);
                 break;
             default:dealSubTable(request, response,temp);
                 break;
-//            case "routine":
-//                dealRoutine(request, response);
-//                break;
-//            case "construct":
-//                dealConstruct(request, response);
-//                break;
-//            case "others":
-//                dealOthers(request, response);
-//                break;
         }
-        request.setAttribute("success", success);
+        
         
         request.getRequestDispatcher("home").forward(request, response);
 
@@ -185,6 +174,7 @@ public class SaveServlet extends HttpServlet {
         if(!evalTable.isIs_publish()) {
             for (User usersList1 : usersList) {
                 detailTable.setCardID(usersList1.getCardID());
+                detailTable.setName(usersList1.getName());
                 detailTable.setAcademic_year(evalTable.getAcademic_year());
                 detailTable.setIs_submit(false);
                 detailTable.setIs_audit(false);
@@ -205,16 +195,17 @@ public class SaveServlet extends HttpServlet {
                 List<SecondIndicatorDe> secondIndicatorDes = new ArrayList<>();
                 for (int z = 0; z < evalTables.size(); z++) {
                     SubTable sub = evalTables.get(z);
-                    for(int j = 0; j< sub.second_indicator.size(); j++) {
+                    for(int j = 0; j < sub.second_indicator.size(); j++) {
                         SecondIndicatorDe second = (new DetailTable()).new SecondIndicatorDe();
                         SecondIndicator sec = sub.second_indicator.get(j);
                         second.auditor_score = "";
-                        for (int i=0;i<sec.third_indicator.size();i++) {
+                        for (int i = 0; i < sec.third_indicator.size(); i++) {
                             ThirdIndicatorDe third = (new DetailTable()).new ThirdIndicatorDe();
                             third.teacher_score = "";
-                            third.proof = "";
+                            third.proof = " ";
                             thirdIndicatorDes.add(third);
                         }
+                        second.third_indicator = thirdIndicatorDes;
                         secondIndicatorDes.add(second);
                         subTableDe.second_indicator = secondIndicatorDes;
                     }
@@ -223,8 +214,8 @@ public class SaveServlet extends HttpServlet {
                 
                 detailTable.setTables(detailTables);
                 String str="";
-                for(int i=1;i<effortTable.size();i++){
-                    str+=",";
+                for(int i = 0; i < effortTable.size(); i++){
+                    str+=" ,";
                 }
                 effort.add(str);
                 detailTable.setEffortTable(effort);

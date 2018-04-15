@@ -17,6 +17,7 @@
     <script type="text/javascript" src="js/tools/bootstrap.js"></script>
     <script type="text/javascript" src="js/modal.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/admin_new.js"></script>
 </head>
 
     <header>
@@ -32,7 +33,7 @@
 //                    System.out.println("titleBar");
                     User user = (User) session.getAttribute("user");
                     UserService userService = new UserService();
-                    String iden = (String) request.getAttribute("identity");
+                    String iden = (String) session.getAttribute("identity");
                     System.out.println("iden:"+iden);
                     
                     List<String> identity = new ArrayList();

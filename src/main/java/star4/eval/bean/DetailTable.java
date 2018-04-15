@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class DetailTable {
     private String cardID;
+    private String name;
     private String academic_year;
     private boolean is_submit;
     private boolean is_audit;
@@ -57,6 +58,14 @@ public class DetailTable {
         this.cardID = cardID;
     }
 
+    public String getName(){
+        return name;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
     public boolean isIs_submit() {
         return is_submit;
     }

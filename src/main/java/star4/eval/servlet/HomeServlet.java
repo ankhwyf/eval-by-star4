@@ -20,8 +20,8 @@ import star4.eval.service.UserService;
 @WebServlet(urlPatterns = {"/home"})
 public class HomeServlet extends HttpServlet {
     
-    private final EvalTableService evalTableService=new EvalTableService();
-    private final DetailService detailService=new DetailService();
+    private final EvalTableService evalTableService = new EvalTableService();
+    private final DetailService detailService = new DetailService();
     
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,54 +29,64 @@ public class HomeServlet extends HttpServlet {
         
         User user = (User) session.getAttribute("user");
         
+        String year = (String)session.getAttribute("year");
+        String yearDetail = (String)session.getAttribute("yearDetail");
+        
         // 考核表年份列表
         String[] years = evalTableService.findAllYears();
-        String year = years[years.length-1];
+        if(year == null || year.length() == 0){
+            year = years[years.length-1];
+        }
         
         // 细则年份列表
         String[] yearsDetail = detailService.findAllYearsDe();
-        String yearDetail = yearsDetail[yearsDetail.length-1];
+        if(yearDetail == null || yearDetail.length() == 0){
+             yearDetail = yearsDetail[yearsDetail.length-1];
+        }
         
         EvalTable evalTable;
         DetailTable detailTable;
         
         if (user != null && user.getIdentity() != null) {
         	//获取身份
-             String identity = request.getParameter("identity");
+             String identity = (String)request.getParameter("identity");
               System.out.println("identity:"+identity);
+              
             if(identity == null || identity.length() == 0){
-                identity = user.getIdentity().get(0); 
+                identity = (String)session.getAttribute("identity");
+                if(identity == null || identity.length() == 0){
+                    identity = user.getIdentity().get(0); 
+                }
             }
-            
-        request.setAttribute("identity", identity);
-        
+           
+        session.setAttribute("identity", identity);
             switch (identity) {
                 case UserService.COLLECTIONC: //管理員
                     evalTable = evalTableService.findEvalByAcademicYear(year);
                     session.setAttribute("evalTable", evalTable);
                     //考核表年份列表
-                    request.setAttribute("year", year);
+                    session.setAttribute("year", year);
                     session.setAttribute("years", years);
                     loginByAdmin(request, response);
                     break;
                 case UserService.COLLECTIONA: //审核员
                     evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
-                    detailTable=detailService.findDetailByAcademicYear(yearDetail);
+                    detailTable = detailService.findDetailByAcademicYear(yearDetail);
                     session.setAttribute("detailTable", detailTable);
                     session.setAttribute("evalTable", evalTable);
                     // 细则年份列表
                     session.setAttribute("yearsDetail", yearsDetail);
-                    request.setAttribute("yearDetail", yearDetail);
+                    session.setAttribute("yearDetail", yearDetail);
                     loginByAuditor(request, response);
                     break;
                 default: //教师
                     evalTable = evalTableService.findEvalByAcademicYear(yearDetail);
-                    detailTable=detailService.findDetailByAcademicYear(yearDetail);
+                    detailTable = detailService.findDetailByAcademicYear(yearDetail);
                     session.setAttribute("detailTable", detailTable);
                     session.setAttribute("evalTable", evalTable);
                     // 细则年份列表
                     session.setAttribute("yearsDetail", yearsDetail);
-                    request.setAttribute("yearDetail", yearDetail);
+                    session.setAttribute("yearDetail", yearDetail);
                     loginByTeacher(request, response);
                     break;
             }

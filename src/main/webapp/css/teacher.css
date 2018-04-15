@@ -1,0 +1,13 @@
+table tr td {
+    min-height: 100px;
+    height: 31px;
+}
+.textarea {
+    width: 100%;
+}
+.load-delete {
+    /*margin-top: 1rem;*/
+    margin-left: 1rem;
+    color: #ff4949;
+    font-size: 18px;
+}

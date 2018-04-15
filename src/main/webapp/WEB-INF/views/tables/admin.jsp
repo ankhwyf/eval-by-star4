@@ -1,6 +1,6 @@
 <%-- 
     Document   : admin
-    Created on : 2018-1-30, 15:57:26
+    Created on : 2017-11-30, 15:57:26
     Author     : ankhyfw
 --%>
 
@@ -20,7 +20,7 @@
 <html>
     <body>
         <main class="container"> <%            String[] years = (String[]) session.getAttribute("years");
-            String year = (String) request.getAttribute("year");
+            String year = (String) session.getAttribute("year");
             System.out.println("year-admin:" + year);
             EvalTableService service = new EvalTableService();
             int y = 0;
@@ -45,7 +45,7 @@
                             %>
                         </select>
                     </form>
-                    -<span id="endyear"><%=service.changeYear(year)%></span> 学年）
+                    -<span id="endyear-admin"><%=service.changeYear(year)%></span> 学年）
                 </div>
                 <div class="col-md-4 text-right operation">
                     <a href="configure.jsp"> <i class="fa fa-cog fa-spin"
@@ -56,13 +56,9 @@
 
             <%
                 String success = (String) request.getAttribute("success");
-                if (success == null) {
-                    success = "";
-                }
+                
                 String successCreated = (String) request.getAttribute("successCreated");
-                if (successCreated == null) {
-                    successCreated = "";
-                }
+                
                 //考核表
                 EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
                 //考核子表
@@ -127,7 +123,7 @@
                             <div id="table-<%=i%>">
                                 <form action="process.do" method="post"
                                       onsubmit="submitSingle(<%=i%>)">
-                                    <input name="type" value="eval-<%=i%>" style="display: none;" />
+                                    <input name="type" value="eval-<%=i%>" type="hidden" />
                                     <table border="1" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>一级指标</td>
@@ -265,7 +261,7 @@
                                     <tr class="hover">
                                         <td>
                                             <!--<input type="text" name="keypoint" value="" style="border:0;"/>-->
-                                            <div class="textarea remark-keypoint" contenteditable="true">
+                                            <div class="textarea remark-keypoint" contenteditable="true" style="height: 100%; width: 100%;">
                                                 <%=remark.keypoint%>
                                             </div> <input class="keypoint-input" name="keypoint"
                                                           style="display: none;" />
@@ -293,6 +289,7 @@
             © 2018 <img src="img/heart.png" alt=""> 杭州师范大学
         </footer>
         <script>
+            
                                       var m = '<%=success%>';
                                       if (m === 'true') {
                                           modals.alertSmShow("发布成功！");
