@@ -1,10 +1,4 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 $(document).ready(function () {
-    
     // 鼠标悬停和离开
     $(".container .content .col-md-4 .configure table tr").hover(function () {
 //        $(this).css('background', '#f5f5f5');
@@ -14,18 +8,10 @@ $(document).ready(function () {
         $(this).find('.pull-right').hide();
     });
 
-    function trIndex(){
-        var index;
-        $(".container .content .col-md-4 .configure table").eq(0).find('tr').click(function () {
-        index = $(this).index();
-        });
-        document.getElementById("test").value = index;
-        
-        $('#configureFrm').action = "/getIndex.do";
-        
-        $('#configureFrm').submit();
-    }
-    
+    $('.first').click(function () {
+        // 获取点击的行中的数据
+        window.location = "configure.jsp?index=" + $(this).parent().parent().index();
+    });
 
     //删除一行
     $(".container .content .col-md-4 .configure table tr .fa-trash").click(function () {
@@ -34,7 +20,7 @@ $(document).ready(function () {
 
     //编辑
     $(".container .content .col-md-4 .configure table tr .fa-edit").click(function () {
-        var content = $(this).parent().parent().parent().parent().parent().parent().parent().find('.theme').find('span').html();
+        var content = $(this).parent().parent().parent().parent().parent().parent().parent().parent().find('.theme').find('span').html();
         var index = $(this).parent().parent().parent().index();
         if (content === "一级指标") {
             modals.feedBackModify('编辑一级目录', 0, index);
@@ -55,8 +41,6 @@ $(document).ready(function () {
     $('#addThird').click(function () {
         modals.feedBackShow('添加工作内容', 2);
     });
-
-
 
 });
 

@@ -55,4 +55,4 @@ drawB(myChart, '教师提交信息', '待提交', '已提交', submit);
 var myChart = echarts.init(document.getElementById('auditInformation'));
 drawB(myChart, '审核信息', '待审核', '已审核', audit);
 var myChart = echarts.init(document.getElementById('rankInformation'));
-drawB(myChart, '等级信息', '合格率', '不合格率', rank);
+drawB(myChart, '等级信息', '不合格率', '合格率', rank);

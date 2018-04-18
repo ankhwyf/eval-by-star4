@@ -87,18 +87,29 @@ Modals.prototype.feedBackShow = function (con, unit, fn) {
             console.log("grades:"+grades);
             console.log("feedBackMsg:"+feedBackMsg); 
         }
-        var bulidtpl = '';
-        bulidtpl += '<tr class="hover-h"><td>';
-        if (unit !== 1) {
-            bulidtpl += '<div class="pull-left"><strong>' + name + '</strong></div>';
-        } else {
-            bulidtpl += '<div class="pull-left"><strong>' + name + '</strong><span>'+ grades + '</span>' + '分' + '<textarea style="display:none;">' + feedBackMsg + '</textarea></div>';
+        var buildtpl = '';
+        buildtpl += '<tr class="hover-h"><td>';
+         buildtpl += '<div class="pull-left first">';
+        if (unit === 0) {
+            buildtpl += '<strong class="first-title">' + name + '</strong>';
+            buildtpl += '<input class="first-title-input" type="hidden" name="first-title">';
+            
+        } else if(unit === 1){
+            buildtpl += '<strong class="second-title">' + name + '</strong>';
+            buildtpl += '<input class="second-title-input" type="hidden" name="second-title">';
+            buildtpl += '<span class="second-score">'+ grades + '</span>' + '分';
+            buildtpl += '<input class="second-score-input" type="hidden" name="second-score">';
+            buildtpl += '<textarea class="second-remark" style="display:none;">' + feedBackMsg + '</textarea>';
+            buildtpl += '<input class="second-remark-input" type="hidden" name="second-remark">';
+        } else if(unit === 2){
+            buildtpl += '<strong class="third-effort">' + name + '</strong>'; 
+            buildtpl += '<input class="third-effort-input" type="hidden" name="third-effort">';
         }
+        buildtpl += '</div>';
+        buildtpl += '<div class="pull-right">';
+        buildtpl += '<i class="fa fa-edit"></i><i class="fa fa-trash"></i></div></td></tr>';
 
-        bulidtpl += '<div class="pull-right">';
-        bulidtpl += '<i class="fa fa-edit"></i><i class="fa fa-trash"></i></div></td></tr>';
-
-        $('.container .content .col-md-4 .configure table').eq(unit).append(bulidtpl);
+        $('.container .content .col-md-4 .configure table').eq(unit).append(buildtpl);
 
         $('.container .content .col-md-4 .configure table tr').bind({
             mouseenter: function () {
@@ -114,7 +125,7 @@ Modals.prototype.feedBackShow = function (con, unit, fn) {
             $(this).parent().parent().parent().remove();
         });
         $(".container .content .col-md-4 .configure table tr .fa-edit").bind('click', function () {
-            var content = $(this).parent().parent().parent().parent().parent().parent().parent().find('.theme').find('span').html();
+            var content = $(this).parent().parent().parent().parent().parent().parent().parent().parent().find('.theme').find('span').html();
             var index = $(this).parent().parent().parent().index();
             if (content === "一级指标") {
                 modals.feedBackModify('编辑一级目录', 0, index);
@@ -148,7 +159,7 @@ Modals.prototype.feedBackModify = function (con, unit, index, fn) {
     var dom = "<div class='feed-back-backdrop'>" + 
                 "<div class='fb-cont'>" + 
                     "<div class='fb-hd c-blue '><i class='fa fa-edit'></i>" + con + "</div>" + 
-                    " <button class='fb-xx btnFbX' id='btnFbX'>X</button>" + 
+                    "<button class='fb-xx btnFbX' id='btnFbX'>X</button>" + 
                         "<div class='line'>" + 
                         "<span>指标名称：</span>" + 
                         "<input type='text' class='form-control name' id='name' value=" + name + ">" + 
@@ -171,19 +182,19 @@ Modals.prototype.feedBackModify = function (con, unit, index, fn) {
                     feedBackMsg = "";
             name = $('#name').val();
             
-            $(".container .content .col-md-4 .configure table tr").eq(index).find('strong').text(name);
+            $(".container .content .col-md-4 .configure table").eq(unit).find('tr').eq(index).find('strong').text(name);
             if (unit === 1) {
                 grades = $('#grades').val();
                 feedBackMsg = $('#feedBackMsg').val();
                 
-                $(".container .content .col-md-4 .configure table tr").eq(index).find('span').text(grades);
-                $(".container .content .col-md-4 .configure table tr").eq(index).find('textarea').text(feedBackMsg);
+                $(".container .content .col-md-4 .configure table").eq(unit).find('tr').eq(index).find('span').text(grades);
+                $(".container .content .col-md-4 .configure table").eq(unit).find('tr').eq(index).find('textarea').val(feedBackMsg);
             }
             
-            console.log("nameupdate111:"+name);
-            console.log("gradesupdate111:"+grades);
-            console.log("feedBackMsgupdate111:"+feedBackMsg);
-            
+            console.log("nameupdate111: "+name);
+            console.log("gradesupdate111: "+grades);
+            console.log("feedBackMsgupdate111: "+feedBackMsg);
+             $('.feed-back-backdrop').remove();
         }
         
          $(".btnFbX").bind('click', function () {
@@ -193,6 +204,7 @@ Modals.prototype.feedBackModify = function (con, unit, index, fn) {
         $('.feed-back-backdrop').remove();
 
     });
+    
     $(".btnFbX").click(function () {
         $('.feed-back-backdrop').remove();
     });

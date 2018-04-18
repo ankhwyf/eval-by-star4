@@ -19,6 +19,7 @@
         <title>preview</title>
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/table.css">
+        <!--<link rel="stylesheet" href="css/cursor.css">-->
         <script type="text/javascript" src="js/tools/jquery-1.12.2.min.js"></script>
         <!--<script type="text/javascript" src="js/tools/tableExport.js"></script>-->
         <!--<script type="text/javascript" src="js/tools/jquery.base64.js"></script>-->
@@ -52,7 +53,7 @@
                                 <caption> <Strong>杭州国际服务工程学院教师本科教学工作业绩考核评分表 ( <%=year%> - <%=service.changeYear(year)%> 年)</Strong>
                                     <button type="button" class="btn btn-success" onclick="tableToExcel('preview-table','name','myfile.xls')" style="float:right;">生成Excel</button>
                                 </caption>
-                                <tr>
+                                <tr class="tr-center">
                                     <td class="width_100">一级指标</td>
                                     <td class="width_100">二级指标</td>
                                     <td class="width_280">内涵</td>
@@ -108,7 +109,7 @@
                                 <tr>
                                     <td colspan="5">
                                         <table class="t_in_t" border="1" cellspacing="0" cellpadding="0" style="border-color:#000;">
-                                            <tr>
+                                            <tr class="tr-center">
                                                 <%
                                                     for (int w = 0; w < effortSize; w++) {
                                                 %>

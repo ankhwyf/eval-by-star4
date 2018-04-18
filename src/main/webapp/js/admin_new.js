@@ -1,26 +1,16 @@
 
-function addLine(model, prefix) {
-    if (model === null)
-        model = "";
-    else
-        model = model + "-";
-
-//    if (prefix === null)
-    prefix = "";
-//    else
-//        prefix = prefix + "-";
-
+function addLine(i, j) {
     var tpl = "";
     tpl += "<tr class=\"hover\">";
     tpl += "<td>";
     tpl += "<div>";
-    tpl += " <div class=\"textarea " + model + "content\" contenteditable=\"true\"></div>";
-    tpl += "<input class=\"" + model + "content-input\" name=\"" + prefix + "content\" style=\"display: none;\" />";
+    tpl += " <div class=\"textarea " + i + "-" + j + "-content\" contenteditable=\"true\"></div>";
+    tpl += "<input class=\"" + i + "-" + j + "-content-input\" name=\"content-" + j + "\" style=\"display: none;\" />";
     tpl += "<i class=\"fa fa-trash delete\"></i>";
     tpl += "<div>";
     tpl += "</td>";
-    tpl += "<td class=\"width-100\"><div class=\"textarea " + model + "score\" contenteditable=\"true\" style=\"width:100%\"></div>";
-    tpl += "<input class=\"" + model + "score-input\" name=\"" + prefix + "score\" style=\"display: none;\" /></td>";
+    tpl += "<td class=\"width-100\"><div class=\"textarea " + i + "-" + j + "-score\" contenteditable=\"true\" style=\"width:100%\"></div>";
+    tpl += "<input class=\"" + i + "-" + j + "-score-input\" name=\"score-" + j + "\" style=\"display: none;\" /></td>";
     tpl += " <td class=\"width-100\"></td>";
     tpl += " <td class=\"width-100\"></td>";
     tpl += "<tr>";
@@ -72,24 +62,26 @@ function submitRemark() {
     return true;
 }
 
-function submitSingle(param) {
-    var contents = document.getElementsByClassName(param + '-content');
-    var scores = document.getElementsByClassName(param + '-score');
+function submitSingle(param, a) {
+    for (var j = 0; j < a; j++) {
+        var contents = document.getElementsByClassName(param +'-'+ j + '-content');
+        var scores = document.getElementsByClassName(param +'-'+ j +'-score');
 
-    var contentInput = document.getElementsByClassName(param + '-content-input');
-    var scoreInput = document.getElementsByClassName(param + '-score-input');
+        var contentInput = document.getElementsByClassName(param +'-'+ j + '-content-input');
+        var scoreInput = document.getElementsByClassName(param + '-' + j + '-score-input');
 
-    if (scores === null || contents === null || scores.length === 0 || contents.length === 0)
-        return false;
+        if (scores === null || contents === null || scores.length === 0 || contents.length === 0)
+            return false;
 
-    console.log("content " + contents.length + "; score " + scores.length);
-    for (var i = 0; i < contents.length; i++) {
-        contentInput[i].value = contents[i].innerHTML;
-        console.log(contentInput[i].value);
-    }
-    for (var i = 0; i < scores.length; i++) {
-        scoreInput[i].value = scores[i].innerHTML;
-        console.log(scoreInput[i].value);
+        console.log("content " + contents.length + "; score " + scores.length);
+        for (var i = 0; i < contents.length; i++) {
+            contentInput[i].value = contents[i].innerHTML;
+            console.log(contentInput[i].value);
+        }
+        for (var i = 0; i < scores.length; i++) {
+            scoreInput[i].value = scores[i].innerHTML;
+            console.log(scoreInput[i].value);
+        }
     }
     return true;
 }
@@ -117,7 +109,7 @@ $("#select-admin-year").change(function () {
 });
 
 $(document).on('change', '#select-title-iden', function () {
-        $("#submit-title").submit();
+    $("#submit-title").submit();
 });
 
 del();

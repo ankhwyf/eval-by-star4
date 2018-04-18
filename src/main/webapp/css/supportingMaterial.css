@@ -106,3 +106,14 @@ html,body {
 .search-bt {
     border: solid 1px #44b6d2;
 }
+.position-right {
+    float: right;
+    margin-right: 25px;
+    color: #44b6d2;
+}
+.fa .fa-upload {
+    color: #44b6d2;
+}
+.row {
+    margin: 0;
+}

@@ -4,6 +4,7 @@
     Author     : ankhyfw
 --%>
 
+<%@page import="star4.eval.service.UserService"%>
 <%@page import="star4.eval.bean.DetailTable.ThirdIndicatorDe"%>
 <%@page import="star4.eval.bean.DetailTable.SubTableDe"%>
 <%@page import="star4.eval.bean.DetailTable"%>
@@ -22,6 +23,7 @@
         <title>preview</title>
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/table.css">
+        <!--<link rel="stylesheet" href="css/cursor.css">-->
         <script type="text/javascript" src="js/tools/jquery-1.12.2.min.js"></script>
         <!--<script type="text/javascript" src="js/tools/tableExport.js"></script>-->
         <!--<script type="text/javascript" src="js/tools/jquery.base64.js"></script>-->
@@ -33,6 +35,8 @@
     <body>
 
         <%
+            String identity = (String) session.getAttribute("identity");
+
             EvalTableService service = new EvalTableService();
             //考核表
             EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
@@ -44,14 +48,18 @@
             List<String> effortTable = evalTable.getEffortTable();
 
             SubTable tab;
-            
-            DetailTable detailTable = (DetailTable)session.getAttribute("detailTable");
+            DetailTable detailTable = (DetailTable) session.getAttribute("detailTable");
+            if (identity.equals(UserService.COLLECTIONA)) {
+                List<DetailTable> detailTables = (List<DetailTable>) session.getAttribute("detailTables");
+                int index = Integer.parseInt((String) session.getAttribute("index"));
+                detailTable = detailTables.get(index);
+            }
             List<SubTableDe> scores = detailTable.getTables();
             List<String> effortDetail = detailTable.getEffortTable();
             SubTableDe score;
-            
+
             String detailYear = detailTable.getAcademic_year();
-            
+
         %>
         <main class="container">
             <div class="row">
@@ -60,9 +68,11 @@
                         <div class="tab-pane" style="display:inline;">
                             <table id="preview-table" border="1" cellspacing="0" cellpadding="0" style="border-color:#000;">
                                 <caption> <Strong>杭州国际服务工程学院教师本科教学工作业绩考核评分表 ( <%=detailYear%> - <%=service.changeYear(detailYear)%> 年)</Strong>
-                                    <button type="button" class="btn btn-success" onclick="tableToExcel('preview-table','name','myfile.xls')" style="float:right;">生成Excel</button>
+                                    <button type="button" class="btn btn-success" onclick="tableToExcel('preview-table', 'name', 'myfile.xls')" style="float:right;">生成Excel</button>
+                                    <div id="list-selected-name"><%=detailTable.getCardID()%>  <%=detailTable.getName()%></div>
                                 </caption>
-                                <tr>
+
+                                <tr class="tr-center">
                                     <td class="width_100">一级指标</td>
                                     <td class="width_100">二级指标</td>
                                     <td class="width_280">内涵</td>
@@ -109,7 +119,12 @@
                                             %>
                                         </table>
                                     </td>
-                                    <td class="width_100"><%=score.second_indicator.get(j).auditor_score%></td>
+                                    <td class="width_100" style="vertical-align: middle;">
+                                        <%if (detailTable.isIs_audit()) {
+                                        %>
+                                        <%=score.second_indicator.get(j).auditor_score%>
+                                        <%}%>
+                                    </td>
 
                                 </tr>
                                 <%
@@ -121,7 +136,7 @@
                                 <tr>
                                     <td colspan="5">
                                         <table class="t_in_t" border="1" cellspacing="0" cellpadding="0" style="border-color:#000;">
-                                            <tr>
+                                            <tr class="tr-center">
                                                 <%
                                                     for (int w = 0; w < effortSize; w++) {
                                                 %>
@@ -188,6 +203,6 @@
                 </div>
             </div>
         </main>
-        
+
     </body>
 </html>

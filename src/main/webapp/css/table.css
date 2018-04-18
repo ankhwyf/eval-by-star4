@@ -112,3 +112,16 @@ dl dd {
     margin-top: 1rem;
     margin-left: 1rem;
 }
+.save-btn {
+    width: 120px;
+    margin-top: 20px; 
+    margin-right: 10px;
+}
+.tr-center {
+    text-align: center;
+}
+#list-selected-name {
+    color: #003;
+    font-size: 15px;
+    font-weight: bold;
+}

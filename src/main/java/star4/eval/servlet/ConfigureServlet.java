@@ -19,7 +19,7 @@ import star4.eval.service.EvalTableService;
  *
  * @author ankhyfw
  */
-@WebServlet(urlPatterns = {"/getIndex.do"})
+@WebServlet(urlPatterns = {"/configure.do"})
 public class ConfigureServlet extends HttpServlet {
 
     /**
@@ -34,15 +34,10 @@ public class ConfigureServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String test = (String) request.getParameter("test");
-        if (test == null || test.length() == 0) {
-            test = "0";
-        }
-        request.setAttribute("test", test);
+        HttpSession session = request.getSession();
         
-        String successCreated = "";
-        successCreated = dealCreate(request,response) + "";
-        request.setAttribute("successCreated", successCreated);
+        String successCreated = dealCreate(request,response) + "";
+        session.setAttribute("successCreated", successCreated);
         
         request.getRequestDispatcher("home").forward(request, response);
     }
@@ -52,7 +47,10 @@ public class ConfigureServlet extends HttpServlet {
         EvalTableService service = new EvalTableService();
         
         String[] years = service.findAllYears();
-        String year = years[years.length-1];
+        String year="2999";
+        if(years != null){
+            year = years[years.length-1];
+        }
         year = service.changeYear(year);
         
         evalTable.setAcademic_year(year);

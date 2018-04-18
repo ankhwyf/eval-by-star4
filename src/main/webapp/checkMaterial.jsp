@@ -31,17 +31,12 @@
                         <div class="col-md-2">
                             <section id="search-box"> <label for="search-input">
                                 </label> <input id="search-input" class="search-input" type="text"
-                                                placeholder="请输入学年"/> </section>
+                                                placeholder="请输入工号/姓名/学年"/> </section>
                         </div>
                         <div class="col-md-1 search-bt-box">
                             <button type="button" class="btn btn-default search-bt">搜索</button>
                         </div>
-                        <div class="position-right">
-                            <a href="">
-                                <i class="fa fa-upload" style="font-size: 18px"></i>
-                                <span>上传材料</span>
-                            </a> 
-                        </div>
+                        
                     </div>
 
                     <div class="row material-table">
@@ -49,12 +44,14 @@
                             <table class="table table-hover student-table"
                                    id="supportingMaterialIdNameYear">
                                 <tr>
+                                    <td>工号</td>
+                                    <td>姓名</td>
                                     <td>学年</td>
                                 </tr>
                                 <%                                    String indexStr = request.getParameter("index");
-                                    // 查询 学年
+                                    // 查询所有 学号 姓名 学年
                                     MaterialService materialService = new MaterialService();//实例化
-                                    List<SupportingMaterial> materials = materialService.findAllMSById(user.getCardID());//拿到教师列表
+                                    List<SupportingMaterial> materials = materialService.findAllMS();//拿到教师列表
                                     SupportingMaterial material = new SupportingMaterial();
                                     boolean flag = false;
                                     int index = 0;
@@ -74,6 +71,8 @@
                                         }
                                     %>
                                     >
+                                    <td><%=temp.getTeacher_id()%></td>
+                                    <td><%=temp.getTeacher_name()%></td>
                                     <td><%=temp.getAcademic_year()%></td>
                                 </tr>
                                 <%
@@ -101,7 +100,6 @@
                                         <a href="DownloadServlet?docname=<%=URLEncoder.encode(doc.doc_name, "UTF-8")%>">
                                             <i class="fa fa-download" aria-hidden="true"></i></a>
                                     </td>
-
                                 </tr>
                                 <%
                                     }
@@ -123,7 +121,7 @@
             $('.material-item').remove();
             // 获取点击的行中的数据
             var cell = document.getElementById("supportingMaterialIdNameYear").rows[this.rowIndex].cells;
-            window.location = "supportingMaterial.jsp?index=" + this.rowIndex;
+            window.location = "checkMaterial.jsp?index=" + this.rowIndex;
 
         });
 

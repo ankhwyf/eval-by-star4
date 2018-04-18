@@ -14,9 +14,25 @@
     cursor: pointer;
 }
 .width_50 {
-	width: 50px;
-	text-align: center;
+    width: 50px;
+    text-align: center;
 }
 .width_300 {
-	width: 300px;
+    width: 300px;
+}
+.small {
+
+    margin-left: 5px;
+}
+.clicked {
+    background: #eee;
+}
+.is-audit {
+    color: #999;
+    font-size: 13px;
+}
+.is-noaudit{
+    color: #333;
+    font-size: 15px;
+    font-weight: bold;
 }

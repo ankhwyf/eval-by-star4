@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/modals.css">
 <link rel="stylesheet" href="css/login.css">
+<!--<link rel="stylesheet" href="css/cursor.css">-->
 <script type="text/javascript" src="js/tools/jquery-1.12.2.min.js"></script>
 <script type="text/javascript" src="js/tools/bootstrap.js"></script>
 <script type="text/javascript" src="js/modal.js"></script>
@@ -33,13 +34,13 @@
 			</c:if>
 			<div class="form-group">
 				<label for="user" class="control-label">登录名:</label> <input
-					type="text" class="input-user form-control" id="user"
+					type="text" class="input-user form-control"
 					placeholder="邮箱/工号" name="login_name">
 			</div>
 			<div class="form-group">
 				<label for="user" class="control-label">登录密码:</label> <a
-					class="login-panel__forget" href="forget.html">忘记登录密码？</a> <input
-					type="password" class="input-pass form-control" id="user"
+					class="login-panel__forget" href="#">忘记登录密码？</a> <input
+					type="password" class="input-pass form-control"
 					placeholder="登录密码" name="login_pwd">
 			</div>
 

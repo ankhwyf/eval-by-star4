@@ -25,7 +25,9 @@ import star4.eval.service.DetailService;
  */
 @WebServlet(urlPatterns = {"/processDetail.do"})
 public class DetailServlet extends HttpServlet {
- private final DetailService detailService = new DetailService();
+
+    private final DetailService detailService = new DetailService();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,6 +41,7 @@ public class DetailServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
         String loadSize = request.getParameter("loadSize");
         int temp = 0;
         int size = 0;
@@ -49,22 +52,21 @@ public class DetailServlet extends HttpServlet {
 
         String type = request.getParameter("type");
         if (type == null || type.length() == 0) {
-            type = "publish";
+            type = "submit";
         } else if (!type.equals("load-detail")) {
             String[] strSpilt = type.split("-");
             temp = Integer.parseInt(strSpilt[1]);
         }
 
-    
         // 发布
-        String success;
         switch (type) {
             case "load-detail":
                 dealLoadDetail(request, response, size);
                 break;
-            case "publish":
-                success = dealPublish(request, response) + "";
-                request.setAttribute("success", success);
+            case "submit":
+                String success = dealSubmit(request, response) + "";
+                session.setAttribute("success", success);
+                System.out.println("success`1:" + success);
                 break;
             default:
                 dealSubTableDe(request, response, temp);
@@ -75,40 +77,42 @@ public class DetailServlet extends HttpServlet {
 
     public boolean dealSubTableDe(HttpServletRequest request, HttpServletResponse response, int temp) {
 
-        String[] scores = request.getParameterValues("score");
-        String[] proofs = request.getParameterValues("proof");
+        String length = request.getParameter("length");
+        int subLength = 0;
+        if (length != null && length.length() != 0) {
+            subLength = Integer.parseInt(length);
+        }
 
         HttpSession session = request.getSession();
         DetailTable detailTable = (DetailTable) session.getAttribute("detailTable");
         DetailService service = new DetailService();
+        for (int j = 0; j < subLength; j++) {
+            String[] scores = request.getParameterValues("score-" + j);
+            String[] proofs = request.getParameterValues("proof-" + j);
 
-        if (proofs != null && scores != null) {
-            List<DetailTable.ThirdIndicatorDe> thirdList = new ArrayList<>();
-            int proofLength = proofs.length;
-            int scoreLength = scores.length;
-            for (int i = 0; i < proofLength && i < scoreLength; i++) {
-                String score = "";
-                String proof = "";
-                if (i < scoreLength) {
-                    score = scores[i];
-                }
-                if (i < proofLength) {
-                    proof = proofs[i];
-                }
+            if (proofs != null && scores != null) {
+                List<DetailTable.ThirdIndicatorDe> thirdList = new ArrayList<>();
+                int proofLength = proofs.length;
+                int scoreLength = scores.length;
+                for (int i = 0; i < proofLength && i < scoreLength; i++) {
+                    String score = "";
+                    String proof = "";
+                    if (i < scoreLength) {
+                        score = scores[i];
+                    }
+                    if (i < proofLength) {
+                        proof = proofs[i];
+                    }
 
-                DetailTable.ThirdIndicatorDe third = (new DetailTable()).new ThirdIndicatorDe();
-                third.proof = proof;
-                third.teacher_score = score;
-                System.out.println(score + "---proof" + proof);
-                thirdList.add(third);
-            }
-            List<DetailTable.SecondIndicatorDe> secondIndicator = detailTable.getTables().get(temp).second_indicator;
-            int size = secondIndicator.size();
-            for (int i = 0; i < size; i++) {
-                secondIndicator.get(i).third_indicator.clear();
-            }
-            for (int i = 0; i < size; i++) {
-                secondIndicator.get(i).third_indicator.addAll(thirdList);
+                    DetailTable.ThirdIndicatorDe third = (new DetailTable()).new ThirdIndicatorDe();
+                    third.proof = proof;
+                    third.teacher_score = score;
+                    System.out.println(score + "---proof" + proof);
+                    thirdList.add(third);
+                }
+                List<DetailTable.SecondIndicatorDe> secondIndicator = detailTable.getTables().get(temp).second_indicator;
+                secondIndicator.get(j).third_indicator.clear();
+                secondIndicator.get(j).third_indicator.addAll(thirdList);
             }
         }
         return service.updateDetail(detailTable);
@@ -118,7 +122,7 @@ public class DetailServlet extends HttpServlet {
         HttpSession session = request.getSession();
         DetailTable detailTable = (DetailTable) session.getAttribute("detailTable");
         DetailService service = new DetailService();
-        
+
         List<String> loadStrs = new ArrayList<>();
         String[][] loadTable = new String[loadSize][];
         int m = 0;
@@ -129,11 +133,6 @@ public class DetailServlet extends HttpServlet {
             loadTable[i] = new String[contentSize];
             System.arraycopy(contents, 0, loadTable[i], 0, contentSize);
         }
-        for (int i = 0; i < loadTable.length; i++) {
-            for (int j = 0; j < loadTable[i].length; j++) {
-                System.out.println("i:" + i + "j:" + j +" "+ loadTable[i][j]);
-            }
-        }
 
         while (m < loadTable[0].length) {
             for (String[] loadTable1 : loadTable) {
@@ -143,7 +142,7 @@ public class DetailServlet extends HttpServlet {
                 }
                 loadStr += content + ",";
             }
-            System.out.println("loadStr:"+loadStr);
+            System.out.println("loadStr:" + loadStr);
             loadStrs.add(loadStr);
             loadStr = "";
             ++m;
@@ -154,43 +153,55 @@ public class DetailServlet extends HttpServlet {
         return service.updateDetail(detailTable);
     }
 
-    public boolean dealPublish(HttpServletRequest request, HttpServletResponse response) {
+    public boolean dealSubmit(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         DetailTable detailTable = (DetailTable) session.getAttribute("detailTable");
-        
+
         DetailService service = new DetailService();
-        
+
         List<SubTableDe> scores = detailTable.getTables();
         SubTableDe score;
         ThirdIndicatorDe thirdDetail;
-        
+
         int teacherSco = 0;
         String badStr = "不合格";
-         for (int i = 0; i < scores.size(); i++) {
-             score = scores.get(i);
-             for (int j = 0; j < score.second_indicator.size(); j++) {
-                 for (int z = 0; z < score.second_indicator.get(j).third_indicator.size(); z++) {
-                     thirdDetail = score.second_indicator.get(j).third_indicator.get(z);
-                     String teaScore = thirdDetail.teacher_score;
-                     if(!teaScore.equals("")){
-                         if(detailService.isContainNumber(teaScore))
-                         {
-                             teacherSco += Integer.parseInt(teaScore);
-                         } else if(teaScore.contains(badStr))
-                         {
-                                 detailTable.setTeacher_total_sco(badStr);
-                                 break;
-                         }
-                     }
-                     else thirdDetail.teacher_score = 0+"";
-                 }
-             }
-         }
-         
-        detailTable.setTeacher_total_sco(teacherSco+"");
-        
+        boolean flag = true;
+        for (int i = 0; i < scores.size(); i++) {
+            score = scores.get(i);
+            for (int j = 0; j < score.second_indicator.size(); j++) {
+                int auditorSco = 0;
+                for (int z = 0; z < score.second_indicator.get(j).third_indicator.size(); z++) {
+                    thirdDetail = score.second_indicator.get(j).third_indicator.get(z);
+                    String teaScore = thirdDetail.teacher_score;
+                    if (!teaScore.equals("")) {
+                        if (detailService.isContainNumber(teaScore)) {
+                            auditorSco += Integer.parseInt(teaScore);
+                        } else if (teaScore.contains(badStr)) {
+                            detailTable.setTeacher_total_sco(badStr);
+                            score.second_indicator.get(j).auditor_score = badStr;
+                            flag = false;
+                            break;
+                        }
+                    } else {
+                        thirdDetail.teacher_score = 0 + "";
+                    }
+                }
+                if (flag) {
+                    score.second_indicator.get(j).auditor_score = auditorSco + "";
+                    teacherSco += auditorSco;
+                }
+            }
+        }
+        if (flag) {
+            if (teacherSco > 100) {
+                teacherSco = 100;
+            }
+            detailTable.setTeacher_total_sco(teacherSco + "");
+        }
+
         detailTable.setIs_submit(true);
-        
+        System.out.println("detailTable:name:" + detailTable.getName());
+        System.out.println("detailTable:year:" + detailTable.getAcademic_year());
         return service.updateDetail(detailTable);
     }
 

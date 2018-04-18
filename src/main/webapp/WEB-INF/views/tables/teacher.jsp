@@ -20,11 +20,14 @@
     <body>
 
         <main class="container">
-            <%  
-                String success = (String)request.getAttribute("success");
-                String[] yearsDetail = (String[]) session.getAttribute("yearsDetail");
-                String yearDetail = (String) session.getAttribute("yearDetail");
-                System.out.println("yearDetailfromteacher.jsp:" + yearDetail);
+            <%                String success = (String) session.getAttribute("success");
+             if(success != null && success.length() != 0){
+                 session.removeAttribute("success");
+             }
+             System.out.println("success`2:" + success);
+                String[] yearsTeacher = (String[]) session.getAttribute("yearsTeacher");
+                String yearTeacher = (String) session.getAttribute("yearTeacher");
+                System.out.println("yearTeacherfromteacher.jsp:" + yearTeacher);
                 EvalTableService service = new EvalTableService();
                 int y = 0;
             %>
@@ -33,25 +36,22 @@
                     <strong>杭州国际服务工程学院教师本科教学工作业绩考核评分表</strong>
                     （
                     <form method="post" action="getTable.do" id="submit-teacher">
-                        <select class="form-control" name="yearDetail" id="select-teacher-year">
+                        <select class="form-control" name="yearTeacher" id="select-teacher-year">
                             <%
-                                for (y = yearsDetail.length - 1; y >= 0; y--) {
-                                    if (yearsDetail[y].equals(yearDetail)) {%>
-                            <option value="<%=yearsDetail[y]%>" selected="selected"><%=yearsDetail[y]%></option>
-                            <%} else {
-                            %>
-                            <option value="<%=yearsDetail[y]%>"><%=yearsDetail[y]%></option>
+                                for (y = yearsTeacher.length - 1; y >= 0; y--) {
+                                   %>
+                            <option value="<%=yearsTeacher[y]%>" <%= yearsTeacher[y].equals(yearTeacher)?"selected":"" %> ><%=yearsTeacher[y]%></option>
                             <%
-                                    }
                                 }
                             %>
                         </select>
                     </form>
-                    -<span id="endyear-teacher"><%=service.changeYear(yearDetail)%></span> 学年）
+                    -<span id="endyear-teacher"><%=service.changeYear(yearTeacher)%></span> 学年）
                 </div>
             </div>      
 
             <%
+                
                 //考核表
                 EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
                 //考核子表
@@ -115,10 +115,11 @@
                         %>
                         <div class="tab-pane" id="tab<%=i%>">
                             <div id="table-<%=i%>">
-                                <form action="processDetail.do" method="post" onsubmit="submitDetail(<%=i%>)">
+                                <form action="processDetail.do" method="post" onsubmit="submitDetail(<%=i%>,<%=l%>)">
                                     <input name="type" value="detail-<%=i%>" type="hidden">
+                                    <input name="length" value="<%=l%>" type="hidden">
                                     <table border="1" cellspacing="0" cellpadding="0" >
-                                        <tr>
+                                        <tr class="tr-center">
                                             <td class="width_100">一级指标</td>
                                             <td class="width_100">二级指标</td>
                                             <td class="width_280">内涵</td>
@@ -150,29 +151,37 @@
                                                     %>
                                                     <tr class="hover">
                                                         <td class="width_280"> <!--内涵-->
-                                                            <%=thirdIndicator.content%>
+                                                            <%=z + 1%>. <%=thirdIndicator.content%>
                                                         </td>
                                                         <td class="width_100"> <!--指标分值-->
                                                             <%=thirdIndicator.score%>
                                                         </td>
                                                         <td class="width_100"> <!--教师自评分-->
-                                                            <div class="textarea <%=i%>-score" contenteditable="true"><%=thirdDetail.teacher_score%></div>
-                                                            <input class="<%=i%>-score-input" name="score" type="hidden"/>
+                                                            <div class="textarea <%=i%>-<%=j%>-score" contenteditable="true"><%=thirdDetail.teacher_score%></div>
+                                                            <input class="<%=i%>-<%=j%>-score-input" name="score-<%=j%>" type="hidden"/>
                                                         </td>
                                                         <td> <!--依据-->
-                                                            <div class="textarea <%=i%>-proof" contenteditable="true"><%=thirdDetail.proof%></div>
-                                                            <input class="<%=i%>-proof-input" name="proof" type="hidden"/>
+                                                            <div class="textarea <%=i%>-<%=j%>-proof" contenteditable="true"><%=thirdDetail.proof%></div>
+                                                            <input class="<%=i%>-<%=j%>-proof-input" name="proof-<%=j%>" type="hidden"/>
                                                         </td>
                                                     </tr>
                                                     <%}%>
                                                 </table>
                                             </td>
-                                            <td><%=score.second_indicator.get(j).auditor_score%></td><!--审核分-->
+                                            <td>
+                                                <%
+                                                    if (detailTable.isIs_audit()) {
+                                                %>
+                                                <%=score.second_indicator.get(j).auditor_score%>
+                                                <%
+                                                    }
+                                                %>
+                                            </td><!--审核分-->
 
                                         </tr>
                                         <%}%>
                                     </table>
-                                    <input type="submit" class="btn btn-primary float-right" value="保存" style="width:120px;">
+                                    <input type="submit" class="btn btn-primary float-right save-btn" value="保存">
                                 </form>
                             </div>
                         </div>
@@ -187,7 +196,7 @@
                                 <span class="add-point float-right add-me" onclick="addLoadClick(<%=effortSize%>)">新增一行</span>
                                 <i class="fa fa-plus-square-o blue-add float-right add-load"></i>
                                 <table class="load-table" border="1" cellspacing="0" cellpadding="0">
-                                    <tr>
+                                    <tr class="tr-center">
                                         <%
                                             for (int j = 0; j < effortSize; j++) {
                                         %>
@@ -216,7 +225,7 @@
                                         }
                                     %>
                                 </table>
-                                <input type="submit" class="btn btn-primary float-right" value="保存" style="width:120px;">
+                                <input type="submit" class="btn btn-primary float-right save-btn" value="保存">
                             </form>
                         </div>
 
@@ -226,7 +235,7 @@
                             <i class="fa fa-flag blue"></i>
                             <span class="message">备注信息</span>
                             <table class="remark-table" border="1" cellspacing="0" cellpadding="0">
-                                <tr>
+                                <tr class="tr-center">
                                     <td>备注项</td>
                                     <td class="width_400">备注说明</td>
                                 </tr>

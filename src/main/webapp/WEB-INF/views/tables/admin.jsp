@@ -32,15 +32,9 @@
                         <select class="form-control" name="year" id="select-admin-year">
                             <%
                                 for (y = years.length - 1; y >= 0; y--) {
-                                    if (years[y].equals(year)) {
                             %>
-                            <option value="<%=years[y]%>" selected="selected"><%=years[y]%></option>
+                            <option value="<%=years[y]%>" <%= years[y].equals(year)?"selected":"" %>><%=years[y]%></option>
                             <%
-                            } else {
-                            %>
-                            <option value="<%=years[y]%>"><%=years[y]%></option>
-                            <%
-                                    }
                                 }
                             %>
                         </select>
@@ -55,10 +49,14 @@
             </div>
 
             <%
-                String success = (String) request.getAttribute("success");
-                
+                String success = (String) session.getAttribute("success");
+                if(success != null && success.length() != 0){
+                    session.removeAttribute("success");
+                }
                 String successCreated = (String) request.getAttribute("successCreated");
-                
+                if(successCreated != null && successCreated.length() != 0){
+                    session.removeAttribute("successCreated");
+                }
                 //考核表
                 EvalTable evalTable = (EvalTable) session.getAttribute("evalTable");
                 //考核子表
@@ -99,7 +97,7 @@
                                                       style="font-size: 18px"></i> <span>统计</span>
                     </a> <a href="preview.jsp"> <i class="fa fa-file-text-o"
                                                    style="font-size: 18px"></i> <span>预览表格</span>
-                    </a> <a href="getIndex.do" id="create"> <i class="fa fa-file-text-o"
+                    </a> <a href="configure.do" id="create"> <i class="fa fa-file-text-o"
                                                                style="font-size: 18px"></i> <span>新建表格</span>
 
                     </a>
@@ -122,10 +120,11 @@
                         <div class="tab-pane" id="tab<%=i%>">
                             <div id="table-<%=i%>">
                                 <form action="process.do" method="post"
-                                      onsubmit="submitSingle(<%=i%>)">
+                                      onsubmit="submitSingle(<%=i%>,<%=l%>)">
                                     <input name="type" value="eval-<%=i%>" type="hidden" />
+                                    <input name="length" value="<%=l%>" type="hidden" />
                                     <table border="1" cellspacing="0" cellpadding="0">
-                                        <tr>
+                                        <tr class="tr-center">
                                             <td>一级指标</td>
                                             <td class="width_100">二级指标</td>
                                             <td>内涵</td>
@@ -161,18 +160,18 @@
                                                     <tr class="hover">
                                                         <td>
                                                             <div>
-                                                                <div class="textarea <%=i%>-content"
+                                                                <div class="textarea <%=i%>-<%=j%>-content"
                                                                      contenteditable="true"><%=thirdIndicator.content%></div>
-                                                                <input class="<%=i%>-content-input" name="content"
+                                                                <input class="<%=i%>-<%=j%>-content-input" name="content-<%=j%>"
                                                                        type="hidden" /> 
                                                                 <i class="fa fa-trash delete" style="display:inline-block"></i>
                                                             </div>
                                                         </td>
                                                         <td class="width_100">
                                                             <!--<input type="text" name="score" value="" style="border:0;width:80%">-->
-                                                            <div class="textarea <%=i%>-score" contenteditable="true"
+                                                            <div class="textarea <%=i%>-<%=j%>-score" contenteditable="true"
                                                                  style="height: 100%; width: 100%;"><%=thirdIndicator.score%></div>
-                                                            <input class="<%=i%>-score-input" name="score"
+                                                            <input class="<%=i%>-<%=j%>-score-input" name="score-<%=j%>"
                                                                    type="hidden" />
                                                         </td>
                                                         <td class="width_60"></td>
@@ -191,8 +190,8 @@
                                             }
                                         %>
                                     </table>
-                                    <input type="submit" class="btn btn-primary float-right"
-                                           value="保存" style="width: 120px;">
+                                    <input type="submit" class="btn btn-primary float-right save-btn"
+                                           value="保存">
                                 </form>
                             </div>
                         </div>
@@ -206,7 +205,7 @@
                             <!--<form id="tableGzl" action="process.do" method="post" onsubmit="submitGzl()">-->
                             <!--                              <input name="type" value="eval-" style="display:none"/>-->
                             <table border="1" cellspacing="0" cellpadding="0">
-                                <tr>
+                                <tr class="tr-center">
                                     <%
                                         int effortSize = effortTable.size();
                                         for (int j = 0; j < effortSize; j++) {
@@ -250,7 +249,7 @@
                                     class="fa fa-plus-square-o blue-add float-right add-me"></i>
                                 <table class="remark-table" border="1" cellspacing="0"
                                        cellpadding="0">
-                                    <tr>
+                                    <tr class="tr-center">
                                         <td>备注项</td>
                                         <td class="width_400">备注说明</td>
                                     </tr>
@@ -277,8 +276,8 @@
                                         }
                                     %>
                                 </table>
-                                <input type="submit" class="btn btn-primary float-right"
-                                       value="保存" style="width: 120px;">
+                                <input type="submit" class="btn btn-primary float-right save-btn"
+                                       value="保存">
                             </form>
                         </div>
                     </div>

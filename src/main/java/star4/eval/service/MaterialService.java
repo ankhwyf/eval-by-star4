@@ -26,5 +26,18 @@ public class MaterialService {
         }
         return materials;
     }
+    public List<SupportingMaterial> findAllMSById(String cardID) {
+        MongoCollection<Document> collection
+                = MongoDB.INSTANCE.getDatabase().getCollection(COLLECTIONED);
+        List<SupportingMaterial> materials = new ArrayList<>();
+        for(Document cur:collection.find()){
+            SupportingMaterial temp=new Gson().fromJson(cur.toJson(), SupportingMaterial.class);
+            if(temp.getTeacher_id().equals(cardID)){
+                materials.add(temp);
+            }
+            
+        }
+        return materials;
+    }
     
 }

@@ -9,9 +9,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>statistics</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/common.css">
         <link rel="stylesheet" href="css/statistics.css">
 
     </head>
@@ -26,14 +23,17 @@
                     <a href="home">返回>></a>
                 </div>
             </div>
-            <%                DetailService detailService = new DetailService();
-                List<DetailTable> details = detailService.findAllTables();
+            <%                String year = (String) session.getAttribute("year");
+                System.out.println("yearyearyear:"+year);
+                DetailService detailService = new DetailService();
+                List<DetailTable> details = detailService.findAllTablesByYear(year);
                 DetailTable detailTable;
                 int[] submit = {0, 0};
                 int[] audit = {0, 0};
                 int[] rank = {0, 0};
                 for (int i = 0; i < details.size(); i++) {
-                    detailTable = details.get(0);
+                    detailTable = details.get(i);
+
                     if (detailTable.isIs_submit()) {
                         submit[1]++;
                     } else {
@@ -44,7 +44,21 @@
                     } else {
                         audit[0]++;
                     }
+                    if (detailTable.isIs_submit() && detailTable.isIs_audit()) {
+                        String auditSco = detailTable.getAuditor_total_sco();
+                        if (detailService.isContainNumber(auditSco)) {
+                            int score = Integer.parseInt(auditSco);
+                            if (score >= 60 && score <= 100) {
+                                rank[1]++;
+                            } else {
+                                rank[0]++;
+                            }
+                        } else if (auditSco.equals("不合格")) {
+                            rank[0]++;
+                        }
+                    }
                 }
+
             %>
             <div class="row content">
                 <div class="col-md-4">
@@ -83,9 +97,6 @@
         rank[0] = <%=rank[0]%>;
         rank[1] = <%=rank[1]%>;
     </script>
-    <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/echarts.min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/tools/echarts.min.js"></script>
     <script type="text/javascript" src="js/statistics.js"></script>
 </html>

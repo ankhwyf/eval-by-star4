@@ -37,8 +37,9 @@ public class DetailService {
         List<DetailTable> details = new ArrayList<>();
         //遍历 生成Gson
         for (Document cur : collection.find()) {
+
             DetailTable temp = new Gson().fromJson(cur.toJson(), DetailTable.class);
-            if(temp.getAcademic_year().equals(year)){
+            if (temp.getAcademic_year().equals(year) && temp.isIs_submit()) {
                 details.add(temp);
             }
         }
@@ -69,10 +70,36 @@ public class DetailService {
         return years;
     }
 
-    public DetailTable findDetailByAcademicYear(String academicYear) {
+    public String[] findYearsByCardID(String id) {
         MongoCollection<Document> collection
                 = MongoDB.INSTANCE.getDatabase().getCollection(COLLECTIONED);
-        Document document = collection.find(eq(ACADEMICYEAR, academicYear)).first();
+        FindIterable<Document> findIterable = collection.find();
+        MongoCursor<Document> mongoCursor = findIterable.iterator();
+
+        List<String> yearList = new ArrayList<>();
+        while (mongoCursor.hasNext()) {
+            Document doc = mongoCursor.next();
+            DetailTable table = parseDetail(doc);
+            if (table.getCardID().equals(id)) {
+                String year = table.getAcademic_year();
+                if (!yearList.contains(year)) {
+                    yearList.add(year);
+                }
+            }
+        }
+
+        Collections.sort(yearList);
+
+        String[] years = new String[yearList.size()];
+
+        yearList.toArray(years);
+        return years;
+    }
+
+    public DetailTable findDetailTable(String academicYear, String cardID) {
+        MongoCollection<Document> collection
+                = MongoDB.INSTANCE.getDatabase().getCollection(COLLECTIONED);
+        Document document = collection.find(and(eq(CARDID, cardID), eq(ACADEMICYEAR, academicYear))).first();
         if (document != null) {
             return new Gson().fromJson(document.toJson(), DetailTable.class);
         }
@@ -86,10 +113,10 @@ public class DetailService {
             MongoCollection<Document> collection
                     = MongoDB.INSTANCE.getDatabase().getCollection(COLLECTIONED);
             //筛选工号
-             Document document = collection.find(and(eq(CARDID, cardID),eq(ACADEMICYEAR,year))).first();
-             Document  doc = Document.parse(new Gson().toJson(table));
-             collection.updateOne(document, new Document("$set", doc));
-             return true;
+            Document document = collection.find(and(eq(CARDID, cardID), eq(ACADEMICYEAR, year))).first();
+            Document doc = Document.parse(new Gson().toJson(table));
+            collection.updateOne(document, new Document("$set", doc));
+            return true;
         }
         return false;
     }
@@ -107,6 +134,7 @@ public class DetailService {
         String jsonStr = doc.toJson();
         return new Gson().fromJson(jsonStr, DetailTable.class);
     }
+
     /**
      * 判断是否含有数字
      *
@@ -119,5 +147,11 @@ public class DetailService {
         Matcher m = p.matcher(str);
         return m.find();
     }
-   
+    public boolean isContainRe(String str) {
+        String regEx = "-";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        return m.find();
+    }
+
 }

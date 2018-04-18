@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/modals.css">
     <link rel="stylesheet" href="css/teachingRoutine.css">
     <link rel="stylesheet" href="css/table.css">
+    <!--<link rel="stylesheet" href="css/cursor.css">-->
     <script type="text/javascript" src="js/tools/jquery-1.12.2.min.js"></script>
     <script type="text/javascript" src="js/tools/bootstrap.js"></script>
     <script type="text/javascript" src="js/modal.js"></script>

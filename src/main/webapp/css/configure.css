@@ -88,9 +88,14 @@
 .container #submit
 {
     margin: 20px 0;
-
     border: 1px solid #00a2ca;
     background: #00a2ca;
+}
+.clicked {
+    background: #eee;
+}
+footer {
+    margin-top: 10px;
 }
 
 /*# sourceMappingURL=configure.css.map */
