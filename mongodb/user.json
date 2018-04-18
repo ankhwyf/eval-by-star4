@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5aa9f3d7ce28e57a83e6861c"},"cardID":"20100001","name":"张三","email":"aass@123.com","password":"pppooo","identity":["college_admin","auditor","teacher"]}
+{"_id":{"$oid":"5aca1ad9772186190fac3000"},"cardID":"20100002","name":"吴磊","email":"aass@123.com","password":"pppooo","identity":["college_admin","auditor","teacher"]}
+{"_id":{"$oid":"5ad426ae32a521894484b86a"},"cardID":"20100003","name":"东方阳","email":"aass@123.com","password":"pppooo","identity":["auditor","teacher"]}
+{"_id":{"$oid":"5ad426e732a521894484b882"},"cardID":"20100004","name":"李舫","email":"aass@123.com","password":"pppooo","identity":["teacher"]}

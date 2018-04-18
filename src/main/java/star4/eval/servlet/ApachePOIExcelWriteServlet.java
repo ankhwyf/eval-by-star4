@@ -8,7 +8,7 @@ package star4.eval.servlet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -36,12 +36,15 @@ public class ApachePOIExcelWriteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String docname = request.getParameter("docname");
+//        String docName=URLDecoder.decode(docname,"UTF-8");
        //处理请求  
         //读取要下载的文件  
-        File f = new File("/Users/ankhyfw/Desktop/doc_manage.json");  
-        if(f.exists()){  
+        File f = new File("/Users/ankhyfw/Desktop/考核表.json");  
+        if(f.exists()){
             FileInputStream  fis = new FileInputStream(f);  
-            String filename=URLEncoder.encode(f.getName(),"utf-8"); //解决中文文件名下载后乱码的问题  
+            String filename=URLEncoder.encode(f.getName(),"utf-8"); //解决中文文件名下载后乱码的问题
+            
             byte[] b = new byte[fis.available()];  
             fis.read(b);  
             response.setCharacterEncoding("utf-8");  
