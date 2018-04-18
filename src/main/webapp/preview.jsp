@@ -4,6 +4,7 @@
     Author     : ankhyfw
 --%>
 
+<%@page import="java.net.URLEncoder"%>
 <%@page import="star4.eval.service.EvalTableService"%>
 <%@page import="star4.eval.bean.EvalTable.ThirdIndicator"%>
 <%@page import="star4.eval.bean.EvalTable.SecondIndicator"%>
@@ -51,7 +52,8 @@
                         <div class="tab-pane" style="display:inline;">
                             <table id="preview-table" border="1" cellspacing="0" cellpadding="0" style="border-color:#000;">
                                 <caption> <Strong>杭州国际服务工程学院教师本科教学工作业绩考核评分表 ( <%=year%> - <%=service.changeYear(year)%> 年)</Strong>
-                                    <button type="button" class="btn btn-success" onclick="tableToExcel('preview-table','name','myfile.xls')" style="float:right;">生成Excel</button>
+                                    <button type="button" class="btn btn-success" style="float:right;">
+                                        <a href="ApachePOIExcelWriteServlet?docname=<%=URLEncoder.encode("考核表", "UTF-8")%>">生成Excel</a></button>
                                 </caption>
                                 <tr class="tr-center">
                                     <td class="width_100">一级指标</td>
